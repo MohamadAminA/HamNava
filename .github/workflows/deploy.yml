@@ -1,0 +1,68 @@
+name: Deploy to Server
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.x'
+
+      # Publish
+      - name: Publish
+        run: |
+          dotnet publish -c Release -r linux-x64 --no-self-contained -o out
+
+      # Upload   
+      - name: Upload to Server
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          source: "out/*"
+          target: "/home/amin/User/Projects/Dotnet/Publish/${{ github.event.repository.name }}"
+
+      # Restart
+      - name: Restart App
+        uses: appleboy/ssh-action@v1.2.0
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          command_timeout: 20m
+          script: |
+            set -e
+
+            APP_NAME="${{ github.event.repository.name }}"
+            BASE_DIR="/home/amin/User/Projects/Dotnet/Publish"
+            APP_DIR="$BASE_DIR/$APP_NAME"
+
+            PID_FILE="$APP_DIR/app.pid"
+            LOG_FILE="$APP_DIR/app.log"
+
+            mkdir -p "$APP_DIR"
+
+            echo "Stopping old process..."
+            if [ -f "$PID_FILE" ]; then
+              kill $(cat "$PID_FILE") || true
+              rm -f "$PID_FILE"
+            fi
+
+            echo "Starting app in " + $APP_DIR/out
+            cd "$APP_DIR/out"
+            chmod +x "$APP_NAME"
+
+            ASPNETCORE_URLS=http://127.0.0.1:5000 nohup ./$APP_NAME > "$LOG_FILE" 2>&1 & echo $! > "$PID_FILE"
+
+            echo "App started successfully"
