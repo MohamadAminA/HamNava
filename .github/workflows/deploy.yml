@@ -23,6 +23,9 @@ jobs:
         run: |
           dotnet publish -c Release -r linux-x64 --no-self-contained -o out
 
+      - name: Debug publish output
+        run: ls -la out
+
       # Upload   
       - name: Upload to Server
         uses: appleboy/scp-action@v0.1.7
@@ -30,7 +33,7 @@ jobs:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
-          source: "out/*"
+          source: "out/**/*"
           target: "/home/amin/User/Projects/Dotnet/Publish/${{ github.event.repository.name }}"
 
       # Restart
