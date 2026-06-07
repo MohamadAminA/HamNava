@@ -50,6 +50,16 @@ app.UseStaticFiles(new StaticFileOptions
 // مطمئن بشید فایل assets داخل پوشه wwwroot هست
 
 app.MapControllerRoute(
+    name: "robots",
+    pattern: "robots.txt",
+    defaults: new { controller = "Home", action = "RobotsTxt" });
+
+app.MapControllerRoute(
+    name: "sitemap",
+    pattern: "sitemap.xml",
+    defaults: new { controller = "Home", action = "SitemapXml" });
+
+app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}")
     .WithStaticAssets();

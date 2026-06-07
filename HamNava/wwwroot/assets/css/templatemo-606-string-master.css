@@ -8,7 +8,7 @@ Customized for Ham Nava
 
 @font-face {
   font-family: "Vazirmatn";
-  src: url("fonts/vazirmatn/Vazirmatn-RD-Regular.woff2") format("woff2");
+  src: url("assets/fonts/vazirmatn/Vazirmatn-RD-Regular.woff2") format("woff2");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -16,7 +16,7 @@ Customized for Ham Nava
 
 @font-face {
   font-family: "Vazirmatn";
-  src: url("fonts/vazirmatn/Vazirmatn-RD-Medium.woff2") format("woff2");
+  src: url("assets/fonts/vazirmatn/Vazirmatn-RD-Medium.woff2") format("woff2");
   font-weight: 500;
   font-style: normal;
   font-display: swap;
@@ -24,7 +24,7 @@ Customized for Ham Nava
 
 @font-face {
   font-family: "Vazirmatn";
-  src: url("fonts/vazirmatn/Vazirmatn-RD-Bold.woff2") format("woff2");
+  src: url("assets/fonts/vazirmatn/Vazirmatn-RD-Bold.woff2") format("woff2");
   font-weight: 700;
   font-style: normal;
   font-display: swap;
