@@ -61,6 +61,7 @@ jobs:
               kill $(cat "$PID_FILE") || true
               rm -f "$PID_FILE"
             fi
+            sudo lsof -t -i:5002 | xargs -r kill
 
             echo "Starting app in " + $APP_DIR/out
             cd "$APP_DIR/out"
