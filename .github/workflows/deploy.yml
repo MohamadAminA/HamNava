@@ -1,174 +1,115 @@
 name: Deploy to Server
+
 on:
-push:
-branches:
-- master
+  push:
+    branches:
+      - master
+
 env:
-DOTNET_VERSION: "10.0.x"
-PUBLISH_COMMAND: "dotnet publish -c Release -r linux-x64 --no-self-contained -o out"
-APP_NAME: ""
-APP_PORT: "5002"
-ASPNETCORE_ENVIRONMENT: "Production"
-BASE_DIR: "/home/amin/User/Projects/Dotnet/Publish"
+  DOTNET_VERSION: "10.0.x"
+  PUBLISH_COMMAND: "dotnet publish -c Release -r linux-x64 --no-self-contained -o out"
+
+  APP_NAME: ""
+  APP_PORT: "5002"
+  ASPNETCORE_ENVIRONMENT: "Production"
+  BASE_DIR: "/home/amin/User/Projects/Dotnet/Publish"
 
 jobs:
-deploy:
-runs-on: ubuntu-latest
+  deploy:
+    runs-on: ubuntu-latest
 
-steps:
-  - name: Checkout
-    uses: actions/checkout@v4
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
 
-  - name: Setup .NET
-    uses: actions/setup-dotnet@v4
-    with:
-      dotnet-version: ${{ env.DOTNET_VERSION }}
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: ${{ env.DOTNET_VERSION }}
 
-  - name: Publish
-    run: |
-      echo "Executing:"
-      echo "${{ env.PUBLISH_COMMAND }}"
+      - name: Publish
+        run: |
+          echo "Running publish command:"
+          echo "${{ env.PUBLISH_COMMAND }}"
+          ${{ env.PUBLISH_COMMAND }}
 
-      ${{ env.PUBLISH_COMMAND }}
+      - name: Debug publish output
+        run: |
+          echo "out directory content:"
+          ls -lah out
 
-      echo "Publish completed"
+      - name: Upload to Server
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          source: "out/*"
+          target: "${{ env.BASE_DIR }}/${{ github.event.repository.name }}"
 
-  - name: Debug publish output
-    run: |
-      echo "Publish output:"
-      ls -lah out
+      - name: Restart App
+        uses: appleboy/ssh-action@v1.2.0
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          command_timeout: 20m
+          script: |
+            set -Eeuo pipefail
 
-  - name: Upload to Server
-    uses: appleboy/scp-action@v0.1.7
-    with:
-      host: ${{ secrets.HOST }}
-      username: ${{ secrets.USERNAME }}
-      key: ${{ secrets.SSH_PRIVATE_KEY }}
-      source: "out/*"
-      target: "${{ env.BASE_DIR }}/${{ github.event.repository.name }}"
+            trap '
+              EXIT_CODE=$?
+              echo "========================================="
+              echo "DEPLOY FAILED"
+              echo "Exit Code: $EXIT_CODE"
+              echo "Line: $LINENO"
+              echo "Command: $BASH_COMMAND"
+              echo "========================================="
+              exit $EXIT_CODE
+            ' ERR
 
-  - name: Restart App
-    uses: appleboy/ssh-action@v1.2.0
-    with:
-      host: ${{ secrets.HOST }}
-      username: ${{ secrets.USERNAME }}
-      key: ${{ secrets.SSH_PRIVATE_KEY }}
-      command_timeout: 20m
-      script: |
-        set -Eeuo pipefail
+            APP_NAME="${{ github.event.repository.name }}"
+            APP_NAME="${APP_NAME:-MyApp}"
 
-        trap '
-          EXIT_CODE=$?
-          echo ""
-          echo "========================================="
-          echo "DEPLOY FAILED"
-          echo "========================================="
-          echo "Exit Code : $EXIT_CODE"
-          echo "Line      : $LINENO"
-          echo "Command   : $BASH_COMMAND"
-          echo "PWD       : $(pwd)"
-          echo "Date      : $(date)"
-          echo "User      : $(whoami)"
-          echo "Host      : $(hostname)"
-          echo "========================================="
-          exit $EXIT_CODE
-        ' ERR
+            BASE_DIR="${{ env.BASE_DIR }}"
+            BASE_DIR="${BASE_DIR:-/home/amin/User/Projects/Dotnet/Publish}"
 
-        APP_NAME="${{ env.APP_NAME }}"
-        APP_NAME="${APP_NAME:-${{ github.event.repository.name }}}"
+            APP_PORT="${{ env.APP_PORT }}"
+            APP_PORT="${APP_PORT:-5002}"
 
-        BASE_DIR="${{ env.BASE_DIR }}"
-        BASE_DIR="${BASE_DIR:-/home/amin/User/Projects/Dotnet/Publish}"
+            ENVIRONMENT="${{ env.ASPNETCORE_ENVIRONMENT }}"
+            ENVIRONMENT="${ENVIRONMENT:-Production}"
 
-        APP_PORT="${{ env.APP_PORT }}"
-        APP_PORT="${APP_PORT:-5002}"
+            APP_DIR="$BASE_DIR/$APP_NAME"
+            LOG_FILE="$APP_DIR/app.log"
+            PID_FILE="$APP_DIR/app.pid"
 
-        ENVIRONMENT="${{ env.ASPNETCORE_ENVIRONMENT }}"
-        ENVIRONMENT="${ENVIRONMENT:-Production}"
+            echo "APP_DIR=$APP_DIR"
+            echo "APP_PORT=$APP_PORT"
 
-        APP_DIR="$BASE_DIR/$APP_NAME"
-        LOG_FILE="$APP_DIR/app.log"
-        PID_FILE="$APP_DIR/app.pid"
+            mkdir -p "$APP_DIR"
 
-        echo "========================================="
-        echo "DEPLOY STARTED"
-        echo "========================================="
+            echo "Stopping old process..."
+            PID=$(lsof -t -i:$APP_PORT || true)
 
-        echo "APP_NAME=$APP_NAME"
-        echo "BASE_DIR=$BASE_DIR"
-        echo "APP_PORT=$APP_PORT"
-        echo "ENVIRONMENT=$ENVIRONMENT"
+            if [ -n "$PID" ]; then
+              echo "Killing PID: $PID"
+              kill "$PID" || true
+              sleep 2
+            fi
 
-        mkdir -p "$APP_DIR"
+            cd "$APP_DIR/out"
 
-        echo "Searching process on port $APP_PORT"
+            chmod +x "$APP_NAME"
 
-        PID=$(lsof -t -i:$APP_PORT || true)
+            echo "Starting app..."
 
-        if [ -n "${PID:-}" ]; then
-          echo "Found PID: $PID"
+            nohup env \
+              ASPNETCORE_ENVIRONMENT="$ENVIRONMENT" \
+              ASPNETCORE_URLS="http://127.0.0.1:$APP_PORT" \
+              ./"$APP_NAME" \
+              > "$LOG_FILE" 2>&1 &
 
-          kill "$PID" || true
+            echo $! > "$PID_FILE"
 
-          sleep 3
-
-          if ps -p "$PID" > /dev/null 2>&1; then
-            echo "Force killing PID: $PID"
-            kill -9 "$PID" || true
-          fi
-
-          echo "Old process stopped"
-        else
-          echo "No process found"
-        fi
-
-        cd "$APP_DIR/out"
-
-        echo "Current directory:"
-        pwd
-
-        echo "Directory contents:"
-        ls -lah
-
-        chmod +x "$APP_NAME"
-
-        echo "Starting application..."
-
-        nohup env \
-          ASPNETCORE_ENVIRONMENT="$ENVIRONMENT" \
-          ASPNETCORE_URLS="http://127.0.0.1:$APP_PORT" \
-          ./"$APP_NAME" \
-          > "$LOG_FILE" 2>&1 &
-
-        NEW_PID=$!
-
-        echo "$NEW_PID" > "$PID_FILE"
-
-        echo "New PID: $NEW_PID"
-
-        sleep 5
-
-        if ! ps -p "$NEW_PID" > /dev/null 2>&1; then
-          echo "Application exited unexpectedly"
-
-          echo "Last logs:"
-          tail -100 "$LOG_FILE" || true
-
-          exit 1
-        fi
-
-        echo "Port status:"
-        lsof -i:$APP_PORT || true
-
-        echo "Recent logs:"
-        tail -30 "$LOG_FILE" || true
-
-        echo ""
-        echo "========================================="
-        echo "DEPLOY COMPLETED SUCCESSFULLY"
-        echo "========================================="
-        echo "Application : $APP_NAME"
-        echo "Port        : $APP_PORT"
-        echo "PID         : $NEW_PID"
-        echo "Log File    : $LOG_FILE"
-        echo "========================================="
+            echo "Started PID: $(cat $PID_FILE)"
