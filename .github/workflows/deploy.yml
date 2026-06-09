@@ -83,7 +83,7 @@ jobs:
               sleep 3
             fi
 
-            cd "$APP_DIR"
+            cd "$APP_DIR"/out
 
             echo "Current files:"
             ls -lah
