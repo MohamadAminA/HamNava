@@ -9,7 +9,7 @@ env:
 DOTNET_VERSION: "10.0.x"
 APP_PORT: "5001"
 ASPNETCORE_ENVIRONMENT: "Production"
-BASE_DIR: "/home/amin/User/Projects/Dotnet/Publish"
+BASE_DIR: "/home/amin/User/Projects/Dotnet/Publish" 
 
 jobs:
 deploy:
