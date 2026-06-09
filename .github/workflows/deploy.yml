@@ -9,8 +9,8 @@ env:
   DOTNET_VERSION: "10.0.x"
   PUBLISH_COMMAND: "dotnet publish -c Release -r linux-x64 --no-self-contained -o out"
 
-  APP_NAME: ""
-  APP_PORT: "5002"
+  APP_NAME: "HamNava"
+  APP_PORT: "5001"
   ASPNETCORE_ENVIRONMENT: "Production"
   BASE_DIR: "/home/amin/User/Projects/Dotnet/Publish"
 
@@ -94,8 +94,8 @@ jobs:
 
             if [ -n "$PID" ]; then
               echo "Killing PID: $PID"
-              kill "$PID" || true
-              sleep 2
+              kill -9 "$PID" || true
+              sleep 3
             fi
 
             cd "$APP_DIR/out"
