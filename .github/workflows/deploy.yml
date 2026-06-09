@@ -1,19 +1,20 @@
 name: Deploy to Server
 
 on:
-push:
-branches:
-- master
+  push:
+    branches:
+      - master
 
 env:
-DOTNET_VERSION: "10.0.x"
-APP_PORT: "5001"
-ASPNETCORE_ENVIRONMENT: "Production"
-BASE_DIR: "/home/amin/User/Projects/Dotnet/Publish" 
+  DOTNET_VERSION: "10.0.x"
+  APP_PORT: "5001"
+  ASPNETCORE_ENVIRONMENT: "Production"
+  BASE_DIR: "/home/amin/User/Projects/Dotnet/Publish"
 
 jobs:
-deploy:
-runs-on: ubuntu-latest
+  deploy:
+    runs-on: ubuntu-latest
+
 
 steps:
   - name: Checkout
@@ -105,8 +106,7 @@ steps:
 
         sleep 5
 
-        if ps -p $(cat "$PID_FILE") > /dev/null
-        then
+        if ps -p "$(cat "$PID_FILE")" > /dev/null; then
           echo "Application Started Successfully"
           echo "PID: $(cat "$PID_FILE")"
         else
