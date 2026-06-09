@@ -1,115 +1,122 @@
 name: Deploy to Server
 
 on:
-  push:
-    branches:
-      - master
+push:
+branches:
+- master
 
 env:
-  DOTNET_VERSION: "10.0.x"
-  PUBLISH_COMMAND: "dotnet publish -c Release -r linux-x64 --no-self-contained -o out"
-
-  APP_NAME: ""
-  APP_PORT: "5001"
-  ASPNETCORE_ENVIRONMENT: "Production"
-  BASE_DIR: "/home/amin/User/Projects/Dotnet/Publish"
+DOTNET_VERSION: "10.0.x"
+APP_PORT: "5001"
+ASPNETCORE_ENVIRONMENT: "Production"
+BASE_DIR: "/home/amin/User/Projects/Dotnet/Publish"
 
 jobs:
-  deploy:
-    runs-on: ubuntu-latest
+deploy:
+runs-on: ubuntu-latest
 
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+```
+steps:
+  - name: Checkout
+    uses: actions/checkout@v4
 
-      - name: Setup .NET
-        uses: actions/setup-dotnet@v4
-        with:
-          dotnet-version: ${{ env.DOTNET_VERSION }}
+  - name: Setup .NET
+    uses: actions/setup-dotnet@v4
+    with:
+      dotnet-version: ${{ env.DOTNET_VERSION }}
 
-      - name: Publish
-        run: |
-          echo "Running publish command:"
-          echo "${{ env.PUBLISH_COMMAND }}"
-          ${{ env.PUBLISH_COMMAND }}
+  - name: Publish
+    run: |
+      dotnet publish \
+        -c Release \
+        -r linux-x64 \
+        --no-self-contained \
+        -o out
 
-      - name: Debug publish output
-        run: |
-          echo "out directory content:"
-          ls -lah out
+  - name: Debug Publish Output
+    run: |
+      echo "===== Publish Files ====="
+      ls -lah out
 
-      - name: Upload to Server
-        uses: appleboy/scp-action@v0.1.7
-        with:
-          host: ${{ secrets.HOST }}
-          username: ${{ secrets.USERNAME }}
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          source: "out/*"
-          target: "${{ env.BASE_DIR }}/${{ github.event.repository.name }}"
+  - name: Upload Files
+    uses: appleboy/scp-action@v0.1.7
+    with:
+      host: ${{ secrets.HOST }}
+      username: ${{ secrets.USERNAME }}
+      key: ${{ secrets.SSH_PRIVATE_KEY }}
+      source: "out/*"
+      target: "${{ env.BASE_DIR }}/${{ github.event.repository.name }}"
 
-      - name: Restart App
-        uses: appleboy/ssh-action@v1.2.0
-        with:
-          host: ${{ secrets.HOST }}
-          username: ${{ secrets.USERNAME }}
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          command_timeout: 20m
-          script: |
-            set -Eeuo pipefail
+  - name: Restart Application
+    uses: appleboy/ssh-action@v1.2.0
+    with:
+      host: ${{ secrets.HOST }}
+      username: ${{ secrets.USERNAME }}
+      key: ${{ secrets.SSH_PRIVATE_KEY }}
+      command_timeout: 20m
+      script: |
+        set -Eeuo pipefail
 
-            trap '
-              EXIT_CODE=$?
-              echo "========================================="
-              echo "DEPLOY FAILED"
-              echo "Exit Code: $EXIT_CODE"
-              echo "Line: $LINENO"
-              echo "Command: $BASH_COMMAND"
-              echo "========================================="
-              exit $EXIT_CODE
-            ' ERR
+        APP_NAME="${{ github.event.repository.name }}"
+        BASE_DIR="${{ env.BASE_DIR }}"
+        APP_PORT="${{ env.APP_PORT }}"
+        ENVIRONMENT="${{ env.ASPNETCORE_ENVIRONMENT }}"
 
-            APP_NAME="${{ github.event.repository.name }}"
-            APP_NAME="${APP_NAME:-MyApp}"
+        APP_DIR="$BASE_DIR/$APP_NAME"
+        LOG_FILE="$APP_DIR/app.log"
+        PID_FILE="$APP_DIR/app.pid"
 
-            BASE_DIR="${{ env.BASE_DIR }}"
-            BASE_DIR="${BASE_DIR:-/home/amin/User/Projects/Dotnet/Publish}"
+        echo "================================"
+        echo "APP_NAME=$APP_NAME"
+        echo "APP_DIR=$APP_DIR"
+        echo "APP_PORT=$APP_PORT"
+        echo "================================"
 
-            APP_PORT="${{ env.APP_PORT }}"
-            APP_PORT="${APP_PORT:-5002}"
+        mkdir -p "$APP_DIR"
 
-            ENVIRONMENT="${{ env.ASPNETCORE_ENVIRONMENT }}"
-            ENVIRONMENT="${ENVIRONMENT:-Production}"
+        echo "Stopping old application..."
 
-            APP_DIR="$BASE_DIR/$APP_NAME"
-            LOG_FILE="$APP_DIR/app.log"
-            PID_FILE="$APP_DIR/app.pid"
+        PID=$(lsof -t -i:$APP_PORT || true)
 
-            echo "APP_DIR=$APP_DIR"
-            echo "APP_PORT=$APP_PORT"
+        if [ -n "$PID" ]; then
+          echo "Killing PID $PID"
+          kill -9 "$PID"
+          sleep 3
+        fi
 
-            mkdir -p "$APP_DIR"
+        cd "$APP_DIR"
 
-            echo "Stopping old process..."
-            PID=$(lsof -t -i:$APP_PORT || true)
+        echo "Current files:"
+        ls -lah
 
-            if [ -n "$PID" ]; then
-              echo "Killing PID: $PID"
-              kill -9 "$PID" || true
-              sleep 3
-            fi
+        if [ ! -f "$APP_NAME.dll" ]; then
+          echo "ERROR: $APP_NAME.dll not found"
+          exit 1
+        fi
 
-            cd "$APP_DIR/out"
+        echo "Starting application..."
 
-            chmod +x "$APP_NAME"
+        nohup env \
+          ASPNETCORE_ENVIRONMENT="$ENVIRONMENT" \
+          ASPNETCORE_URLS="http://0.0.0.0:$APP_PORT" \
+          dotnet "$APP_NAME.dll" \
+          > "$LOG_FILE" 2>&1 &
 
-            echo "Starting app..."
+        echo $! > "$PID_FILE"
 
-            nohup env \
-              ASPNETCORE_ENVIRONMENT="$ENVIRONMENT" \
-              ASPNETCORE_URLS="http://127.0.0.1:$APP_PORT" \
-              ./"$APP_NAME" \
-              > "$LOG_FILE" 2>&1 &
+        sleep 5
 
-            echo $! > "$PID_FILE"
+        if ps -p $(cat "$PID_FILE") > /dev/null
+        then
+          echo "Application Started Successfully"
+          echo "PID: $(cat "$PID_FILE")"
+        else
+          echo "Application Failed To Start"
+          cat "$LOG_FILE"
+          exit 1
+        fi
 
-            echo "Started PID: $(cat $PID_FILE)"
+        echo "================================"
+        echo "Deploy Completed Successfully"
+        echo "================================"
+```
