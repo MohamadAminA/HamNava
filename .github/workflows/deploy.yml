@@ -8,8 +8,7 @@ on:
 env:
   DOTNET_VERSION: "10.0.x"
   PUBLISH_COMMAND: "dotnet publish -c Release -r linux-x64 --no-self-contained -o out"
-  # مقدار پیش‌فرض گلوبال APP_NAME (در صورت نبودن override)
-  APP_NAME_GLOBAL: "hamnavamusic"
+  APP_NAME: "hamnavamusic" 
   APP_PORT: "5001"
   ASPNETCORE_ENVIRONMENT: "Production"
   BASE_DIR: "/home/amin/User/Projects/Dotnet/Publish"
@@ -17,9 +16,6 @@ env:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    # تعریف APP_NAME نهایی در سطح job با fallback به اسم مخزن
-    env:
-      APP_NAME: ${{ env.APP_NAME_GLOBAL || github.event.repository.name }}
 
     steps:
       - name: Checkout
@@ -47,9 +43,8 @@ jobs:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
-          # کل پوشه out را کپی می‌کند (نه فقط محتویات)
-          source: "out/"
-          target: "${{ env.BASE_DIR }}/${{ env.APP_NAME }}"
+          source: "out/*"
+          target: "${{ env.BASE_DIR }}/${{ env.APP_NAME || github.event.repository.name }}"
 
       - name: Restart App
         uses: appleboy/ssh-action@v1.2.0
@@ -72,8 +67,7 @@ jobs:
               exit $EXIT_CODE
             ' ERR
 
-            # مقدار APP_NAME از متغیر محیطی job گرفته می‌شود
-            APP_NAME="${{ env.APP_NAME }}"
+            APP_NAME="${{ env.APP_NAME || github.event.repository.name }}"
             BASE_DIR="${{ env.BASE_DIR }}"
             BASE_DIR="${BASE_DIR:-/home/amin/User/Projects/Dotnet/Publish}"
 
@@ -101,29 +95,18 @@ jobs:
               sleep 3
             fi
 
-            # وارد پوشه out می‌شویم (چون کل پوشه out آپلود شده)
             cd "$APP_DIR/out"
 
-            # بررسی نوع فایل خروجی (با توجه به --no-self-contained انتظار dll داریم)
-            if [ -f "$APP_NAME.dll" ]; then
-              echo "Starting with dotnet (framework-dependent)..."
-              nohup env \
-                ASPNETCORE_ENVIRONMENT="$ENVIRONMENT" \
-                ASPNETCORE_URLS="http://127.0.0.1:$APP_PORT" \
-                dotnet "$APP_NAME.dll" \
-                > "$LOG_FILE" 2>&1 &
-            elif [ -f "$APP_NAME" ]; then
-              echo "Starting as executable (self-contained)..."
-              chmod +x "$APP_NAME"
-              nohup env \
-                ASPNETCORE_ENVIRONMENT="$ENVIRONMENT" \
-                ASPNETCORE_URLS="http://127.0.0.1:$APP_PORT" \
-                ./"$APP_NAME" \
-                > "$LOG_FILE" 2>&1 &
-            else
-              echo "Error: No executable or DLL found for $APP_NAME"
-              exit 1
-            fi
+            chmod +x "$APP_NAME"
+
+            echo "Starting app..."
+
+            nohup env \
+              ASPNETCORE_ENVIRONMENT="$ENVIRONMENT" \
+              ASPNETCORE_URLS="http://127.0.0.1:$APP_PORT" \
+              ./"$APP_NAME" \
+              > "$LOG_FILE" 2>&1 &
 
             echo $! > "$PID_FILE"
+
             echo "Started PID: $(cat $PID_FILE)"
