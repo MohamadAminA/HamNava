@@ -8,7 +8,7 @@ on:
 env:
   DOTNET_VERSION: "10.0.x"
   PUBLISH_COMMAND: "dotnet publish -c Release -r linux-x64 --no-self-contained -o out"
-  APP_NAME: "hamnavamusic" 
+  APP_NAME: "HamNavaMusic" 
   APP_PORT: "5001"
   ASPNETCORE_ENVIRONMENT: "Production"
   BASE_DIR: "/home/amin/User/Projects/Dotnet/Publish"
