@@ -8,7 +8,6 @@ on:
 env:
   DOTNET_VERSION: "10.0.x"
   PUBLISH_COMMAND: "dotnet publish -c Release -r linux-x64 --no-self-contained -o out"
-
   APP_NAME: "hamnavamusic" 
   APP_PORT: "5001"
   ASPNETCORE_ENVIRONMENT: "Production"
@@ -68,8 +67,7 @@ jobs:
               exit $EXIT_CODE
             ' ERR
 
-            APP_NAME="${env.APP_NAME:-${{ github.event.repository.name }}}"
-
+            APP_NAME="${{ env.APP_NAME || github.event.repository.name }}"
             BASE_DIR="${{ env.BASE_DIR }}"
             BASE_DIR="${BASE_DIR:-/home/amin/User/Projects/Dotnet/Publish}"
 
