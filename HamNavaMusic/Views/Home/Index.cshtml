@@ -1,13 +1,12 @@
 ﻿@{
     var baseUrl = $"{Context.Request.Scheme}://{Context.Request.Host}";
     var canonicalUrl = $"{baseUrl}/";
-    var pageTitle = "آموزش موسیقی اصفهان | آموزشگاه موسیقی هم نوا";
-    var pageDescription = "آموزشگاه موسیقی هم نوا در اصفهان برای پیانو، ارگ، ملودیکا، بلز، کالیمبا، ویولن و گیتار با کلاس خصوصی، مشاوره رایگان و مسیر آموزشی شخصی سازی شده.";
-    var pageKeywords = "آموزش موسیقی اصفهان, آموزشگاه موسیقی اصفهان, هم نوا, همنوا, آموزشگاه هم نوا, آموزش پیانو اصفهان, آموزش ارگ اصفهان, آموزش ملودیکا اصفهان, آموزش بلز اصفهان, آموزش کالیمبا اصفهان, آموزش ویولن اصفهان, آموزش گیتار اصفهان";
+    var pageTitle = "آموزشگاه موسیقی هم نوا اصفهان | پیانو، گیتار، ویولن، کلاس خصوصی و آنلاین";
+    var pageDescription = "آموزشگاه موسیقی هم نوا در اصفهان با تضمین یادگیری و بازگشت وجه. کلاس‌های خصوصی پیانو، گیتار، ویولن، ارگ. مشاوره و استعدادیابی رایگان. اولین قطعه را رایگان یاد بگیرید.";
+    var pageKeywords = "آموزش موسیقی اصفهان, آموزشگاه موسیقی اصفهان, هم نوا, آموزش پیانو اصفهان, آموزش گیتار اصفهان, آموزش ویولن اصفهان, کلاس خصوصی موسیقی اصفهان, کلاس آنلاین موسیقی, تضمین یادگیری موسیقی, آموزش موسیقی کودکان, آموزش موسیقی بزرگسالان, استعدادیابی موسیقی, مشاوره موسیقی رایگان, شهریه کلاس موسیقی";
 }
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -32,70 +31,45 @@
     <meta name="twitter:title" content="@pageTitle">
     <meta name="twitter:description" content="@pageDescription">
     <meta name="twitter:image" content="@($"{baseUrl}/assets/img/logo.webp")">
-    <link rel="preload" href="assets/fonts/vazirmatn/Vazirmatn-RD-Regular.woff2" as="font" type="font/woff2"
-          crossorigin>
+    <link rel="preload" href="assets/fonts/vazirmatn/Vazirmatn-RD-Regular.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="preload" href="assets/fonts/vazirmatn/Vazirmatn-RD-Medium.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="preload" href="assets/fonts/vazirmatn/Vazirmatn-RD-Bold.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="stylesheet" href="assets/css/templatemo-606-string-master.css">
     <base href="/" />
-    <!-- Favicons -->
     <link href="assets/img/favicon.ico" rel="icon">
     <link href="assets/img/favicon.ico" rel="apple-touch-icon">
-
     <link rel="canonical" href="@canonicalUrl">
     <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
     <meta name="googlebot" content="index, follow">
+
     <script type="application/ld+json">
     {
       "@@context": "https://schema.org",
       "@@type": "MusicSchool",
       "name": "آموزشگاه موسیقی هم نوا",
-      "alternateName": "Ham Nava",
+      "alternateName": ["Ham Nava", "همنوا"],
       "url": "@canonicalUrl",
       "image": "@($"{baseUrl}/assets/img/logo.webp")",
       "description": "@pageDescription",
       "address": {
         "@@type": "PostalAddress",
+        "streetAddress": "دروازه دولت، چهارباغ پایین، جنب هتل پیروزی، واحد ۴",
         "addressLocality": "اصفهان",
         "addressCountry": "IR"
       },
-      "geo": {
-        "@@type": "GeoCoordinates",
-        "latitude": 32.6546,
-        "longitude": 51.6680
-      },
-      "areaServed": "Isfahan",
-      "telephone": "09013348988",
+      "geo": { "@@type": "GeoCoordinates", "latitude": 32.6546, "longitude": 51.6680 },
+      "telephone": "+989013348988",
+      "email": "a.aghakabiri@gmail.com",
       "priceRange": "$$",
-      "sameAs": [
-        "https://eitaa.com/maminma",
-        "https://ble.ir/maminma"
-      ],
+      "areaServed": "Isfahan",
+      "sameAs": ["https://eitaa.com/maminma", "https://ble.ir/maminma"],
       "hasOfferCatalog": {
         "@@type": "OfferCatalog",
         "name": "دوره‌های آموزشی موسیقی",
         "itemListElement": [
-          {
-            "@@type": "Offer",
-            "itemOffered": {
-              "@@type": "Course",
-              "name": "آموزش پیانو"
-            }
-          },
-          {
-            "@@type": "Offer",
-            "itemOffered": {
-              "@@type": "Course",
-              "name": "آموزش گیتار"
-            }
-          },
-          {
-            "@@type": "Offer",
-            "itemOffered": {
-              "@@type": "Course",
-              "name": "آموزش ویولن"
-            }
-          }
+          { "@@type": "Offer", "itemOffered": { "@@type": "Course", "name": "آموزش پیانو اصفهان" } },
+          { "@@type": "Offer", "itemOffered": { "@@type": "Course", "name": "آموزش گیتار اصفهان" } },
+          { "@@type": "Offer", "itemOffered": { "@@type": "Course", "name": "آموزش ویولن اصفهان" } }
         ]
       }
     }
@@ -104,1075 +78,1008 @@
 
 <body class="rtl">
 
-    <!-- Navigation -->
-    <nav>
-        <div class="nav-container">
-            <a href="#home" class="logo">
-                <div class="logo-icon">♪</div>
-                <div class="logo-text">
-                    <span class="logo-title">هم نوا</span>
-                    <span class="logo-tagline">باهم بنوازیم</span>
-                </div>
+<!-- ─── CONTACT MODAL ─── -->
+<div class="modal-overlay" id="contactModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal-box">
+        <button class="modal-close" id="modalClose" aria-label="بستن">✕</button>
+        <div class="modal-title" id="modalTitle">رزرو جلسه رایگان</div>
+        <div class="modal-subtitle">اطلاعات خود را وارد کنید — ظرف ۲۴ ساعت با شما تماس می‌گیریم.</div>
+        <form class="modal-form" id="contactForm" novalidate>
+            @Html.AntiForgeryToken()
+            <input type="hidden" id="cf-subject" name="Subject" value="رزرو جلسه رایگان">
+
+            <div class="modal-field" data-field="Name">
+                <label for="cf-name">نام شما *</label>
+                <input type="text" id="cf-name" name="Name" placeholder="مثلاً علی احمدی" maxlength="200">
+                <div class="field-error">نام الزامی است</div>
+            </div>
+
+            <div class="modal-field" data-field="Phone">
+                <label for="cf-phone">شماره تماس *</label>
+                <input type="tel" id="cf-phone" name="Phone" placeholder="۰۹۱۲۳۴۵۶۷۸۹" maxlength="14" inputmode="numeric">
+                <div class="field-error">شماره تماس معتبر نیست (مثال: ۰۹۱۲۳۴۵۶۷۸۹)</div>
+            </div>
+
+            <div class="modal-field">
+                <label for="cf-instrument">ساز مورد نظر</label>
+                <select id="cf-instrument" name="Instrument">
+                    <option value="">انتخاب کنید (اختیاری)</option>
+                    <option>پیانو</option>
+                    <option>گیتار آکوستیک</option>
+                    <option>گیتار الکتریک</option>
+                    <option>گیتار نایلون</option>
+                    <option>گیتار بیس</option>
+                    <option>ویولن</option>
+                    <option>ارگ</option>
+                    <option>ملودیکا</option>
+                    <option>بلز</option>
+                    <option>کالیمبا</option>
+                    <option>مطمئن نیستم</option>
+                </select>
+            </div>
+
+            <div class="modal-field" data-field="Message">
+                <label for="cf-message">توضیحات (سن، سطح، هدف)</label>
+                <textarea id="cf-message" name="Message" maxlength="2000" placeholder="مثلاً: برای فرزند ۸ ساله‌ام دنبال پیانو هستم، مبتدی کامل..."></textarea>
+                <div class="field-error">توضیحات نباید بیشتر از ۲۰۰۰ کاراکتر باشد</div>
+            </div>
+
+            <div id="modalMsg" class="modal-msg" role="alert" aria-live="polite"></div>
+            <button type="submit" class="modal-submit" id="modalSubmit">ارسال و رزرو جلسه</button>
+        </form>
+        <div class="modal-note">
+            یا مستقیم تماس بگیرید:
+            <a href="tel:09013348988">۰۹۰۱۳۳۴۸۹۸۸</a> ·
+            <a href="https://ble.ir/maminma" target="_blank" rel="noopener" class="social-link-bale">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="12" cy="12" r="11" fill="#1AA1DC"/>
+                    <path d="M17.6 7.2 6.9 11.4c-.7.3-.7.7 0 1l2.7.9 1 3.3c.1.4.5.5.8.2l1.5-1.4 2.6 1.9c.5.4 1 .1 1.1-.4L18 7.8c.1-.5-.2-.8-.4-.6Z" fill="#fff"/>
+                </svg>
+                بله
+            </a> ·
+            <a href="https://eitaa.com/maminma" target="_blank" rel="noopener" class="social-link-eitaa">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="12" cy="12" r="11" fill="#149945"/>
+                    <path d="M17.6 7.2 6.9 11.4c-.7.3-.7.7 0 1l2.7.9 1 3.3c.1.4.5.5.8.2l1.5-1.4 2.6 1.9c.5.4 1 .1 1.1-.4L18 7.8c.1-.5-.2-.8-.4-.6Z" fill="#fff"/>
+                </svg>
+                ایتا
             </a>
-            <ul class="nav-links">
-                <li><a href="#about">درباره آکادمی</a></li>
-                <li><a href="#instruments">سازها</a></li>
-                <li><a href="#golden-festival">جشنواره طلایی</a></li>
-                <li><a href="#instructors">اساتید</a></li>
-                <li><a href="#pricing">شهریه</a></li>
-                <li><a href="#faq">پرسش ها</a></li>
+        </div>
+    </div>
+</div>
+
+<!-- ─── NAVIGATION ─── -->
+<nav>
+    <div class="nav-container">
+        <a href="#home" class="logo">
+            <div class="logo-icon">♪</div>
+            <div class="logo-text">
+                <span class="logo-title">هم نوا</span>
+                <span class="logo-tagline">باهم بنوازیم</span>
+            </div>
+        </a>
+        <ul class="nav-links">
+            <li><a href="#about">درباره ما</a></li>
+            <li><a href="#guarantees">تضمین‌ها</a></li>
+            <li><a href="#private-classes">کلاس‌ها</a></li>
+            <li><a href="#panel">پنل هنرجو</a></li>
+            <li><a href="#instruments">سازها</a></li>
+            <li><a href="#instructors">مدرسین</a></li>
+            <li><a href="#pricing">شهریه</a></li>
+            <li><a href="#referral">معرفی</a></li>
+            <li><a href="#faq">سؤالات</a></li>
+        </ul>
+        <div class="contact-inline">
+            <a href="tel:09013348988" class="contact-phone">تماس: <strong>۰۹۰۱۳۳۴۸۹۸۸</strong></a>
+            <a href="https://ble.ir/maminma" class="contact-link contact-bale" aria-label="بله">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="12" cy="12" r="11" fill="#1AA1DC"/>
+                    <path d="M17.6 7.2 6.9 11.4c-.7.3-.7.7 0 1l2.7.9 1 3.3c.1.4.5.5.8.2l1.5-1.4 2.6 1.9c.5.4 1 .1 1.1-.4L18 7.8c.1-.5-.2-.8-.4-.6Z" fill="#fff"/>
+                </svg>
+            </a>
+            <a href="https://eitaa.com/maminma" class="contact-link contact-eitaa" aria-label="ایتا">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="12" cy="12" r="11" fill="#149945"/>
+                    <path d="M17.6 7.2 6.9 11.4c-.7.3-.7.7 0 1l2.7.9 1 3.3c.1.4.5.5.8.2l1.5-1.4 2.6 1.9c.5.4 1 .1 1.1-.4L18 7.8c.1-.5-.2-.8-.4-.6Z" fill="#fff"/>
+                </svg>
+            </a>
+        </div>
+        <button class="btn-primary nav-cta open-modal" data-subject="رزرو جلسه رایگان"><span>شروع رایگان</span></button>
+        <button class="mobile-menu-btn" aria-label="باز کردن منو">☰</button>
+    </div>
+</nav>
+
+<!-- ─── HERO ─── -->
+<section class="hero" id="home">
+    <div class="hero-container">
+        <div class="hero-content">
+            <div class="hero-badge"><span>●</span> آموزشگاه تخصصی موسیقی هم نوا در اصفهان</div>
+            <h1>یادگیری موسیقی بدون ریسک<br>با تضمین بازگشت وجه</h1>
+            <p class="hero-description">
+                اولین قطعه موسیقی را <strong>کاملاً رایگان</strong> یاد بگیرید. پس از ثبت‌نام، اگر در یک ماه به سطح تعیین‌شده نرسیدید، کل شهریه بازگردانده می‌شود.
+            </p>
+            <div class="hero-buttons">
+                <button class="btn-primary open-modal" data-subject="رزرو جلسه مشاوره رایگان">شروع یادگیری رایگان</button>
+                <a href="#guarantees" class="btn-secondary">تضمین‌های ما</a>
+            </div>
+            <div class="hero-highlights">
+                <span>کودکان، نوجوانان، بزرگسالان</span>
+                <span>حضوری و آنلاین</span>
+                <span>برنامه‌ریزی اختصاصی</span>
+                <span>اساتید مجرب</span>
+                <span>پنل والدین</span>
+            </div>
+            <div class="hero-stats">
+                <div class="stat">
+                    <div class="stat-value">+۱۰۰۰</div>
+                    <div class="stat-label">هنرجوی موفق</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-value">۹۸٪</div>
+                    <div class="stat-label">رضایت‌سنجی</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-value">۱۰+</div>
+                    <div class="stat-label">ساز تخصصی</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ─── ABOUT ─── -->
+<section class="trust" id="about">
+    <div class="section-container trust-grid">
+        <div class="trust-content">
+            <div class="section-header align-start">
+                <div class="section-label">درباره هم نوا</div>
+                <h2 class="section-title">آکادمی خصوصی که مسیر هنرجو را تا اجرای صحنه می‌سازد</h2>
+                <p class="section-description">ما در هم نوا فقط تدریس نمی‌کنیم؛ یک برنامه کامل از استعدادیابی، مشاوره، یادگیری و ارزیابی در اختیارتان می‌گذاریم. هدف ما این است که هر هنرجو با اطمینان کامل و بدون دغدغه مالی، موسیقی را بیاموزد.</p>
+            </div>
+            <ul class="trust-list">
+                <li>جلسه اول رایگان تا اولین قطعه واقعی را اجرا کنید</li>
+                <li>تضمین کتبی بازگشت شهریه در صورت عدم پیشرفت</li>
+                <li>پنل آنلاین والدین برای مشاهده پیشرفت لحظه‌ای</li>
+                <li>برنامه تمرینی شخصی‌سازی‌شده با بازخورد هفتگی</li>
             </ul>
-            <div class="contact-inline">
-                <a href="tel:09013348988" class="contact-phone">تماس و مشاوره: <strong>۰۹۰۱۳۳۴۸۹۸۸</strong></a>
-                <a href="https://ble.ir/maminma" class="contact-link contact-bale" aria-label="چت در بله">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path
-                        d="M12 2C6.48 2 2 6.48 2 12c0 3.87 2.24 7.23 5.46 8.87L6 22l1.24-2.7C8.2 19.95 10.04 20.6 12 20.6c5.52 0 10-4.48 10-10S17.52 2 12 2z"
-                        fill="#c9a15d" />
+            <div class="trust-actions">
+                <button class="btn-primary open-modal" data-subject="مشاوره و استعدادیابی رایگان">درخواست مشاوره رایگان</button>
+                <a href="#pricing" class="btn-secondary">مشاهده تعرفه‌ها</a>
+            </div>
+            <div class="trust-benefits-strip">
+                <span>تضمین یادگیری</span>
+                <span>بازگشت وجه یک‌ماهه</span>
+                <span>معرفی دوست = ۷۰۰ هزار تومان</span>
+                <span>جلسه استعدادیابی رایگان</span>
+            </div>
+        </div>
+        <div class="trust-cards">
+            <div class="trust-card">
+                <div class="trust-card-title">کلاس‌های خصوصی و آنلاین</div>
+                <p>هر جلسه کاملاً اختصاصی با تمرکز بر نقاط ضعف و قوت شما. از مبتدی تا پیشرفته.</p>
+                <span class="trust-card-meta">انعطاف کامل زمانی</span>
+            </div>
+            <div class="trust-card">
+                <div class="trust-card-title">پنل هنرجو و والدین</div>
+                <p>گزارش‌های پیشرفت، تکالیف، حضور و غیاب و نظرات مدرس در یک پنل یکپارچه.</p>
+                <span class="trust-card-meta">شفافیت کامل</span>
+            </div>
+            <div class="trust-card">
+                <div class="trust-card-title">مدرسان متخصص و متعهد</div>
+                <p>اساتیدی که فقط آموزش نمی‌دهند، بلکه شما را برای اجرای واقعی آماده می‌کنند.</p>
+                <span class="trust-card-meta">حداقل ۸ سال تجربه</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ─── GUARANTEES ─── -->
+<section class="features" id="guarantees" style="background:#0d0f14;">
+    <div class="section-container">
+        <div class="section-header">
+            <div class="section-label">تضمین‌های هم نوا</div>
+            <h2 class="section-title">یادگیری بدون ریسک</h2>
+            <p class="section-description">ما آنقدر به روش آموزشی خود اطمینان داریم که دو تضمین قدرتمند به شما می‌دهیم.</p>
+        </div>
+        <div class="features-grid" style="grid-template-columns: repeat(2, 1fr);">
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                </div>
+                <h3>یادگیری اولین قطعه رایگان</h3>
+                <p>شما تا زمانی که اولین قطعه موسیقی را کامل و صحیح اجرا نکنید، هیچ هزینه‌ای پرداخت نمی‌کنید. این جلسات کاملاً رایگان و بدون هیچ شرطی است. اگر راضی نبودید، ادامه نمی‌دهید.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
+                </div>
+                <h3>تضمین بازگشت وجه یک‌ماهه</h3>
+                <p>پس از ثبت‌نام نهایی، اگر در پایان یک ماه اول هنرجو به سطح تعیین‌شده توسط مدرس نرسد، کل شهریه پرداختی آن ماه را کامل به شما بازمی‌گردانیم. بدون پرسش، بدون دردسر.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ─── PRIVATE CLASSES ─── -->
+<section class="features" id="private-classes" style="background:#0b0d12;">
+    <div class="section-container">
+        <div class="section-header">
+            <div class="section-label">کلاس‌های خصوصی</div>
+            <h2 class="section-title">آموزش حضوری و آنلاین، کاملاً شخصی‌سازی‌شده</h2>
+            <p class="section-description">هر هنرجو یک برنامه منحصربه‌فرد دریافت می‌کند. از انتخاب ساز تا سرعت پیشرفت، همه چیز مطابق با شما تنظیم می‌شود.</p>
+        </div>
+        <div class="features-grid" style="grid-template-columns: repeat(2, 1fr);">
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                </div>
+                <h3>حضوری در اصفهان</h3>
+                <p>کلاس‌های حضوری در محیطی آرام و مجهز. توجه کامل مدرس فقط به شما. برنامه‌ریزی بر اساس سبک یادگیری شما. قابل تنظیم از یک تا چند جلسه در هفته.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+                </div>
+                <h3>آنلاین از هر کجا</h3>
+                <p>کلاس‌های آنلاین با کیفیت بالا، تعامل زنده و تصحیح تکنیک. بدون محدودیت جغرافیایی. جلسات ضبط می‌شود تا بتوانید مرور کنید. مناسب برای تمام سنین.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ─── STUDENT & PARENT PANEL ─── -->
+<section class="features" id="panel">
+    <div class="section-container">
+        <div class="section-header">
+            <div class="section-label">پنل هنرجو و والدین</div>
+            <h2 class="section-title">همه چیز در یک پنل شفاف و آنلاین</h2>
+            <p class="section-description">والدین و هنرجویان می‌توانند مسیر یادگیری را به صورت لحظه‌ای رصد کنند.</p>
+        </div>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M11.5 2a8.5 8.5 0 0 1 0 17v3l-3-3-3 3v-3a8.5 8.5 0 0 1 6-16z"/><circle cx="11.5" cy="10.5" r="3"/></svg>
+                </div>
+                <h3>گزارش پیشرفت</h3>
+                <p>نمودارهای پیشرفت در مهارت‌های ریتم، ملودی و تکنیک به‌صورت هفتگی و ماهانه.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                </div>
+                <h3>تکالیف و تمرین‌ها</h3>
+                <p>مشاهده تمرین‌های تعیین‌شده، فایل‌های صوتی/تصویری و تاریخ تحویل.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>
+                </div>
+                <h3>حضور و غیاب</h3>
+                <p>ثبت خودکار جلسات، تأخیرها و غیبت‌ها با اطلاع‌رسانی فوری به والدین.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l2 2"/></svg>
+                </div>
+                <h3>تاریخچه یادگیری</h3>
+                <p>دسترسی به تمام جلسات گذشته، نکات مدرس و سیر پیشرفت از روز اول.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="22"/><path d="M8 22h8"/></svg>
+                </div>
+                <h3>بازخورد مدرس</h3>
+                <p>نظرات، توصیه‌ها و نقاط قوت/ضعف هر جلسه توسط مدرس در پنل ثبت می‌شود.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                </div>
+                <h3>مدیریت مالی</h3>
+                <p>مشاهده فیش‌ها، اقساط و سابقه پرداخت‌ها به صورت شفاف.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ─── FREE TALENT ASSESSMENT ─── -->
+<section class="trust" id="talent-assessment" style="background:#0f1116;">
+    <div class="section-container trust-grid">
+        <div class="trust-content">
+            <div class="section-header align-start">
+                <div class="section-label">جلسه استعدادیابی رایگان</div>
+                <h2 class="section-title">استعداد موسیقی خود را کشف کنید</h2>
+                <p class="section-description">در یک جلسه حضوری، توانایی‌های موسیقایی شما سنجیده می‌شود تا بهترین ساز و مسیر یادگیری مشخص شود.</p>
+            </div>
+            <ul class="trust-list">
+                <li>ارزیابی گوش موسیقایی، ریتم و هماهنگی دست‌ها</li>
+                <li>پیشنهاد بهترین ساز بر اساس علاقه و استعداد</li>
+                <li>تعیین سطح مبتدی، متوسط یا پیشرفته</li>
+                <li>ارائه یک برنامه پیشنهادی اولیه</li>
+            </ul>
+            <button class="btn-primary open-modal" data-subject="درخواست جلسه استعدادیابی رایگان">رزرو جلسه استعدادیابی</button>
+        </div>
+        <div class="trust-cards">
+            <div class="trust-card" style="text-align:center;">
+                <div style="font-size:2.5rem; margin-bottom:1rem;">🎵</div>
+                <div class="trust-card-title">برای همه سنین</div>
+                <p>کودکان ۵ سال به بالا، نوجوانان و بزرگسالان تا ۷۰ سال.</p>
+            </div>
+            <div class="trust-card" style="text-align:center;">
+                <div style="font-size:2.5rem; margin-bottom:1rem;">🧠</div>
+                <div class="trust-card-title">بدون نیاز به دانش قبلی</div>
+                <p>حتی اگر هیچ پیش‌زمینه‌ای ندارید، ما استعداد شما را کشف می‌کنیم.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ─── FREE CONSULTATION ─── -->
+<section class="trust" id="consultation" style="background:#0d0f14;">
+    <div class="section-container trust-grid">
+        <div class="trust-content">
+            <div class="section-header align-start">
+                <div class="section-label">مشاوره رایگان</div>
+                <h2 class="section-title">انتخاب آگاهانه با مشاوره تخصصی</h2>
+                <p class="section-description">در یک گفت‌وگوی دوستانه، به شما کمک می‌کنیم بهترین تصمیم را برای شروع یا ادامه مسیر موسیقی بگیرید.</p>
+            </div>
+            <ul class="trust-list">
+                <li>انتخاب ساز مناسب با اهداف و سبک زندگی</li>
+                <li>پیشنهاد نوع کلاس (حضوری یا آنلاین) و برنامه هفتگی</li>
+                <li>توضیح کامل درباره شهریه و طرح‌های پرداخت</li>
+                <li>پاسخ به همه نگرانی‌ها قبل از ثبت‌نام</li>
+            </ul>
+            <button class="btn-primary open-modal" data-subject="درخواست مشاوره رایگان">دریافت مشاوره رایگان</button>
+        </div>
+        <div class="trust-cards">
+            <div class="trust-card" style="text-align:center;">
+                <div style="font-size:2.5rem; margin-bottom:1rem;">💬</div>
+                <div class="trust-card-title">بدون تعهد</div>
+                <p>مشاوره کاملاً رایگان و بدون الزام به ثبت‌نام.</p>
+            </div>
+            <div class="trust-card" style="text-align:center;">
+                <div style="font-size:2.5rem; margin-bottom:1rem;">⏱️</div>
+                <div class="trust-card-title">ظرف ۲۴ ساعت</div>
+                <p>کافیست فرم را پر کنید، کارشناس ما با شما تماس می‌گیرد.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ─── INSTRUMENTS ─── -->
+<section class="instruments" id="instruments">
+    <div class="section-container">
+        <div class="section-header">
+            <div class="section-label">سازهای آموزشی</div>
+            <h2 class="section-title">آموزش تخصصی ۱۰ ساز پرطرفدار</h2>
+            <p class="section-description">از پیانو کلاسیک تا گیتار بیس، با روش‌های نوین و برنامه شخصی. تمامی سازها با عکس واقعی.</p>
+        </div>
+        <div class="instruments-grid">
+            <div class="instrument-card">
+                <img src="assets/img/instruments/piano.webp" alt="آموزش پیانو اصفهان" class="instrument-img" loading="lazy">
+                <div class="instrument-name">پیانو</div>
+                <div class="instrument-meta">کلاسیک و مدرن</div>
+            </div>
+            <div class="instrument-card">
+                <img src="assets/img/instruments/keyboard.webp" alt="آموزش ارگ و کیبورد اصفهان" class="instrument-img" loading="lazy">
+                <div class="instrument-name">ارگ / کیبورد</div>
+                <div class="instrument-meta">ریتم، آکورد، تنظیم</div>
+            </div>
+            <div class="instrument-card">
+                <img src="assets/img/instruments/melodica.webp" alt="آموزش ملودیکا کودکان" class="instrument-img" loading="lazy">
+                <div class="instrument-name">ملودیکا</div>
+                <div class="instrument-meta">مناسب کودکان</div>
+            </div>
+            <div class="instrument-card">
+                <img src="assets/img/instruments/xylophone.webp" alt="آموزش بلز و زایلوفون" class="instrument-img" loading="lazy">
+                <div class="instrument-name">بلز</div>
+                <div class="instrument-meta">تقویت ریتم و گوش</div>
+            </div>
+            <div class="instrument-card">
+                <img src="assets/img/instruments/kalimba.webp" alt="آموزش کالیمبا" class="instrument-img" loading="lazy">
+                <div class="instrument-name">کالیمبا</div>
+                <div class="instrument-meta">ملودی‌های آرامش‌بخش</div>
+            </div>
+            <div class="instrument-card">
+                <img src="assets/img/instruments/violin.webp" alt="آموزش ویولن اصفهان" class="instrument-img" loading="lazy">
+                <div class="instrument-name">ویولن</div>
+                <div class="instrument-meta">کلاسیک و مدرن</div>
+            </div>
+            <div class="instrument-card">
+                <img src="assets/img/instruments/acoustic-guitar.webp" alt="آموزش گیتار آکوستیک" class="instrument-img" loading="lazy">
+                <div class="instrument-name">گیتار آکوستیک</div>
+                <div class="instrument-meta">ریتم و فینگرپیکینگ</div>
+            </div>
+            <div class="instrument-card">
+                <img src="assets/img/instruments/classical-guitar.webp" alt="آموزش گیتار کلاسیک نایلون" class="instrument-img" loading="lazy">
+                <div class="instrument-name">گیتار کلاسیک</div>
+                <div class="instrument-meta">نت‌خوانی و تکنیک</div>
+            </div>
+            <div class="instrument-card">
+                <img src="assets/img/instruments/electric-guitar.webp" alt="آموزش گیتار الکتریک" class="instrument-img" loading="lazy">
+                <div class="instrument-name">گیتار الکتریک</div>
+                <div class="instrument-meta">راک، بلوز، متال</div>
+            </div>
+            <div class="instrument-card">
+                <img src="assets/img/instruments/bass-guitar.webp" alt="آموزش گیتار بیس" class="instrument-img" loading="lazy">
+                <div class="instrument-name">گیتار بیس</div>
+                <div class="instrument-meta">گروو و بندنوازی</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ─── INSTRUCTORS ─── -->
+<section class="instructors" id="instructors">
+    <div class="section-container">
+        <div class="section-header">
+            <div class="section-label">مدرسین هم‌نوا</div>
+            <h2 class="section-title">اساتیدی که هنرجو را به اجرای حرفه‌ای می‌رسانند</h2>
+            <p class="section-description">تیم مدرسین هم‌نوا از بین بهترین‌های اصفهان با تجربه اجرای صحنه‌ای و آموزش انتخاب شده‌اند. تمرکز ما بر خروجی هنرجو است، نه فقط ساعات تدریس.</p>
+        </div>
+        <div class="instructors-grid">
+            <div class="instructor-card">
+                <div class="instructor-image"><img src="assets/img/instructors/nastaran.webp" alt="نسترن هاشمی، مدرس پیانو هم نوا اصفهان" loading="lazy"></div>
+                <div class="instructor-name">نسترن هاشمی</div>
+                <div class="instructor-role">مدرس پیانو</div>
+                <p class="instructor-bio">بیش از ۱۰۰ هنرجوی موفق، متخصص رپرتوار کودک و بزرگسال.</p>
+            </div>
+            <div class="instructor-card">
+                <div class="instructor-image"><img src="assets/img/instructors/peyman.webp" alt="پیمان راد، مدرس گیتار الکتریک" loading="lazy"></div>
+                <div class="instructor-name">پیمان راد</div>
+                <div class="instructor-role">مدرس گیتار الکتریک</div>
+                <p class="instructor-bio">متخصص بلوز و راک، آماده‌سازی برای اجرای زنده.</p>
+            </div>
+            <div class="instructor-card">
+                <div class="instructor-image"><img src="assets/img/instructors/yasaman.webp" alt="یاسمن داوودی، مدرس ویولن" loading="lazy"></div>
+                <div class="instructor-name">یاسمن داوودی</div>
+                <div class="instructor-role">مدرس ویولن</div>
+                <p class="instructor-bio">فارغ‌التحصیل موسیقی کلاسیک، سابقه ارکسترال.</p>
+            </div>
+            <div class="instructor-card">
+                <div class="instructor-image"><img src="assets/img/instructors/kian.webp" alt="کیان بابایی، مدرس گیتار آکوستیک" loading="lazy"></div>
+                <div class="instructor-name">کیان بابایی</div>
+                <div class="instructor-role">مدرس گیتار آکوستیک</div>
+                <p class="instructor-bio">متخصص ریتم‌نوازی و تکنیک فینگراستایل.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ─── PRICING ─── -->
+<section class="pricing" id="pricing">
+    <div class="section-container">
+        <div class="section-header">
+            <div class="section-label">شهریه و ثبت‌نام</div>
+            <h2 class="section-title">پلن‌های شفاف و منصفانه</h2>
+            <p class="section-description">شهریه‌ها با احتساب تخفیف‌های دائمی. جلسه اول رایگان تا اولین قطعه را یاد بگیرید.</p>
+            <div class="pricing-contact" style="margin-top:.8rem;">
+                <a href="tel:09013348988">مشاوره: ۰۹۰۱۳۳۴۸۹۸۸</a> &nbsp;·&nbsp;
+                <a href="https://ble.ir/maminma" target="_blank" rel="noopener" class="social-link-bale">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="display:inline-block;vertical-align:middle;margin-left:4px;">
+                        <circle cx="12" cy="12" r="11" fill="#1AA1DC"/>
+                        <path d="M17.6 7.2 6.9 11.4c-.7.3-.7.7 0 1l2.7.9 1 3.3c.1.4.5.5.8.2l1.5-1.4 2.6 1.9c.5.4 1 .1 1.1-.4L18 7.8c.1-.5-.2-.8-.4-.6Z" fill="#fff"/>
                     </svg>
-                </a>
-                <a href="https://eitaa.com/maminma" class="contact-link contact-eitaa" aria-label="چت در ایتا">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path
-                        d="M12 2C6.48 2 2 6.48 2 12c0 4.97 3.66 9.09 8.41 9.88L12 22l1.59-.12C18.34 21.09 22 16.97 22 12c0-5.52-4.48-10-10-10z"
-                        fill="#ead7b8" />
+                    بله
+                </a> &nbsp;·&nbsp;
+                <a href="https://eitaa.com/maminma" target="_blank" rel="noopener" class="social-link-eitaa">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="display:inline-block;vertical-align:middle;margin-left:4px;">
+                        <circle cx="12" cy="12" r="11" fill="#149945"/>
+                        <path d="M17.6 7.2 6.9 11.4c-.7.3-.7.7 0 1l2.7.9 1 3.3c.1.4.5.5.8.2l1.5-1.4 2.6 1.9c.5.4 1 .1 1.1-.4L18 7.8c.1-.5-.2-.8-.4-.6Z" fill="#fff"/>
                     </svg>
+                    ایتا
                 </a>
             </div>
-            <a href="#pricing" class="nav-cta"><span>رزرو 2 جلسه رایگان</span></a>
-            <button class="mobile-menu-btn" aria-label="باز کردن منو">☰</button>
         </div>
-    </nav>
-
-    <!-- Hero Section -->
-    <section class="hero" id="home">
-        <div class="hero-container">
-            <div class="hero-content">
-                <div class="hero-badge">
-                    <span>●</span> آموزش موسیقی اصفهان | جشنواره طلایی هم نوا
+        <div class="pricing-grid">
+            <!-- PLAN 20 min -->
+            <div class="pricing-card">
+                <div class="pricing-name">پلن ۲۰ دقیقه</div>
+                <div class="pricing-price">
+                    <span class="original-price">۶۴۳,۰۰۰</span>
+                    <span>۴۵۰,۰۰۰</span><span class="currency">تومان</span><span class="period">/ جلسه</span>
                 </div>
-                <h1>آموزش موسیقی اصفهان در آموزشگاه هم نوا برای هر سطح و هر سن</h1>
-                <p class="hero-description">
-                    آموزشگاه موسیقی هم نوا در اصفهان با کلاس های خصوصی پیانو, ارگ, ملودیکا, بلز, کالیمبا, ویولن و انواع
-                    گیتار,
-                    مسیر یادگیری را برای هنرجویان کودک, نوجوان و بزرگسال به صورت شخصی سازی شده و هدفمند پیش می برد.
+                <div class="pricing-billed">تخفیف ۳۰٪ دائمی + ۱۰٪ پرداخت نقدی</div>
+                <p class="pricing-description">رفع اشکال هدفمند و تمرین متمرکز. مناسب کودکان، مبتدیان و افراد پرمشغله.</p>
+                <ul class="pricing-features">
+                    <li>۲۰ دقیقه آموزش خصوصی</li>
+                    <li>رفع اشکال ریتم و انگشت‌گذاری</li>
+                    <li>برنامه تمرین هفتگی</li>
+                    <li>قابل ارتقا به پلن‌های بالاتر</li>
+                </ul>
+                <button class="pricing-btn open-modal" data-subject="ثبت‌نام پلن ۲۰ دقیقه">شروع با این پلن</button>
+            </div>
+
+            <!-- PLAN 40 min (MOST POPULAR) -->
+            <div class="pricing-card featured">
+                <div class="pricing-name">پلن ۴۰ دقیقه</div>
+                <div class="pricing-price">
+                    <span class="original-price">۱,۳۵۰,۰۰۰</span>
+                    <span>۶۷۵,۰۰۰</span><span class="currency">تومان</span><span class="period">/ جلسه</span>
+                </div>
+                <div class="pricing-billed">⭐ محبوب‌ترین انتخاب — ۵۰٪ تخفیف + ۱۰٪ نقدی</div>
+                <p class="pricing-description">تئوری، تکنیک و اجرا در یک جلسه. رشد سریع و اصولی برای اکثر هنرجویان.</p>
+                <ul class="pricing-features">
+                    <li>۴۰ دقیقه آموزش خصوصی</li>
+                    <li>تحلیل قطعه و اصلاح تکنیک</li>
+                    <li>پیگیری پیشرفت بین جلسات</li>
+                    <li>گزارش ماهانه به والدین</li>
+                    <li>مناسب آماده‌سازی اجرا</li>
+                </ul>
+                <button class="pricing-btn open-modal" data-subject="ثبت‌نام پلن ۴۰ دقیقه — محبوب‌ترین">می‌خواهم همین پلن را</button>
+            </div>
+
+            <!-- VIP PLAN -->
+            <div class="pricing-card vip">
+                <div class="pricing-name">پلن ویژه (VIP)</div>
+                <div class="pricing-price">
+                    <span>تماس بگیرید</span>
+                </div>
+                <div class="pricing-billed">برای هنرجویان جدی و حرفه‌ای</div>
+                <p class="pricing-description">برنامه‌ای برای کسانی که روزانه حداقل ۲ ساعت تمرین می‌کنند و به دنبال پیشرفت سریع و اجرای حرفه‌ای هستند.</p>
+                <ul class="pricing-features">
+                    <li>۲ جلسه در هفته</li>
+                    <li>بررسی روزانه ویدیوی تمرین</li>
+                    <li>پشتیبانی آنلاین نامحدود</li>
+                    <li>رفع اشکال سریع</li>
+                    <li>نقشه راه شخصی‌سازی‌شده</li>
+                    <li>کوچینگ اجرای صحنه</li>
+                    <li>آمادگی برای آموزش موسیقی</li>
+                    <li>امکان تدریس در محل هنرجو</li>
+                    <li>اولویت با مدرس ارشد</li>
+                </ul>
+                <button class="pricing-btn open-modal" data-subject="مشاوره پلن ویژه">درخواست مشاوره VIP</button>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ─── REFERRAL PROGRAM ─── -->
+<section class="festival festival-referral" id="referral" style="background: linear-gradient(135deg, #0e1017 0%, #141921 100%);">
+    <div class="section-container referral-grid">
+        <div class="referral-content">
+            <div class="festival-badge">🎁 طرح دوستی</div>
+            <h2 class="festival-title">دوست خود را معرفی کن، ۷۰۰ هزار تومان جایزه بگیر</h2>
+            <p class="festival-description">
+                برای هر هنرجوی جدید که از طرف شما ثبت‌نام کند، <strong>۷۰۰,۰۰۰ تومان</strong> به حساب شما واریز می‌شود.
+                دوست شما هم <strong>یک ماه شهریه رایگان</strong> دریافت می‌کند!
+            </p>
+            <div class="festival-actions">
+                <button class="btn-primary open-modal" data-subject="معرفی دوست — جایزه ۷۰۰ هزار تومانی">معرفی دوست</button>
+                <a href="#pricing" class="btn-secondary">مشاهده پلن‌ها</a>
+            </div>
+        </div>
+        <div class="referral-card">
+            <div class="referral-tag">همین الان شرکت کن</div>
+            <h3>چطور کار می‌کند؟</h3>
+            <ul>
+                <li>اطلاعات دوستتان را وارد کنید.</li>
+                <li>ما با او تماس می‌گیریم و جلسه مشاوره رایگان ترتیب می‌دهیم.</li>
+                <li>پس از ثبت‌نام نهایی، جایزه شما واریز و تخفیف دوستتان فعال می‌شود.</li>
+            </ul>
+            <div class="referral-actions">
+                <button class="btn-primary open-modal" data-subject="ثبت نام در طرح معرفی دوست">شروع معرفی</button>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ─── FAQ ─── -->
+<section class="faq" id="faq">
+    <div class="section-container">
+        <div class="section-header">
+            <div class="section-label">سؤالات متداول</div>
+            <h2 class="section-title">پاسخ به نگرانی‌های شما</h2>
+        </div>
+        <div class="faq-accordion" id="faqAccordion" role="list">
+
+            <article class="faq-item" role="listitem">
+                <button class="faq-trigger" type="button" aria-expanded="false" aria-controls="faq-panel-1" id="faq-trigger-1">
+                    <span class="faq-question">یعنی واقعاً جلسه اول رایگان است و تا یادگیری قطعه اول پولی نمی‌گیرید؟</span>
+                    <span class="faq-icon" aria-hidden="true"></span>
+                </button>
+                <div class="faq-panel" id="faq-panel-1" role="region" aria-labelledby="faq-trigger-1">
+                    <p>بله، تا زمانی که نتوانید اولین قطعه را به‌طور کامل و صحیح اجرا کنید، هیچ هزینه‌ای از شما دریافت نمی‌شود. این یک تعهد واقعی است.</p>
+                </div>
+            </article>
+
+            <article class="faq-item" role="listitem">
+                <button class="faq-trigger" type="button" aria-expanded="false" aria-controls="faq-panel-2" id="faq-trigger-2">
+                    <span class="faq-question">تضمین بازگشت وجه یک‌ماهه چطور اجرا می‌شود؟</span>
+                    <span class="faq-icon" aria-hidden="true"></span>
+                </button>
+                <div class="faq-panel" id="faq-panel-2" role="region" aria-labelledby="faq-trigger-2">
+                    <p>اگر بعد از یک ماه اول، هنرجو به سطحی که مدرس در ابتدا تعیین کرده نرسد، کل مبلغ آن ماه را بدون چون‌وچرا به شما برمی‌گردانیم.</p>
+                </div>
+            </article>
+
+            <article class="faq-item" role="listitem">
+                <button class="faq-trigger" type="button" aria-expanded="false" aria-controls="faq-panel-3" id="faq-trigger-3">
+                    <span class="faq-question">کلاس‌های آنلاین چه تفاوتی با حضوری دارند؟</span>
+                    <span class="faq-icon" aria-hidden="true"></span>
+                </button>
+                <div class="faq-panel" id="faq-panel-3" role="region" aria-labelledby="faq-trigger-3">
+                    <p>محتوا و کیفیت تدریس دقیقاً یکسان است. کلاس‌های آنلاین با نظارت زنده، تصحیح تکنیک و ضبط جلسه انجام می‌شود تا بتوانید مرور کنید.</p>
+                </div>
+            </article>
+
+            <article class="faq-item" role="listitem">
+                <button class="faq-trigger" type="button" aria-expanded="false" aria-controls="faq-panel-4" id="faq-trigger-4">
+                    <span class="faq-question">از چه سنی می‌توان شروع کرد؟</span>
+                    <span class="faq-icon" aria-hidden="true"></span>
+                </button>
+                <div class="faq-panel" id="faq-panel-4" role="region" aria-labelledby="faq-trigger-4">
+                    <p>از ۵ سالگی تا ۷۰ سالگی برنامه داریم. برای کودکان از سازهای ساده‌تر مثل بلز و ملودیکا شروع می‌کنیم.</p>
+                </div>
+            </article>
+
+            <article class="faq-item" role="listitem">
+                <button class="faq-trigger" type="button" aria-expanded="false" aria-controls="faq-panel-5" id="faq-trigger-5">
+                    <span class="faq-question">چقدر باید تمرین کنم؟</span>
+                    <span class="faq-icon" aria-hidden="true"></span>
+                </button>
+                <div class="faq-panel" id="faq-panel-5" role="region" aria-labelledby="faq-trigger-5">
+                    <p>حداقل ۱۵ تا ۳۰ دقیقه تمرین روزانه توصیه می‌شود. برنامه تمرین دقیق را مدرس با توجه به سطح شما طراحی می‌کند.</p>
+                </div>
+            </article>
+
+        </div>
+    </div>
+</section>
+
+<!-- ─── CTA ─── -->
+<section class="cta" id="cta">
+    <div class="section-container cta-content">
+        <h2>همین امروز بدون هیچ ریسکی شروع کنید</h2>
+        <p>فرم را پر کنید تا کارشناسان ما برای یک جلسه مشاوره و استعدادیابی رایگان با شما تماس بگیرند.</p>
+        <div class="cta-benefits">
+            <span>🎵 یادگیری قطعه اول رایگان</span>
+            <span>🛡️ تضمین بازگشت وجه</span>
+            <span>🎁 معرفی دوست = ۷۰۰ هزار تومان</span>
+        </div>
+        <div class="cta-actions">
+            <button class="btn-primary open-modal" data-subject="شروع رایگان">شروع رایگان</button>
+            <a href="tel:09013348988" class="btn-secondary">تماس مستقیم</a>
+        </div>
+    </div>
+</section>
+
+<!-- ─── CONTACT ─── -->
+<section class="contact" id="contact">
+    <div class="section-container">
+        <div class="section-header align-start">
+            <div class="section-label">تماس با هم نوا</div>
+            <h2 class="section-title">راه‌های ارتباطی و آدرس آموزشگاه</h2>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;">
+            <div class="contact-card">
+                <h4>تماس و مشاوره</h4>
+                <p><a href="tel:09013348988">۰۹۰۱۳۳۴۸۹۸۸</a> — رزرو و پشتیبانی</p>
+                <p>
+                    <a href="https://ble.ir/maminma" target="_blank" rel="noopener" class="social-link-bale">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="display:inline-block;vertical-align:middle;margin-left:4px;">
+                            <circle cx="12" cy="12" r="11" fill="#1AA1DC"/>
+                            <path d="M17.6 7.2 6.9 11.4c-.7.3-.7.7 0 1l2.7.9 1 3.3c.1.4.5.5.8.2l1.5-1.4 2.6 1.9c.5.4 1 .1 1.1-.4L18 7.8c.1-.5-.2-.8-.4-.6Z" fill="#fff"/>
+                        </svg>
+                        بله: maminma
+                    </a>
+                    —
+                    <a href="https://eitaa.com/maminma" target="_blank" rel="noopener" class="social-link-eitaa">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="display:inline-block;vertical-align:middle;margin-left:4px;">
+                            <circle cx="12" cy="12" r="11" fill="#149945"/>
+                            <path d="M17.6 7.2 6.9 11.4c-.7.3-.7.7 0 1l2.7.9 1 3.3c.1.4.5.5.8.2l1.5-1.4 2.6 1.9c.5.4 1 .1 1.1-.4L18 7.8c.1-.5-.2-.8-.4-.6Z" fill="#fff"/>
+                        </svg>
+                        ایتا: maminma
+                    </a>
                 </p>
-                <div class="hero-buttons">
-                    <a href="#pricing" class="btn-primary">
-                        شروع یادگیری موسیقی
-                    </a>
-                    <a href="#golden-festival" class="btn-secondary">
-                        مشاهده جشنواره طلایی
-                    </a>
-                </div>
-                <div class="hero-highlights">
-                    <span>آموزشگاه موسیقی اصفهان برای مبتدی تا حرفه ای</span>
-                    <span>شروع با جلسه رایگان استعدادیابی حضوری</span>
-                    <span>۲ جلسه رایگان آموزش تئوری موسیقی</span>
-                    <span>کلاس های خصوصی حضوری و آنلاین</span>
-                    <span>گزارش پیشرفت هنرجو</span>
-                </div>
-                <div class="hero-stats">
-                    <div class="stat">
-                        <div class="stat-value">۵+</div>
-                        <div class="stat-label">سال تجربه آموزشی</div>
-                    </div>
-                    <div class="stat">
-                        <div class="stat-value">۹۵ درصد</div>
-                        <div class="stat-label">رضایت هنرجویان</div>
-                    </div>
-                    <div class="stat">
-                        <div class="stat-value">۱۰+</div>
-                        <div class="stat-label">مدرس حرفه ای</div>
-                    </div>
-                </div>
             </div>
-
+            <div class="contact-card">
+                <h4>آدرس</h4>
+                <p>اصفهان، دروازه دولت، چهارباغ پایین، جنب هتل پیروزی، طبقه بالا، واحد ۴</p>
+            </div>
         </div>
-    </section>
+    </div>
+</section>
 
-    <!-- Trust Section -->
-    <section class="trust" id="about">
-        <div class="section-container trust-grid">
-            <div class="trust-content">
-                <div class="section-header align-start">
-                    <div class="section-label">درباره هم نوا</div>
-                    <h2 class="section-title">آکادمی خصوصی برای رشد هنری و نظم آموزشی</h2>
-                    <p class="section-description">
-                        در هم نوا, مسیر یادگیری هر هنرجو با توجه به سطح, هدف و ساز انتخابی طراحی می شود.
-                        از اولین جلسه تا اجرای صحنه, همه چیز با برنامه و همراهی دقیق مدرسین پیش می رود.
+<!-- ─── LOCATION / MAP ─── -->
+<section class="location" id="location">
+    <div class="section-container">
+        <div class="section-header align-start">
+            <div class="section-label">موقعیت مکانی</div>
+            <h2 class="section-title">مجموعه هم نوا را روی نقشه پیدا کنید</h2>
+            <p class="section-description">اصفهان، دروازه دولت، خیابان چهارباغ پایین، جنب هتل پیروزی، طبقه بالا، واحد ۴</p>
+        </div>
+        <div class="location-wrap">
+            <div class="location-card">
+                <div>
+                    <h3>مجموعه آموزشی هم نوا</h3>
+                    <p>
+                        برای رفت‌وآمد راحت‌تر، از مسیریاب گوگل مپ استفاده کنید یا مستقیم با ما تماس بگیرید.
                     </p>
                 </div>
-                <ul class="trust-list">
-                    <li>مدیریت هنرجویان با ثبت سطح, ساز آموزشی و برنامه تمرین</li>
-                    <li>رزرو کلاس ها و حضور و غیاب دقیق با اعلان های هوشمند</li>
-                    <li>پرداخت شهریه و مدیریت اقساط بدون نیاز به مراجعه حضوری</li>
-                    <li>شروع مطمئن با مشاوره تخصصی و استعداد یابی رایگان</li>
+                <div class="location-actions">
+                    <a href="https://maps.app.goo.gl/rCQB2H36VgK6nBur9" target="_blank" rel="noopener" class="btn-primary">
+                        باز کردن در گوگل مپ
+                    </a>
+                    <a href="tel:09013348988" class="btn-secondary">تماس برای مسیر</a>
+                </div>
+            </div>
+            <div class="location-map">
+                <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d2066.82143843845!2d51.66984311380224!3d32.65948929091683!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2s!4v1781094923272!5m2!1sen!2s"
+                    title="موقعیت آموزشگاه موسیقی هم نوا روی نقشه"
+                    style="border:0;"
+                    allowfullscreen=""
+                    loading="lazy"
+                    referrerpolicy="no-referrer-when-downgrade">
+                </iframe>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ─── FOOTER ─── -->
+<footer>
+    <div class="footer-container">
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <a href="#home" class="logo">
+                    <div class="logo-icon">♪</div>
+                    <div class="logo-text">
+                        <span class="logo-title">هم نوا</span>
+                        <span class="logo-tagline">باهم بنوازیم</span>
+                    </div>
+                </a>
+                <p>آموزشگاه موسیقی هم نوا در اصفهان — آموزش حرفه‌ای با تضمین یادگیری و بازگشت وجه. از ۵ تا ۷۰ سال.</p>
+            </div>
+            <div>
+                <h4 class="footer-title">خدمات</h4>
+                <ul class="footer-links">
+                    <li><a href="#private-classes">کلاس‌های خصوصی</a></li>
+                    <li><a href="#panel">پنل هنرجو</a></li>
+                    <li><a href="#pricing">شهریه و ثبت‌نام</a></li>
+                    <li><a href="#instruments">سازهای آموزشی</a></li>
                 </ul>
-                <div class="trust-actions">
-                    <a href="#features" class="btn-secondary">آشنایی با خدمات آموزشی</a>
-                    <a href="#pricing" class="btn-primary">دریافت مشاوره رایگان</a>
-                </div>
-                <div class="trust-benefits-strip">
-                    <span>تضمین یادگیری تا تسلط کامل</span>
-                    <span>بازگشت وجه جلسات باقی‌مانده</span>
-                    <span>معرفی دوست = یک ترم رایگان</span>
-                    <span>کنسرت آموزشی رایگان دوره‌ای</span>
-                </div>
             </div>
-            <div class="trust-cards">
-                <div class="trust-card">
-                    <div class="trust-card-title">کلاس های خصوصی موسیقی</div>
-                    <p>هر هنرجو یک مسیر اختصاصی دارد, از انتخاب ساز تا طراحی تمرین های هفتگی.</p>
-                    <span class="trust-card-meta">تمرکز بر کیفیت, نه تعداد</span>
-                </div>
-                <div class="trust-card">
-                    <div class="trust-card-title">پنل هنرجو و والدین</div>
-                    <p>گزارش پیشرفت, تکالیف هفتگی و سوابق حضور همیشه در دسترس است.</p>
-                    <span class="trust-card-meta">شفافیت و پیگیری مداوم</span>
-                </div>
-                <div class="trust-card">
-                    <div class="trust-card-title">پنل مدرسین موسیقی</div>
-                    <p>مدرسین می توانند برنامه کلاس, تمرین و ارزیابی را یکپارچه مدیریت کنند.</p>
-                    <span class="trust-card-meta">سازگاری با سبک تدریس شما</span>
-                </div>
+            <div>
+                <h4 class="footer-title">بیشتر</h4>
+                <ul class="footer-links">
+                    <li><a href="#guarantees">تضمین‌ها</a></li>
+                    <li><a href="#referral">طرح معرفی دوست</a></li>
+                    <li><a href="#faq">سؤالات متداول</a></li>
+                </ul>
             </div>
-        </div>
-    </section>
-
-    <!-- Instruments Section -->
-    <section class="instruments" id="instruments">
-        <div class="section-container">
-            <div class="section-header">
-                <div class="section-label">سازهای آموزشی</div>
-                <h2 class="section-title">از پیانو تا گیتار بیس, هر ساز یک مسیر حرفه ای</h2>
-                <p class="section-description">
-                    آموزش تخصصی برای هنرجویان کودک, نوجوان و بزرگسال با متدهای روز و تمرین های هدفمند.
-                </p>
-            </div>
-            <div class="instruments-grid">
-                <div class="instrument-card">
-                    <div class="instrument-icon">♪</div>
-                    <div class="instrument-name">پیانو</div>
-                    <div class="instrument-meta">کلاس خصوصی و تکنیک محور</div>
-                </div>
-                <div class="instrument-card">
-                    <div class="instrument-icon">♪</div>
-                    <div class="instrument-name">ارگ</div>
-                    <div class="instrument-meta">ریتم, آکورد و اجرای زنده</div>
-                </div>
-                <div class="instrument-card">
-                    <div class="instrument-icon">♪</div>
-                    <div class="instrument-name">ملودیکا</div>
-                    <div class="instrument-meta">مناسب کودکان و شروع سریع</div>
-                </div>
-                <div class="instrument-card">
-                    <div class="instrument-icon">♪</div>
-                    <div class="instrument-name">بلز</div>
-                    <div class="instrument-meta">تقویت ریتم و گوش موسیقایی</div>
-                </div>
-                <div class="instrument-card">
-                    <div class="instrument-icon">♪</div>
-                    <div class="instrument-name">کالیمبا</div>
-                    <div class="instrument-meta">ملودی های آرامش بخش</div>
-                </div>
-                <div class="instrument-card">
-                    <div class="instrument-icon">♪</div>
-                    <div class="instrument-name">ویولن</div>
-                    <div class="instrument-meta">آموزش کلاسیک و مدرن</div>
-                </div>
-                <div class="instrument-card">
-                    <div class="instrument-icon">♪</div>
-                    <div class="instrument-name">گیتار آکوستیک</div>
-                    <div class="instrument-meta">ریتم و پیکینگ دقیق</div>
-                </div>
-                <div class="instrument-card">
-                    <div class="instrument-icon">♪</div>
-                    <div class="instrument-name">گیتار نایلون</div>
-                    <div class="instrument-meta">آموزش کلاسیک با نت خوانی</div>
-                </div>
-                <div class="instrument-card">
-                    <div class="instrument-icon">♪</div>
-                    <div class="instrument-name">گیتار الکتریک</div>
-                    <div class="instrument-meta">راک, بلوز و تکنیک های پیشرفته</div>
-                </div>
-                <div class="instrument-card">
-                    <div class="instrument-icon">♪</div>
-                    <div class="instrument-name">گیتار بیس</div>
-                    <div class="instrument-meta">گروو و بندنوازی حرفه ای</div>
-                </div>
+            <div>
+                <h4 class="footer-title">ارتباط</h4>
+                <ul class="footer-links">
+                    <li><a href="tel:09013348988">۰۹۰۱۳۳۴۸۹۸۸</a></li>
+                    <li>
+                        <a href="https://ble.ir/maminma" target="_blank" rel="noopener" class="social-link-bale">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="display:inline-block;vertical-align:middle;margin-left:4px;">
+                                <circle cx="12" cy="12" r="11" fill="#1AA1DC"/>
+                                <path d="M17.6 7.2 6.9 11.4c-.7.3-.7.7 0 1l2.7.9 1 3.3c.1.4.5.5.8.2l1.5-1.4 2.6 1.9c.5.4 1 .1 1.1-.4L18 7.8c.1-.5-.2-.8-.4-.6Z" fill="#fff"/>
+                            </svg>
+                            بله
+                        </a>
+                        ·
+                        <a href="https://eitaa.com/maminma" target="_blank" rel="noopener" class="social-link-eitaa">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="display:inline-block;vertical-align:middle;margin-left:4px;">
+                                <circle cx="12" cy="12" r="11" fill="#149945"/>
+                                <path d="M17.6 7.2 6.9 11.4c-.7.3-.7.7 0 1l2.7.9 1 3.3c.1.4.5.5.8.2l1.5-1.4 2.6 1.9c.5.4 1 .1 1.1-.4L18 7.8c.1-.5-.2-.8-.4-.6Z" fill="#fff"/>
+                            </svg>
+                            ایتا
+                        </a>
+                    </li>
+                    <li>اصفهان، دروازه دولت، چهارباغ پایین</li>
+                    <li>a.aghakabiri@gmail.com</li>
+                </ul>
             </div>
         </div>
-    </section>
-
-    <!-- Features Section -->
-    <section class="features" id="features">
-        <div class="section-container">
-            <div class="section-header">
-                <div class="section-label">امکانات آموزشی</div>
-                <h2 class="section-title">همه ابزارهای لازم برای مدیریت هنرجو و کلاس</h2>
-                <p class="section-description">
-                    پلتفرم هم نوا ترکیبی از تجربه آموزشی, برنامه ریزی دقیق و گزارش دهی شفاف است.
-                </p>
-            </div>
-            <div class="features-grid">
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                             stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M11.5 2a8.5 8.5 0 0 1 0 17v3l-3-3-3 3v-3a8.5 8.5 0 0 1 6-16z" />
-                            <circle cx="11.5" cy="10.5" r="3" />
-                            <path d="M11.5 7.5v-2M14.5 10.5h2M11.5 13.5v2M8.5 10.5h-2" />
-                        </svg>
-                    </div>
-                    <h3>پنل هنرجو</h3>
-                    <p>پروفایل کامل با سطح هنرجو, ساز آموزشی, تمرین ها و گزارش های شخصی.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                             stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                            <rect x="2" y="4" width="20" height="14" rx="2" />
-                            <circle cx="12" cy="11" r="3" />
-                            <path d="M10.5 9.5l4 3-4 3z" fill="currentColor" />
-                        </svg>
-                    </div>
-                    <h3>برنامه تمرین هفتگی</h3>
-                    <p>تمرین های هدفمند با ویدیو, نت و تمرین های شنیداری برای هر هنرجو.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                             stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                            <path
-                            d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83" />
-                            <circle cx="12" cy="12" r="4" />
-                            <path d="M12 8v4l2 2" />
-                        </svg>
-                    </div>
-                    <h3>گزارش پیشرفت هنرجو</h3>
-                    <p>رشد مهارت, زمان تمرین و حضور و غیاب به صورت دقیق و قابل پیگیری.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                             stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M9 18V5l12-2v13" />
-                            <circle cx="6" cy="18" r="3" />
-                            <circle cx="18" cy="16" r="3" />
-                            <path d="M9 9l12-2" />
-                        </svg>
-                    </div>
-                    <h3>تقویم آموزشی</h3>
-                    <p>زمان بندی جلسات, رزرو کلاس و یادآوری های هوشمند برای هنرجو و مدرس.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                             stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3z" />
-                            <path d="M19 10v2a7 7 0 0 1-14 0v-2" />
-                            <line x1="12" y1="19" x2="12" y2="22" />
-                            <path d="M8 22h8" />
-                            <path d="M3 10l1.5 1.5M21 10l-1.5 1.5M3 14l1.5-1.5M21 14l-1.5-1.5" />
-                        </svg>
-                    </div>
-                    <h3>مدیریت شهریه</h3>
-                    <p>پرداخت آنلاین, اقساط, فاکتورهای شفاف و پیگیری مالی بدون خطا.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                             stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
-                            <circle cx="9" cy="7" r="4" />
-                            <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
-                            <path d="M16 3.13a4 4 0 0 1 0 7.75" />
-                        </svg>
-                    </div>
-                    <h3>پنل مدرسین</h3>
-                    <p>مدیریت هنرجویان, ثبت یادداشت آموزشی و طراحی مسیر پیشرفت برای هر کلاس.</p>
-                </div>
-            </div>
+        <div class="footer-bottom">
+            <span>© ۲۰۲۶ هم نوا. همه حقوق محفوظ است.</span>
+            <span>طراحی و توسعه: تیم هم نوا</span>
         </div>
-    </section>
+    </div>
+</footer>
 
-    <!-- Golden Festival Section -->
-    <section class="festival festival-golden" id="golden-festival">
-        <div class="section-container festival-layout">
-            <div class="festival-content">
-                <div class="festival-badge">جشنواره طلایی هم نوا</div>
-                <h2 class="festival-title">پایان بهار را با موسیقی جشن بگیر</h2>
-                <p class="festival-description">
-                    تخفیف ویژه کلاس های خصوصی موسیقی به مناسبت پایان فصل بهار. همین حالا ثبت نام کن و
-                    با شرایط اختصاصی جشنواره طلایی, مسیر یادگیری را آغاز کن.
-                </p>
-                <div class="festival-actions">
-                    <a href="#pricing" class="btn-primary">ثبت نام جشنواره</a>
-                    <a href="#cta" class="btn-secondary">رزرو جلسه آزمایشی</a>
-                </div>
-                <div class="countdown">
-                    <div class="countdown-label">زمان باقی مانده تا پایان جشنواره</div>
-                    <div class="countdown-grid" aria-label="شمارش معکوس جشنواره">
-                        <div class="countdown-item">
-                            <div class="countdown-number">۱۰</div>
-                            <div class="countdown-text">روز</div>
-                        </div>
-                        <div class="countdown-item">
-                            <div class="countdown-number">۱۲</div>
-                            <div class="countdown-text">ساعت</div>
-                        </div>
-                        <div class="countdown-item">
-                            <div class="countdown-number">۴۵</div>
-                            <div class="countdown-text">دقیقه</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="festival-pricing">
-                <div class="festival-card">
-                    <div class="festival-card-header">
-                        <div class="festival-duration">۶۰ دقیقه آموزش خصوصی موسیقی</div>
-                        <span class="discount-pill">۴۰ درصد تخفیف</span>
-                    </div>
-                    <div class="festival-price">
-                        <span class="old-price">۶۰۰ هزار تومان</span>
-                        <span class="new-price">۳۶۰ هزار تومان</span>
-                    </div>
-                    <p class="festival-discount">۴۰ درصد تخفیف ویژه جشنواره طلایی هم نوا</p>
-                    <div class="festival-cta">
-                        <a href="#pricing" class="btn-primary">ثبت نام جشنواره</a>
-                        <a href="#cta" class="btn-secondary">مشاهده شرایط ثبت نام</a>
-                    </div>
-                </div>
-                <div class="festival-card featured">
-                    <div class="festival-card-header">
-                        <div class="festival-duration">۴۰ دقیقه آموزش خصوصی موسیقی</div>
-                        <span class="discount-pill">۶۰ درصد تخفیف</span>
-                    </div>
-                    <div class="festival-price">
-                        <span class="old-price">۱٬۲۰۰ هزار تومان</span>
-                        <span class="new-price">۴۸۰ هزار تومان</span>
-                    </div>
-                    <p class="festival-discount">۶۰ درصد تخفیف ویژه پایان بهار</p>
-                    <div class="festival-cta">
-                        <a href="#pricing" class="btn-primary">ثبت نام جشنواره</a>
-                        <a href="#cta" class="btn-secondary">رزرو جلسه آزمایشی</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+<!-- ─── FLOATING SUPPORT ─── -->
+<div class="floating-support" id="floatingSupport">
+     <div class="floating-menu" id="supportMenu" aria-hidden="true">
+        <a class="floating-item" href="tel:09013348988">📞 ۰۹۰۱۳۳۴۸۹۸۸</a>
+        <a class="floating-item" href="https://ble.ir/maminma" target="_blank" rel="noopener">💬 بله</a>
+        <a class="floating-item" href="https://eitaa.com/maminma" target="_blank" rel="noopener">💬 ایتا</a>
+    </div>
+    <button id="supportToggle" class="floating-btn" aria-label="تماس و پشتیبانی">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M6.6 10.8a15.05 15.05 0 006.6 6.6l2.2-2.2a1 1 0 011.1-.2c1.2.5 2.5.8 3.9.8a1 1 0 011 1v3.6a1 1 0 01-1 1C10.8 22 2 13.2 2 2a1 1 0 011-1H6.6a1 1 0 011 1c0 1.4.3 2.7.8 3.9a1 1 0 01-.2 1.1L6.6 10.8z" fill="#fff"/></svg>
+    </button>
+</div>
 
-    <!-- Student Success Section -->
-    <section class="student-success" id="success">
-        <div class="section-container success-grid">
-            <div class="success-content">
-                <div class="section-label">مسیر پیشرفت هنرجو</div>
-                <h2 class="section-title">هر جلسه یک قدم به مهارت واقعی</h2>
-                <p class="section-description">
-                    گزارش های شفاف, تمرین های دقیق و برنامه ریزی هوشمند, هنرجو را تا رسیدن به
-                    اجرای حرفه ای همراهی می کند.
-                </p>
-                <div class="success-list">
-                    <div class="success-item">
-                        <div class="success-title">سطح هنرجو</div>
-                        <div class="success-text">ارزیابی ماهانه و تعیین مسیر یادگیری بر اساس رشد واقعی.</div>
-                    </div>
-                    <div class="success-item">
-                        <div class="success-title">حضور و غیاب</div>
-                        <div class="success-text">ثبت خودکار جلسات و یادآوری زمان کلاس برای هنرجو و والدین.</div>
-                    </div>
-                    <div class="success-item">
-                        <div class="success-title">تمرین های هفتگی</div>
-                        <div class="success-text">تمرین های مرحله ای با بازخورد مدرس و پیگیری مستمر.</div>
-                    </div>
-                </div>
-            </div>
-            <div class="success-cards">
-                <div class="progress-card">
-                    <div class="progress-header">
-                        <span class="progress-title">گزارش هفتگی هنرجو</span>
-                        <span class="progress-tag">سطح متوسط</span>
-                    </div>
-                    <div class="progress-metric">
-                        <span>تمرین این هفته</span>
-                        <strong>۴ ساعت و ۲۰ دقیقه</strong>
-                    </div>
-                    <div class="progress-bars">
-                        <div class="progress-bar">
-                            <span>ریتم</span>
-                            <div class="bar-track">
-                                <div class="bar-fill" style="width: 78%"></div>
-                            </div>
-                        </div>
-                        <div class="progress-bar">
-                            <span>ملودی</span>
-                            <div class="bar-track">
-                                <div class="bar-fill" style="width: 64%"></div>
-                            </div>
-                        </div>
-                        <div class="progress-bar">
-                            <span>تکنیک</span>
-                            <div class="bar-track">
-                                <div class="bar-fill" style="width: 52%"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="progress-card">
-                    <div class="progress-header">
-                        <span class="progress-title">برنامه تمرین هفتگی</span>
-                        <span class="progress-tag">گیتار آکوستیک</span>
-                    </div>
-                    <div class="progress-metric">
-                        <span>جلسات پیش رو</span>
-                        <strong>۳ جلسه</strong>
-                    </div>
-                    <div class="progress-note">تمرین های پیشنهادی امروز: آرپژ, آکوردهای باز, ریتم ۴/۴</div>
-                </div>
-            </div>
-        </div>
-    </section>
+<script src="assets/js/templatemo-606-string-scripts.js" defer></script>
 
-    <!-- Instructors Section -->
-    <section class="instructors" id="instructors">
-        <div class="section-container">
-            <div class="section-header">
-                <div class="section-label">مدرسین هم نوا</div>
-                <h2 class="section-title">یادگیری با بهترین های موسیقی</h2>
-                <p class="section-description">
-                    تیم مدرسین هم نوا با تجربه اجرایی و آموزشی, هنرجو را تا اجرای حرفه ای همراهی می کنند.
-                </p>
-            </div>
-            <div class="instructors-grid">
-                <div class="instructor-card">
-                    <div class="instructor-image">
-                        <img src="assets/img/logo.webp" alt="نسترن هاشمی، مدرس پیانو در آموزشگاه موسیقی هم نوا اصفهان"
-                             loading="lazy" decoding="async">
-                    </div>
-                    <div class="instructor-name">نسترن هاشمی</div>
-                    <div class="instructor-role">مدرس پیانو</div>
-                    <p class="instructor-bio">۱۲ سال تجربه تدریس, اجرای صحنه و آموزش کودکان</p>
-                </div>
-                <div class="instructor-card">
-                    <div class="instructor-image">
-                        <img src="assets/img/logo.webp"
-                             alt="پیمان راد، مدرس گیتار الکتریک در آموزشگاه موسیقی هم نوا اصفهان" loading="lazy"
-                             decoding="async">
-                    </div>
-                    <div class="instructor-name">پیمان راد</div>
-                    <div class="instructor-role">مدرس گیتار الکتریک</div>
-                    <p class="instructor-bio">تخصص در بلوز و راک, مدرس دوره های پیشرفته</p>
-                </div>
-                <div class="instructor-card">
-                    <div class="instructor-image">
-                        <img src="assets/img/logo.webp" alt="یاسمن داوودی، مدرس ویولن در آموزشگاه موسیقی هم نوا اصفهان"
-                             loading="lazy" decoding="async">
-                    </div>
-                    <div class="instructor-name">یاسمن داوودی</div>
-                    <div class="instructor-role">مدرس ویولن</div>
-                    <p class="instructor-bio">فارغ التحصیل موسیقی کلاسیک, اجرای ارکسترال</p>
-                </div>
-                <div class="instructor-card">
-                    <div class="instructor-image">
-                        <img src="assets/img/logo.webp"
-                             alt="کیان بابایی، مدرس گیتار آکوستیک در آموزشگاه موسیقی هم نوا اصفهان" loading="lazy"
-                             decoding="async">
-                    </div>
-                    <div class="instructor-name">کیان بابایی</div>
-                    <div class="instructor-role">مدرس گیتار آکوستیک</div>
-                    <p class="instructor-bio">تخصص در ریتم نوازی و آماده سازی اجرا</p>
-                </div>
-            </div>
-        </div>
-    </section>
+<script>
+(function () {
+    /* ── Floating support toggle ── */
+    const supportBtn = document.getElementById('supportToggle');
+    const supportMenu = document.getElementById('supportMenu');
+    const supportRoot = document.getElementById('floatingSupport');
+    if (supportBtn) {
+        supportBtn.addEventListener('click', function () {
+            const isHidden = supportMenu.getAttribute('aria-hidden') === 'true';
+            supportMenu.setAttribute('aria-hidden', isHidden ? 'false' : 'true');
+            supportRoot.classList.toggle('open', isHidden);
+        });
+    }
 
-    <!-- Testimonials Section -->
-    <section class="testimonials" id="testimonials">
-        <div class="section-container">
-            <div class="section-header">
-                <div class="section-label">نظر هنرجویان</div>
-                <h2 class="section-title">تجربه هایی که از هم نوا شنیده می شود</h2>
-            </div>
-            <div class="testimonials-grid">
-                <div class="testimonial-card">
-                    <div class="testimonial-stars">★★★★★</div>
-                    <p class="testimonial-text">"با برنامه تمرین شخصی سازی شده هم نوا, توی سه ماه
-                        پیشرفت واقعی داشتم و بالاخره تونستم قطعه های موردعلاقه ام رو اجرا کنم."</p>
-                        <div class="testimonial-author">
-                            <div class="testimonial-avatar">
-                                <img src="assets/img/logo.webp" alt="سارا موسوی، هنرجوی پیانو در هم نوا اصفهان"
-                                     loading="lazy" decoding="async">
-                            </div>
-                            <div>
-                                <div class="testimonial-name">سارا موسوی</div>
-                                <div class="testimonial-title">هنرجوی پیانو, ۳ ماه</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="testimonial-card">
-                        <div class="testimonial-stars">★★★★★</div>
-                        <p class="testimonial-text">"گزارش های پیشرفت و حضور و غیاب خیلی دقیق بود. حس می کردم
-                            مسیر یادگیریم کاملا مشخصه و هر جلسه هدف دارم."</p>
-                            <div class="testimonial-author">
-                                <div class="testimonial-avatar">
-                                    <img src="assets/img/logo.webp" alt="آرین شریفی، هنرجوی گیتار الکتریک در هم نوا اصفهان"
-                                         loading="lazy" decoding="async">
-                                </div>
-                                <div>
-                                    <div class="testimonial-name">آرین شریفی</div>
-                                    <div class="testimonial-title">هنرجوی گیتار الکتریک, ۸ ماه</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="testimonial-card">
-                            <div class="testimonial-stars">★★★★★</div>
-                            <p class="testimonial-text">"به عنوان والدین, خیلی مهم بود که برنامه تمرین فرزندم شفاف باشه.
-                                هم نوا همه چیز رو مرتب و قابل پیگیری ارائه داد."</p>
-                                <div class="testimonial-author">
-                                    <div class="testimonial-avatar">
-                                        <img src="assets/img/logo.webp" alt="نازنین فراهانی، ولی هنرجوی ویولن در هم نوا اصفهان"
-                                             loading="lazy" decoding="async">
-                                    </div>
-                                    <div>
-                                        <div class="testimonial-name">نازنین فراهانی</div>
-                                        <div class="testimonial-title">ولی هنرجوی ویولن, ۶ ماه</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </section>
+    /* ── Modal logic ── */
+    const modal      = document.getElementById('contactModal');
+    const closeBtn   = document.getElementById('modalClose');
+    const form       = document.getElementById('contactForm');
+    const submitBtn  = document.getElementById('modalSubmit');
+    const msgEl      = document.getElementById('modalMsg');
+    const modalTitle = document.getElementById('modalTitle');
+    const subjectField = document.getElementById('cf-subject');
 
-                <!-- Interactive Practice Section -->
-                <section class="practice-lab" id="practice-lab">
-                    <div class="section-container">
-                        <div class="section-header">
-                            <div class="section-label">استودیو تمرین هم نوا</div>
-                            <h2 class="section-title">تمرین تعاملی گیتار, دقیق و موزیکال</h2>
-                            <p class="section-description">
-                                بعد از آشنایی با مسیر آموزشی و جشنواره ها, اینجا می توانی آکوردها و نت ها را به صورت تعاملی بشنوی و
-                                تمرین کنی.
-                            </p>
-                        </div>
-                        <div class="guitar-wrapper">
-                            <div class="guitar-card">
-                                <div class="guitar-header">
-                                    <span class="guitar-title">تمرین تعاملی ساز - یک آکورد را لمس کن</span>
-                                    <div class="guitar-controls">
-                                        <button class="chord-btn" data-chord="C">دو</button>
-                                        <button class="chord-btn" data-chord="G">سل</button>
-                                        <button class="chord-btn" data-chord="Am">لا مینور</button>
-                                        <button class="chord-btn" data-chord="F">فا</button>
-                                        <button class="chord-btn" data-chord="D">ر</button>
-                                        <button class="chord-btn" data-chord="Em">می مینور</button>
-                                    </div>
-                                </div>
-                                <div class="guitar-neck">
-                                    <div class="fretboard">
-                                        <div class="nut"></div>
-                                        <div class="fretboard-grid" id="fretboard">
-                                            <div class="string-labels">
-                                                <div class="string-label">می</div>
-                                                <div class="string-label">سی</div>
-                                                <div class="string-label">سل</div>
-                                                <div class="string-label">ر</div>
-                                                <div class="string-label">لا</div>
-                                                <div class="string-label">می</div>
-                                            </div>
-                                            <!-- Frets generated by JS -->
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="guitar-footer">
-                                    <div class="guitar-footer-row">
-                                        <span class="guitar-hint">فرت ها را لمس کن تا صدا را بشنوی</span>
-                                        <div class="footer-controls">
-                                            <button class="clear-btn" id="clearBtn">پاک سازی</button>
-                                            <div class="sound-toggle">
-                                                <span>صدا</span>
-                                                <div class="toggle-switch active" id="soundToggle"></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="song-player">
-                                        <button class="play-btn" id="playBtn">▶</button>
-                                        <div class="song-info">
-                                            <div class="song-title" id="songTitle">سلطان قلب ها</div>
-                                            <div class="song-progress">
-                                                <div class="song-progress-bar" id="progressBar"></div>
-                                            </div>
-                                        </div>
-                                        <select class="song-select" id="songSelect" aria-label="انتخاب قطعه تمرینی">
-                                            <option value="sultanGhalbha">سلطان قلب ها</option>
-                                            <option value="greensleeves">لالایی بهاری</option>
-                                            <option value="houseoftherisingsun">طلوع آرام</option>
-                                            <option value="amazinggrace">آواز امید</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </section>
+    function clearErrors() {
+        form.querySelectorAll('.modal-field.has-error').forEach(function (f) {
+            f.classList.remove('has-error');
+        });
+        msgEl.className = 'modal-msg';
+        msgEl.textContent = '';
+    }
 
-                <!-- Pricing Section -->
-                <section class="pricing" id="pricing">
-                    <div class="section-container">
-                        <div class="section-header">
-                            <div class="section-label">شهریه و ثبت نام</div>
-                            <h2 class="section-title">پلن های کلاس خصوصی هم نوا</h2>
-                            <p class="section-description">
-                                ۲ جلسه رایگان تئوری, استعداد یابی, جلسه مشاوره و کارگاه رایگان برای شروع مسیر.
-                            </p>
-                            <div class="pricing-contact" style="margin-top:0.8rem;">
-                                <a href="tel:09013348988">رزرو و مشاوره: ۰۹۰۱۳۳۴۸۹۸۸</a>
-                                &nbsp;•&nbsp;
-                                <a href="https://ble.ir/maminma" target="_blank" rel="noopener">بله</a>
-                                &nbsp;•&nbsp;
-                                <a href="https://eitaa.com/maminma" target="_blank" rel="noopener">ایتا</a>
-                            </div>
-                        </div>
-                        <div class="pricing-grid">
-                            <div class="pricing-card">
-                                <div class="pricing-name">شروع رایگان</div>
-                                <div class="pricing-price">
-                                    <span class="currency">رایگان</span>
-                                </div>
-                                <div class="pricing-billed">۲ جلسه رایگان تئوری + استعداد یابی + جلسه مشاوره</div>
-                                <div class="pricing-savings"></div>
-                                <p class="pricing-description">برای انتخاب ساز، سنجش سطح و شروع مطمئن با کارگاه رایگان</p>
-                                <ul class="pricing-features">
-                                    <li>۲ جلسه تئوری رایگان</li>
-                                    <li>استعداد یابی و تعیین سطح</li>
-                                    <li>جلسه مشاوره اولیه</li>
-                                    <li>کارگاه رایگان آشنایی با مسیر</li>
-                                    <li>انتخاب ساز بر اساس هدف هنرجو</li>
-                                </ul>
-                                <a href="#cta" class="pricing-btn">رزرو جلسه آزمایشی</a>
-                            </div>
-                            <div class="pricing-card featured">
-                                <div class="pricing-name">پلن ۲۰ دقیقه ای</div>
-                                <div class="pricing-price">
-                                    <span>۳۶۰٬۰۰۰</span>
-                                    <span class="currency">تومان</span>
-                                    <span class="period">جلسه ای</span>
-                                </div>
-                                <div class="pricing-billed">۴۰ درصد تخفیف | انتخاب اقتصادی و دقیق</div>
-                                <p class="pricing-description">مناسب برای مرور سریع، رفع اشکال هدفمند و تمرین متمرکز</p>
-                                <ul class="pricing-features">
-                                    <li>۲۰ دقیقه آموزش خصوصی</li>
-                                    <li>ترکیب کوتاه تئوری و عملی</li>
-                                    <li>رفع اشکال ریتم و انگشت گذاری</li>
-                                    <li>برنامه تمرین خلاصه و کاربردی</li>
-                                    <li>مناسب هنرجوی مبتدی و منظم</li>
-                                </ul>
-                                <a href="#cta" class="pricing-btn">رزرو این پلن</a>
-                            </div>
-                            <div class="pricing-card">
-                                <div class="pricing-name">پلن ۴۰ دقیقه ای</div>
-                                <div class="pricing-price">
-                                    <span>۴۸۰٬۰۰۰</span>
-                                    <span class="currency">تومان</span>
-                                    <span class="period">جلسه ای</span>
-                                </div>
-                                <div class="pricing-billed">۶۰ درصد تخفیف | مناسب رشد سریع و منظم</div>
-                                <p class="pricing-description">برای هنرجویی که هم تئوری می خواهد، هم اجرای عملی دقیق</p>
-                                <ul class="pricing-features">
-                                    <li>۴۰ دقیقه آموزش خصوصی</li>
-                                    <li>ترکیب تئوری، اجرا و شنیداری</li>
-                                    <li>تحلیل قطعه و اصلاح تکنیک</li>
-                                    <li>پیگیری پیشرفت بین جلسات</li>
-                                    <li>مناسب آماده سازی اجرا و تمرین جدی</li>
-                                </ul>
-                                <a href="#cta" class="pricing-btn">رزرو این پلن</a>
-                            </div>
-                            <div class="pricing-card">
-                                <div class="pricing-name">پلن ویژه</div>
-                                <div class="pricing-price">
-                                    <span>۹۰۰٬۰۰۰</span>
-                                    <span class="currency">تومان</span>
-                                    <span class="period">جلسه ای</span>
-                                </div>
-                                <div class="pricing-billed">ویژه هنرجویان جدی و اجرای حرفه ای</div>
-                                <div class="pricing-savings">پشتیبانی اختصاصی و برنامه شخصی</div>
-                                <p class="pricing-description">برای هنرجویانی که مسیر عمیق تر، تمرکز بیشتر و خروجی صحنه می خواهند
-                                </p>
-                                <ul class="pricing-features">
-                                    <li>جلسه اختصاصی</li>
-                                    <li>طراحی برنامه تئوری و عملی شخصی سازی شده</li>
-                                    <li>رفع اشکال دقیق روی تکنیک و موسیقیایی بودن</li>
-                                    <li>کوچینگ اجرای صحنه و اعتمادبه نفس</li>
-                                    <li>دسترسی به کارگاه های رایگان و رویدادهای آموزشی</li>
-                                </ul>
-                                <a href="#cta" class="pricing-btn">دریافت مشاوره ویژه</a>
-                            </div>
-                        </div>
-                    </div>
-                </section>
+    function setFieldError(fieldName, text) {
+        const field = form.querySelector('.modal-field[data-field="' + fieldName + '"]');
+        if (!field) return;
+        field.classList.add('has-error');
+        const errEl = field.querySelector('.field-error');
+        if (errEl && text) errEl.textContent = text;
+    }
 
-                <!-- Referral Festival Section -->
-                <section class="festival festival-referral" id="referral">
-                    <div class="section-container referral-grid">
-                        <div class="referral-content">
-                            <div class="festival-badge">جشنواره هم نوا | باهم بنوازیم</div>
-                            <h2 class="festival-title">دو در یک - یک ترم رایگان هدیه بگیر</h2>
-                            <p class="festival-description">
-                                هر هنرجویی که یک نفر را معرفی کند و فرد معرفی شده ثبت نام نهایی انجام دهد,
-                                یک ترم رایگان دریافت می کند.
-                            </p>
-                            <div class="festival-actions">
-                                <a href="#cta" class="btn-primary">دعوت از هنرجو</a>
-                                <a href="#pricing" class="btn-secondary">ثبت نام در جشنواره</a>
-                            </div>
-                            <div class="referral-note">دوستت را به هم نوا معرفی کن, باهم بنوازید و یک ترم رایگان هدیه بگیر!</div>
-                        </div>
-                        <div class="referral-card">
-                            <div class="referral-tag">کمپین دو در یک</div>
-                            <h3>چطور هدیه بگیری؟</h3>
-                            <ul>
-                                <li>فرم معرفی هنرجو را تکمیل کن.</li>
-                                <li>جلسه مشاوره برای دوستت رزرو می شود.</li>
-                                <li>بعد از ثبت نام نهایی, یک ترم رایگان برای تو فعال می شود.</li>
-                            </ul>
-                            <div class="referral-actions">
-                                <a href="#cta" class="btn-primary">دعوت از هنرجو</a>
-                                <a href="#faq" class="btn-secondary">مشاهده قوانین جشنواره</a>
-                            </div>
-                        </div>
-                    </div>
-                </section>
+    function openModal(subject) {
+        const finalSubject = subject || 'رزرو جلسه رایگان';
+        modalTitle.textContent = finalSubject;
+        subjectField.value = finalSubject;
+        clearErrors();
+        modal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+        setTimeout(function () { document.getElementById('cf-name').focus(); }, 100);
+    }
 
-                <!-- FAQ Section -->
-                <section class="faq" id="faq">
-                    <div class="section-container">
-                        <div class="section-header">
-                            <div class="section-label">پرسش های متداول</div>
-                            <h2 class="section-title">هر سوال مهم قبل از شروع, با پاسخ شفاف</h2>
-                            <p class="section-description">پاسخ های کوتاه و دقیق هم نوا برای اینکه با خیال راحت ثبت نام کنی.</p>
-                        </div>
-                        <div class="faq-accordion" id="faqAccordion" role="list">
-                            <article class="faq-item" role="listitem">
-                                <button class="faq-trigger" type="button" aria-expanded="false" aria-controls="faq-panel-1"
-                                        id="faq-trigger-1">
-                                    <span class="faq-question">جلسه آزمایشی هم نوا چطور برگزار می شود؟</span>
-                                    <span class="faq-icon" aria-hidden="true"></span>
-                                </button>
-                                <div class="faq-panel" id="faq-panel-1" role="region" aria-labelledby="faq-trigger-1">
-                                    <p>جلسه آزمایشی ما یک گفت و گوی <strong>اختصاصی و دوستانه</strong> با مدرس است؛ در همین جلسه سطح
-                                        فعلی, علاقه موسیقایی و مسیر پیشنهادی مشخص می شود تا شروعت <strong>با اطمینان و
-                                        آرامش</strong> باشد.</p>
-                                    </div>
-                                </article>
+    function closeModal() {
+        modal.classList.remove('active');
+        document.body.style.overflow = '';
+    }
 
-                                <article class="faq-item" role="listitem">
-                                    <button class="faq-trigger" type="button" aria-expanded="false" aria-controls="faq-panel-2"
-                                            id="faq-trigger-2">
-                                        <span class="faq-question">آیا قبل از ثبت نام, مشاوره یا استعداد یابی دارید؟</span>
-                                        <span class="faq-icon" aria-hidden="true"></span>
-                                    </button>
-                                    <div class="faq-panel" id="faq-panel-2" role="region" aria-labelledby="faq-trigger-2">
-                                        <p>بله, پیش از شروع کلاس یک جلسه <strong>رایگان استعدادیابی و مشاوره حضوری</strong> برگزار می
-                                            کنیم تا متناسب با سن, توانایی و هدف هنرجو, بهترین ساز و مسیر آموزشی انتخاب شود.</p>
-                                        </div>
-                                    </article>
+    document.querySelectorAll('.open-modal').forEach(function (el) {
+        el.addEventListener('click', function () {
+            openModal(this.dataset.subject);
+        });
+    });
 
-                                    <article class="faq-item" role="listitem">
-                                        <button class="faq-trigger" type="button" aria-expanded="false" aria-controls="faq-panel-3"
-                                                id="faq-trigger-3">
-                                            <span class="faq-question">برای چه سنی آموزش مناسب است؟</span>
-                                            <span class="faq-icon" aria-hidden="true"></span>
-                                        </button>
-                                        <div class="faq-panel" id="faq-panel-3" role="region" aria-labelledby="faq-trigger-3">
-                                            <p>برای کودکان از حدود <strong>۵ سالگی</strong> تا <strong>۶۰ سالگی</strong> کلاس داریم و برنامه
-                                                هر سن با روش های متناسب همان رده طراحی می شود تا یادگیری, هم موثر باشد و هم لذت بخش.</p>
-                                            </div>
-                                        </article>
+    closeBtn.addEventListener('click', closeModal);
 
-                                        <article class="faq-item" role="listitem">
-                                            <button class="faq-trigger" type="button" aria-expanded="false" aria-controls="faq-panel-4"
-                                                    id="faq-trigger-4">
-                                                <span class="faq-question">چه سازهایی در هم نوا آموزش داده می شود؟</span>
-                                                <span class="faq-icon" aria-hidden="true"></span>
-                                            </button>
-                                            <div class="faq-panel" id="faq-panel-4" role="region" aria-labelledby="faq-trigger-4">
-                                                <p>آموزش تخصصی پیانو, ارگ, ملودیکا, بلز, کالیمبا, ویولن و خانواده کامل گیتار (آکوستیک, نایلون,
-                                                    الکتریک, بیس) ارائه می شود؛ انتخاب نهایی بر اساس <strong>علاقه, سن و هدف هنرجو</strong>
-                                                    انجام می گیرد.</p>
-                                                </div>
-                                            </article>
+    modal.addEventListener('click', function (e) {
+        if (e.target === modal) closeModal();
+    });
 
-                                            <article class="faq-item" role="listitem">
-                                                <button class="faq-trigger" type="button" aria-expanded="false" aria-controls="faq-panel-5"
-                                                        id="faq-trigger-5">
-                                                    <span class="faq-question">چه تضمینی برای یادگیری کامل وجود دارد؟</span>
-                                                    <span class="faq-icon" aria-hidden="true"></span>
-                                                </button>
-                                                <div class="faq-panel" id="faq-panel-5" role="region" aria-labelledby="faq-trigger-5">
-                                                    <p>تعهد ما روشن است: اگر هنرجو در پایان ترم, مهارت ها و قطعات همان سطح را با تسلط مطلوب اجرا
-                                                        نکند, <strong>جلسات تکمیلی رایگان</strong> برگزار می شود تا یادگیری با کیفیت کامل تثبیت شود.
-                                                    </p>
-                                                </div>
-                                            </article>
+    document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && modal.classList.contains('active')) closeModal();
+    });
 
-                                            <article class="faq-item" role="listitem">
-                                                <button class="faq-trigger" type="button" aria-expanded="false" aria-controls="faq-panel-6"
-                                                        id="faq-trigger-6">
-                                                    <span class="faq-question">آیا امکان تغییر زمان کلاس وجود دارد؟</span>
-                                                    <span class="faq-icon" aria-hidden="true"></span>
-                                                </button>
-                                                <div class="faq-panel" id="faq-panel-6" role="region" aria-labelledby="faq-trigger-6">
-                                                    <p>بله, در صورت نیاز و با هماهنگی مدرس, جابه جایی زمان کلاس انجام می شود تا برنامه آموزشی هنرجو
-                                                        با شرایط واقعی زندگی هماهنگ بماند.</p>
-                                                    </div>
-                                                </article>
+    // Clear a field's error state as the person types
+    ['Name', 'Phone', 'Message'].forEach(function (fieldName) {
+        const input = form.querySelector('[name="' + fieldName + '"]');
+        if (input) {
+            input.addEventListener('input', function () {
+                const field = form.querySelector('.modal-field[data-field="' + fieldName + '"]');
+                if (field) field.classList.remove('has-error');
+            });
+        }
+    });
 
-                                                <article class="faq-item" role="listitem">
-                                                    <button class="faq-trigger" type="button" aria-expanded="false" aria-controls="faq-panel-7"
-                                                            id="faq-trigger-7">
-                                                        <span class="faq-question">شهریه و پرداخت چگونه انجام می شود؟</span>
-                                                        <span class="faq-icon" aria-hidden="true"></span>
-                                                    </button>
-                                                    <div class="faq-panel" id="faq-panel-7" role="region" aria-labelledby="faq-trigger-7">
-                                                        <p>پرداخت شهریه به صورت <strong>آنلاین و شفاف</strong> انجام می شود و امکان انتخاب بازه پرداخت
-                                                            ماهانه یا ترمی وجود دارد. پس از پرداخت نیز رسید و گزارش مالی در اختیار شما قرار می گیرد.</p>
-                                                        </div>
-                                                    </article>
+    /* ── Client-side validation ── */
+    function normalizePhone(value) {
+        const persian = '۰۱۲۳۴۵۶۷۸۹';
+        const arabic  = '٠١٢٣٤٥٦٧٨٩';
+        return value.replace(/[۰-۹٠-٩]/g, function (ch) {
+            let idx = persian.indexOf(ch);
+            if (idx === -1) idx = arabic.indexOf(ch);
+            return idx !== -1 ? String(idx) : ch;
+        }).replace(/\s|-/g, '');
+    }
 
-                                                    <article class="faq-item" role="listitem">
-                                                        <button class="faq-trigger" type="button" aria-expanded="false" aria-controls="faq-panel-8"
-                                                                id="faq-trigger-8">
-                                                            <span class="faq-question">اگر هنرجو ادامه ندهد, هزینه چه می شود؟</span>
-                                                            <span class="faq-icon" aria-hidden="true"></span>
-                                                        </button>
-                                                        <div class="faq-panel" id="faq-panel-8" role="region" aria-labelledby="faq-trigger-8">
-                                                            <p>در صورت توقف دوره به هر دلیل, هزینه جلسات استفاده نشده ترم به صورت <strong>کامل و
-                                                                شفاف</strong> بازگشت داده می شود تا با خیال راحت تصمیم بگیرید.</p>
-                                                            </div>
-                                                        </article>
+    function validateForm() {
+        clearErrors();
+        let valid = true;
 
-                                                        <article class="faq-item" role="listitem">
-                                                            <button class="faq-trigger" type="button" aria-expanded="false" aria-controls="faq-panel-9"
-                                                                    id="faq-trigger-9">
-                                                                <span class="faq-question">برای ترس از اجرا و مهارت صحنه چه برنامه ای دارید؟</span>
-                                                                <span class="faq-icon" aria-hidden="true"></span>
-                                                            </button>
-                                                            <div class="faq-panel" id="faq-panel-9" role="region" aria-labelledby="faq-trigger-9">
-                                                                <p>برای هنرجویان در سطوح مختلف, اجراها و <strong>کنسرت های آموزشی رایگان</strong> برگزار می شود
-                                                                    تا اعتمادبه نفس اجرا, مدیریت استرس و تجربه واقعی صحنه به شکل حرفه ای تقویت شود.</p>
-                                                                </div>
-                                                            </article>
+        const name = form.querySelector('[name="Name"]').value.trim();
+        if (!name) {
+            setFieldError('Name', 'نام الزامی است');
+            valid = false;
+        } else if (name.length > 200) {
+            setFieldError('Name', 'نام نباید بیشتر از ۲۰۰ کاراکتر باشد');
+            valid = false;
+        }
 
-                                                            <article class="faq-item" role="listitem">
-                                                                <button class="faq-trigger" type="button" aria-expanded="false" aria-controls="faq-panel-10"
-                                                                        id="faq-trigger-10">
-                                                                    <span class="faq-question">آیا آموزش تئوری موسیقی هم ارائه می شود؟</span>
-                                                                    <span class="faq-icon" aria-hidden="true"></span>
-                                                                </button>
-                                                                <div class="faq-panel" id="faq-panel-10" role="region" aria-labelledby="faq-trigger-10">
-                                                                    <p>بله, هنرجویان جدید علاوه بر کلاس عملی, از <strong>۲ جلسه رایگان آموزش تئوری موسیقی</strong>
-                                                                        بهره مند می شوند تا مبانی ریتم, نت خوانی و درک موسیقی را اصولی تر شروع کنند.</p>
-                                                                    </div>
-                                                                </article>
+        const phoneInput = form.querySelector('[name="Phone"]');
+        const normalizedPhone = normalizePhone(phoneInput.value.trim());
+        if (!normalizedPhone) {
+            setFieldError('Phone', 'شماره تماس الزامی است');
+            valid = false;
+        } else {
+            phoneInput.value = normalizedPhone;
+        }
 
-                                                                <article class="faq-item" role="listitem">
-                                                                    <button class="faq-trigger" type="button" aria-expanded="false" aria-controls="faq-panel-11"
-                                                                            id="faq-trigger-11">
-                                                                        <span class="faq-question">تخفیف ها و ارتباط با پشتیبانی چگونه است؟</span>
-                                                                        <span class="faq-icon" aria-hidden="true"></span>
-                                                                    </button>
-                                                                    <div class="faq-panel" id="faq-panel-11" role="region" aria-labelledby="faq-trigger-11">
-                                                                        <p>با معرفی دوستان در طرح <strong>دو در یک | باهم بنوازیم</strong> می توانید یک ترم رایگان
-                                                                            دریافت
-                                                                            کنید. برای اطلاع از جشنواره ها و کارگاه های رایگان یا پشتیبانی سریع با ما تماس بگیرید:
-                                                                            <a href="tel:09013348988">۰۹۰۱۳۳۴۸۹۸۸</a> —
-                                                                            <a href="https://ble.ir/maminma" target="_blank" rel="noopener">بله</a>
-                                                                            — <a href="https://eitaa.com/maminma" target="_blank" rel="noopener">ایتا</a>
-                                                                        </p>
-                                                                    </div>
-                                                                </article>
-                                                            </div>
-                                                        </div>
-                                                    </section>
+        if (!subjectField.value || !subjectField.value.trim()) {
+            subjectField.value = 'رزرو جلسه رایگان';
+        }
 
-                                                    <!-- CTA Section -->
-                                                    <section class="cta" id="cta">
-                                                        <div class="section-container cta-content">
-                                                            <h2>اماده ای مسیر هنری ات را شروع کنی؟</h2>
-                                                            <p>هم نوا کنار توست تا با برنامه ریزی دقیق و مدرسین حرفه ای, موسیقی را عمیق و اصولی یاد بگیری.</p>
-                                                            <div class="cta-benefits">
-                                                                <span>شروع با مشاوره تخصصی و استعدادیابی رایگان</span>
-                                                                <span>تضمین یادگیری تا تسلط کامل</span>
-                                                                <span>معرفی دوست = یک ترم رایگان</span>
-                                                            </div>
-                                                            <div class="cta-actions">
-                                                                <a href="#pricing" class="btn-primary">رزرو جلسه آزمایشی</a>
-                                                                <a href="#golden-festival" class="btn-secondary">شرایط جشنواره طلایی</a>
-                                                            </div>
-                                                        </div>
-                                                    </section>
+        const message = form.querySelector('[name="Message"]').value;
+        if (message.length > 2000) {
+            setFieldError('Message', 'توضیحات نباید بیشتر از ۲۰۰۰ کاراکتر باشد');
+            valid = false;
+        }
 
-                                                    <!-- Contact Section -->
-                                                    <section class="contact" id="contact">
-                                                        <div class="section-container">
-                                                            <div class="section-header align-start">
-                                                                <div class="section-label">تماس با هم نوا</div>
-                                                                <h2 class="section-title">تماس، پشتیبانی و آدرس آموزشگاه موسیقی هم نوا در اصفهان</h2>
-                                                                <p class="section-description">تماس سریع برای مشاوره، ثبت‌نام و پشتیبانی در آموزشگاه موسیقی اصفهان</p>
-                                                            </div>
-                                                            <div class="section-grid contact-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;">
-                                                                <div class="contact-card">
-                                                                    <h4>تماس و مشاوره</h4>
-                                                                    <p><a href="tel:09013348988">۰۹۰۱۳۳۴۸۹۸۸</a> — رزرو جلسه آزمایشی و پشتیبانی</p>
-                                                                    <p>
-                                                                        <a href="https://ble.ir/maminma" target="_blank" rel="noopener">بله: maminma</a>
-                                                                        — <a href="https://eitaa.com/maminma" target="_blank" rel="noopener">ایتا: maminma</a>
-                                                                    </p>
-                                                                </div>
-                                                                <div class="contact-card">
-                                                                    <h4>آدرس</h4>
-                                                                    <p class="contact-address">اصفهان، دروازه دولت، خیابان چهارباغ پایین، جنب هتل پیروزی، طبقه بالا،
-                                                                        واحد ۴، مجموعه هم نوا</p>
-                                                                        <p><a href="https://www.google.com/maps/search/?api=1&query=%D8%A7%D8%B5%D9%81%D9%87%D8%A7%D9%86%2C+%D8%AF%D8%B1%D9%88%D8%A7%D8%B2%D9%87+%D8%AF%D9%88%D9%84%D8%AA%2C+%D8%AE%DB%8C%D8%A7%D8%A8%D8%A7%D9%86+%DA%86%D9%87%D8%A7%D8%B1%D8%A8%D8%A7%D8%BA+%D9%BE%D8%A7%DB%8C%DB%8C%D9%86"
-                                                                                  target="_blank" rel="noopener">نمایش در نقشه</a></p>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </section>
+        return valid;
+    }
 
-                                                            <script type="application/ld+json">
-                                                            @Html.Raw(System.Text.Json.JsonSerializer.Serialize(new
-                                                            {
-                                                                    @context = "https://schema.org",
-                                                                    @type = "EducationalOrganization",
-                                                                    name = "هم نوا",
-                                                                    alternateName = new[] { "همنوا", "آموزشگاه هم نوا" },
-                                                                    url = canonicalUrl,
-                                                                    logo = $"{baseUrl}/assets/img/logo.webp",
-                                                                    image = $"{baseUrl}/assets/img/logo.webp",
-                                                                    description = pageDescription,
-                                                                    telephone = "+989013348988",
-                                                                    email = "a.aghakabiri@gmail.com",
-                                                                    address = new
-                                                                    {
-                                                                            @type = "PostalAddress",
-                                                                            streetAddress = "دروازه دولت، خیابان چهارباغ پایین، جنب هتل پیروزی، طبقه بالا، واحد ۴",
-                                                                            addressLocality = "اصفهان",
-                                                                            addressRegion = "Isfahan",
-                                                                            addressCountry = "IR"
-                                                                    },
-                                                                    areaServed = new[] { "اصفهان", "دروازه دولت", "چهارباغ پایین" },
-                                                                    sameAs = new[] { "https://ble.ir/maminma", "https://eitaa.com/maminma" }
-                                                            }))
-                                                            </script>
+    /* ── Form submission ── */
+    form.addEventListener('submit', async function (e) {
+        e.preventDefault();
 
-                                                            <script type="application/ld+json">
-                                                            @Html.Raw(System.Text.Json.JsonSerializer.Serialize(new
-                                                            {
-                                                                    @context = "https://schema.org",
-                                                                    @type = "FAQPage",
-                                                                    mainEntity = new object[]
-                                                                    {
-            new { @type = "Question", name = "جلسه آزمایشی هم نوا چطور برگزار می شود؟", acceptedAnswer = new { @type = "Answer", text = "جلسه آزمایشی ما یک گفت و گوی اختصاصی و دوستانه با مدرس است که در آن سطح فعلی، علاقه موسیقایی و مسیر پیشنهادی مشخص می شود." } },
-            new { @type = "Question", name = "آیا قبل از ثبت نام، مشاوره یا استعداد یابی دارید؟", acceptedAnswer = new { @type = "Answer", text = "بله، پیش از شروع کلاس یک جلسه رایگان استعدادیابی و مشاوره حضوری برگزار می شود تا متناسب با سن، توانایی و هدف هنرجو بهترین مسیر انتخاب شود." } },
-            new { @type = "Question", name = "برای چه سنی آموزش مناسب است؟", acceptedAnswer = new { @type = "Answer", text = "برای کودکان از حدود ۵ سالگی تا ۶۰ سالگی کلاس داریم و برنامه هر سن با روش های متناسب همان رده طراحی می شود." } },
-            new { @type = "Question", name = "چه سازهایی در هم نوا آموزش داده می شود؟", acceptedAnswer = new { @type = "Answer", text = "آموزش تخصصی پیانو، ارگ، ملودیکا، بلز، کالیمبا، ویولن و خانواده کامل گیتار ارائه می شود." } },
-            new { @type = "Question", name = "چه تضمینی برای یادگیری کامل وجود دارد؟", acceptedAnswer = new { @type = "Answer", text = "اگر هنرجو در پایان ترم مهارت های سطح را با تسلط مطلوب اجرا نکند، جلسات تکمیلی رایگان برگزار می شود." } },
-            new { @type = "Question", name = "آیا امکان تغییر زمان کلاس وجود دارد؟", acceptedAnswer = new { @type = "Answer", text = "بله، در صورت نیاز و با هماهنگی مدرس، جابه جایی زمان کلاس انجام می شود." } },
-            new { @type = "Question", name = "شهریه و پرداخت چگونه انجام می شود؟", acceptedAnswer = new { @type = "Answer", text = "پرداخت شهریه به صورت آنلاین و شفاف انجام می شود و امکان انتخاب بازه پرداخت ماهانه یا ترمی وجود دارد." } },
-            new { @type = "Question", name = "اگر هنرجو ادامه ندهد، هزینه چه می شود؟", acceptedAnswer = new { @type = "Answer", text = "در صورت توقف دوره، هزینه جلسات استفاده نشده ترم به صورت کامل و شفاف بازگشت داده می شود." } },
-            new { @type = "Question", name = "برای ترس از اجرا و مهارت صحنه چه برنامه ای دارید؟", acceptedAnswer = new { @type = "Answer", text = "برای هنرجویان در سطوح مختلف، اجراها و کنسرت های آموزشی رایگان برگزار می شود تا اعتماد به نفس اجرا تقویت شود." } },
-            new { @type = "Question", name = "آیا آموزش تئوری موسیقی هم ارائه می شود؟", acceptedAnswer = new { @type = "Answer", text = "بله، هنرجویان جدید علاوه بر کلاس عملی، از ۲ جلسه رایگان آموزش تئوری موسیقی بهره مند می شوند." } },
-            new { @type = "Question", name = "تخفیف ها و ارتباط با پشتیبانی چگونه است؟", acceptedAnswer = new { @type = "Answer", text = "برای اطلاع از جشنواره ها و کارگاه های رایگان یا پشتیبانی سریع می توانید از تلفن، بله یا ایتا با ما در ارتباط باشید." } }
-                                                                    }
-                                                            }))
-                                                            </script>
+        if (!validateForm()) {
+            showMsg('لطفاً خطاهای فرم را برطرف کن.', 'error');
+            return;
+        }
 
-                                                            <!-- Footer -->
-                                                            <footer>
-                                                                <div class="footer-container">
-                                                                    <div class="footer-grid">
-                                                                        <div class="footer-brand">
-                                                                            <a href="#home" class="logo">
-                                                                                <div class="logo-icon">♪</div>
-                                                                                <div class="logo-text">
-                                                                                    <span class="logo-title">هم نوا</span>
-                                                                                    <span class="logo-tagline">باهم بنوازیم</span>
-                                                                                </div>
-                                                                            </a>
-                                                                            <p>آموزشگاه موسیقی هم نوا در اصفهان با تمرکز بر آموزش حرفه ای، مدیریت هنرجو و تجربه ای الهام بخش.
-                                                                            </p>
-                                                                        </div>
-                                                                        <div>
-                                                                            <h4 class="footer-title">خدمات آموزشی</h4>
-                                                                            <ul class="footer-links">
-                                                                                <li><a href="#features">مدیریت هنرجویان</a></li>
-                                                                                <li><a href="#pricing">شهریه و ثبت نام</a></li>
-                                                                                <li><a href="#instruments">سازهای آموزشی</a></li>
-                                                                                <li><a href="#success">گزارش پیشرفت</a></li>
-                                                                            </ul>
-                                                                        </div>
-                                                                        <div>
-                                                                            <h4 class="footer-title">جشنواره ها</h4>
-                                                                            <ul class="footer-links">
-                                                                                <li><a href="#golden-festival">جشنواره طلایی هم نوا</a></li>
-                                                                                <li><a href="#referral">جشنواره دو در یک</a></li>
-                                                                                <li><a href="#faq">پرسش های متداول</a></li>
-                                                                                <li><a href="#cta">رزرو جلسه آزمایشی</a></li>
-                                                                            </ul>
-                                                                        </div>
-                                                                        <div>
-                                                                            <h4 class="footer-title">ارتباط با ما</h4>
-                                                                            <ul class="footer-links">
-                                                                                <li>تلفن: <a href="tel:09013348988">۰۹۰۱۳۳۴۸۹۸۸</a></li>
-                                                                                <li>بله / ایتا: <a href="https://ble.ir/maminma" target="_blank" rel="noopener">بله</a> •
-                                                                                    <a href="https://eitaa.com/maminma" target="_blank" rel="noopener">ایتا</a>
-                                                                                </li>
-                                                                                <li>آدرس: اصفهان، دروازه دولت، خیابان چهارباغ پایین، جنب هتل پیروزی</li>
-                                                                                <li>ایمیل: a.aghakabiri@gmail.com</li>
-                                                                            </ul>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="footer-bottom">
-                                                                        <span>© ۲۰۲۶ هم نوا. همه حقوق محفوظ است.</span>
-                                                                        <span>طراحی و توسعه: تیم هم نوا</span>
-                                                                    </div>
-                                                                </div>
-                                                            </footer>
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'در حال ارسال...';
+        msgEl.className = 'modal-msg';
+        msgEl.textContent = '';
 
-                                                            <!-- Floating Support Button -->
-                                                            <div class="floating-support" id="floatingSupport" aria-hidden="false">
-                                                                <button id="supportToggle" class="floating-btn" aria-label="تماس و پشتیبانی">
-                                                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                                        <path
-                                                                        d="M6.6 10.8a15.05 15.05 0 006.6 6.6l2.2-2.2a1 1 0 011.1-.2c1.2.5 2.5.8 3.9.8a1 1 0 011 1v3.6a1 1 0 01-1 1C10.8 22 2 13.2 2 2a1 1 0 011-1H6.6a1 1 0 011 1c0 1.4.3 2.7.8 3.9a1 1 0 01-.2 1.1L6.6 10.8z"
-                                                                        fill="#fff" />
-                                                                    </svg>
-                                                                </button>
-                                                                <div class="floating-menu" id="supportMenu" aria-hidden="true">
-                                                                    <a class="floating-item" href="tel:09013348988">📞 تماس: ۰۹۰۱۳۳۴۸۹۸۸</a>
-                                                                    <a class="floating-item" href="https://ble.ir/maminma" target="_blank" rel="noopener">💬 بله</a>
-                                                                    <a class="floating-item" href="https://eitaa.com/maminma" target="_blank" rel="noopener">💬 ایتا</a>
-                                                                </div>
-                                                            </div>
+        try {
+            const formData = new FormData(form);
+            const resp = await fetch('/Contact/SubmitForm', {
+                method: 'POST',
+                body: formData
+            });
+            const data = await resp.json();
+            if (data.success) {
+                showMsg('✓ پیام شما ارسال شد. به‌زودی با شما تماس می‌گیریم.', 'success');
+                form.reset();
+                setTimeout(closeModal, 3000);
+            } else {
+                showMsg(data.message || 'خطا در ارسال. لطفاً دوباره تلاش کنید.', 'error');
+            }
+        } catch (err) {
+            showMsg('مشکل در اتصال. لطفاً با تلفن تماس بگیرید.', 'error');
+        } finally {
+            submitBtn.disabled = false;
+            submitBtn.textContent = 'ارسال و رزرو جلسه';
+        }
+    });
 
-                                                            <script>
-                                                                    (function () {
-                                                                        const btn = document.getElementById('supportToggle');
-                                                                        const menu = document.getElementById('supportMenu');
-                                                                        const root = document.getElementById('floatingSupport');
-                                                                        if (btn && menu) {
-                                                                            btn.addEventListener('click', function (e) {
-                                                                                const isHidden = menu.getAttribute('aria-hidden') === 'true';
-                                                                                menu.setAttribute('aria-hidden', isHidden ? 'false' : 'true');
-                                                                                root.classList.toggle('open', isHidden);
-                                                                            });
-                                                                        }
-                                                                    })();
-                                                            </script>
+    function showMsg(text, type) {
+        msgEl.textContent = text;
+        msgEl.className = 'modal-msg ' + type;
+    }
 
-                                                            <script src="assets/js/templatemo-606-string-scripts.js"></script>
-                                                        </body>
+    /* ── FAQ Accordion ── */
+    document.querySelectorAll('.faq-trigger').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+            const item = this.closest('.faq-item');
+            const isOpen = item.classList.contains('open');
+            // close others
+            document.querySelectorAll('.faq-item.open').forEach(openItem => {
+                if (openItem !== item) openItem.classList.remove('open');
+            });
+            if (!isOpen) item.classList.add('open');
+            else item.classList.remove('open');
+        });
+    });
 
-                                                    </html>
+})();
+</script>
+
+</body>
+</html>

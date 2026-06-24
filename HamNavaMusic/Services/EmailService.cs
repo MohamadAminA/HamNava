@@ -29,8 +29,6 @@ namespace HamNava.Services
 
         public async Task SendContactFormEmailAsync(ContactFormModel model, string userIp)
         {
-            try
-            {
                 using var smtpClient = new SmtpClient(_emailSettings.SmtpHost)
                 {
                     Port = _emailSettings.SmtpPort,
@@ -63,8 +61,8 @@ namespace HamNava.Services
                 <div class='value'>{model.Name}</div>
             </div>
             <div class='field'>
-                <div class='label'>ایمیل:</div>
-                <div class='value'>{model.Email}</div>
+                <div class='label'>ساز:</div>
+                <div class='value'>{model.Instrument}</div>
             </div>
             <div class='field'>
                 <div class='label'>شماره تماس:</div>
@@ -105,18 +103,7 @@ namespace HamNava.Services
 
                 mailMessage.To.Add(_emailSettings.ToEmail);
 
-                // افزودن ایمیل کاربر به ReplyTo برای پاسخ راحت‌تر
-                mailMessage.ReplyToList.Add(new MailAddress(model.Email, model.Name));
-
                 await smtpClient.SendMailAsync(mailMessage);
-
-                _logger.LogInformation($"Email sent successfully for contact form from {model.Email}");
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError($"Error sending email: {ex.Message}");
-                throw;
-            }
         }
     }
 }

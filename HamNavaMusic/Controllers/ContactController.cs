@@ -73,7 +73,7 @@ namespace HamNava.Controllers
                 // ذخیره زمان ارسال فرم برای IP
                 ipSubmissionTimes[userIp] = DateTime.Now;
 
-                _logger.LogInformation($"Contact form submitted successfully from IP: {userIp}, Email: {model.Email}");
+                _logger.LogInformation($"Contact form submitted successfully from IP: {userIp}, Phone: {model.Phone}, Subject: {model.Subject}");
 
                 return Ok(new { success = true, message = "پیام شما با موفقیت ارسال شد. به زودی با شما تماس خواهیم گرفت." });
             }
