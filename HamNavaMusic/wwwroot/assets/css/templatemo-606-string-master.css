@@ -899,17 +899,31 @@ nav {
 }
 
 .trust-card {
-  background: var(--bg-soft);
+  background: var(--bg-card);
   border: 1px solid var(--border);
-  border-radius: 16px;
-  padding: 1.5rem;
-  box-shadow: 0 12px 30px rgba(28, 21, 14, 0.08);
+  border-radius: 18px;
+  padding: 2.5rem 2rem;
+  transition: all 0.3s;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.trust-card:hover {
+  border-color: var(--accent);
+  transform: translateY(-4px);
+  box-shadow: 0 16px 30px rgba(198, 138, 43, 0.12);
 }
 
 .trust-card-title {
-  font-size: 1.1rem;
-  font-weight: 600;
-  margin-bottom: 0.6rem;
+  font-size: 1.15rem;
+  font-weight: 700;
+  margin-bottom: 0.75rem;
+  min-height: 2.8rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .trust-card-meta {
@@ -929,6 +943,7 @@ nav {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   gap: 1.5rem;
+  align-items: stretch;
 }
 
 .instrument-card {
@@ -938,6 +953,23 @@ nav {
   padding: 1.5rem;
   text-align: center;
   transition: all 0.2s;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.instrument-img {
+  width: 100%;
+  height: 120px;
+  object-fit: contain;
+  margin-bottom: 1.25rem;
+  transition: transform 0.3s;
+  filter: drop-shadow(0 5px 15px rgba(0, 0, 0, 0.2));
+}
+
+.instrument-card:hover .instrument-img {
+  transform: scale(1.1);
 }
 
 .instrument-card:hover {
@@ -946,27 +978,19 @@ nav {
   box-shadow: 0 14px 24px rgba(198, 138, 43, 0.15);
 }
 
-.instrument-icon {
-  width: 48px;
-  height: 48px;
-  margin: 0 auto 1rem;
-  border-radius: 14px;
-  background: var(--bg-elevated);
+.instrument-name {
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  font-size: 1.15rem;
+  min-height: 1.5rem;
   display: flex;
   align-items: center;
-  justify-content: center;
-  color: var(--accent-dark);
-  font-size: 1.2rem;
-}
-
-.instrument-name {
-  font-weight: 600;
-  margin-bottom: 0.35rem;
 }
 
 .instrument-meta {
   font-size: 0.85rem;
   color: var(--text-muted);
+  min-height: 1.2rem;
 }
 
 /* Features Section */
@@ -985,43 +1009,42 @@ nav {
   background: var(--bg-card);
   border: 1px solid var(--border);
   border-radius: 16px;
-  padding: 2rem;
+  padding: 2.5rem 2rem;
   transition: all 0.3s;
-}
-
-.feature-card:hover {
-  border-color: var(--accent);
-  transform: translateY(-4px);
-  box-shadow: 0 16px 30px rgba(198, 138, 43, 0.12);
-}
-
-.feature-icon {
-  width: 56px;
-  height: 56px;
-  background: var(--bg-elevated);
-  border-radius: 14px;
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
-  margin-bottom: 1.5rem;
-  color: var(--accent-dark);
-  transition: all 0.3s;
-}
-
-.feature-card:hover .feature-icon {
-  background: var(--accent);
-  color: #1a1208;
+  text-align: center;
 }
 
 .feature-card h3 {
-  font-size: 1.2rem;
-  font-weight: 600;
-  margin-bottom: 0.75rem;
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  min-height: 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .feature-card p {
   color: var(--text-secondary);
   font-size: 0.95rem;
+  line-height: 1.7;
+}
+
+.feature-icon {
+  width: 64px;
+  height: 64px;
+  background: var(--bg-elevated);
+  border-radius: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.75rem;
+  color: var(--accent-dark);
+  transition: all 0.3s;
+  font-size: 1.8rem;
 }
 
 /* Festival Sections */
@@ -1302,6 +1325,9 @@ nav {
 
 .instructor-card {
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .instructor-image {
@@ -1333,21 +1359,24 @@ nav {
 }
 
 .instructor-name {
-  font-size: 1.1rem;
-  font-weight: 600;
+  font-size: 1.15rem;
+  font-weight: 700;
   margin-bottom: 0.25rem;
+  min-height: 1.5rem;
 }
 
 .instructor-role {
   color: var(--accent-dark);
-  font-size: 0.85rem;
-  font-weight: 500;
-  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+  min-height: 1.2rem;
 }
 
 .instructor-bio {
   color: var(--text-muted);
   font-size: 0.85rem;
+  line-height: 1.6;
 }
 
 /* Testimonials */
@@ -1471,6 +1500,7 @@ nav {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 2rem;
+  align-items: stretch;
 }
 
 .pricing-card {
@@ -1481,6 +1511,10 @@ nav {
   position: relative;
   transition: all 0.3s;
   box-shadow: 0 18px 30px rgba(28, 21, 14, 0.08);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
 }
 
 .pricing-card:hover {
@@ -1489,38 +1523,101 @@ nav {
 
 .pricing-card.featured {
   border-color: var(--accent);
-  box-shadow: 0 0 40px rgba(198, 138, 43, 0.15);
+  box-shadow:
+    0 0 40px rgba(198, 138, 43, 0.22),
+    0 0 0 2px rgba(198, 138, 43, 0.35);
+  animation: featuredGlow 2.8s ease-in-out infinite;
+}
+
+@keyframes featuredGlow {
+  0%,
+  100% {
+    box-shadow:
+      0 0 30px rgba(198, 138, 43, 0.2),
+      0 0 0 2px rgba(198, 138, 43, 0.3);
+  }
+  50% {
+    box-shadow:
+      0 0 60px rgba(198, 138, 43, 0.45),
+      0 0 0 3px rgba(198, 138, 43, 0.6);
+  }
 }
 
 .pricing-card.featured::before {
-  content: "محبوب ترین";
+  content: "🔥 محبوب‌ترین";
   position: absolute;
-  top: -12px;
+  top: -14px;
   inset-inline-start: 50%;
   transform: translateX(-50%);
-  background: linear-gradient(135deg, var(--accent) 0%, #ba8f4d 100%);
+  background: linear-gradient(135deg, #e8a000 0%, #c87d1a 100%);
   color: #120f08;
-  padding: 0.3rem 1rem;
+  padding: 0.35rem 1.2rem;
   border-radius: 100px;
-  font-size: 0.75rem;
-  font-weight: 600;
+  font-size: 0.78rem;
+  font-weight: 700;
+  white-space: nowrap;
+  box-shadow: 0 4px 14px rgba(232, 160, 0, 0.45);
+}
+
+.pricing-fire {
+  font-size: 2rem;
+  display: block;
+  text-align: center;
+  margin-bottom: 0.5rem;
+  animation: fireFlicker 1.2s ease-in-out infinite alternate;
+  filter: drop-shadow(0 0 8px rgba(255, 140, 0, 0.9));
+}
+
+@keyframes fireFlicker {
+  0% {
+    transform: scale(1) rotate(-3deg);
+    filter: drop-shadow(0 0 6px rgba(255, 100, 0, 0.7));
+  }
+  33% {
+    transform: scale(1.1) rotate(2deg);
+    filter: drop-shadow(0 0 14px rgba(255, 160, 0, 0.9));
+  }
+  66% {
+    transform: scale(0.95) rotate(-1deg);
+    filter: drop-shadow(0 0 10px rgba(255, 80, 0, 0.8));
+  }
+  100% {
+    transform: scale(1.08) rotate(3deg);
+    filter: drop-shadow(0 0 18px rgba(255, 200, 0, 1));
+  }
 }
 
 .pricing-name {
-  font-size: 1.1rem;
-  font-weight: 600;
-  color: var(--text-secondary);
-  margin-bottom: 0.5rem;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 0.75rem;
+  min-height: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .pricing-price {
-  font-size: 2.6rem;
+  font-size: 2.4rem;
   font-weight: 700;
-  margin-bottom: 0.25rem;
+  margin-bottom: 0.5rem;
   display: flex;
-  align-items: baseline;
-  gap: 0.35rem;
-  flex-wrap: wrap;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.25rem;
+  min-height: 5.5rem;
+}
+
+.pricing-price .original-price {
+  font-size: 0.95rem;
+  font-weight: 400;
+  color: rgba(150, 130, 110, 0.6);
+  text-decoration: line-through;
+  text-decoration-color: rgba(200, 100, 80, 0.7);
+  text-decoration-thickness: 1.5px;
+  letter-spacing: 0.02em;
 }
 
 .pricing-price .currency {
@@ -1537,8 +1634,38 @@ nav {
 .pricing-billed {
   font-size: 0.85rem;
   color: var(--text-muted);
-  margin-bottom: 0.5rem;
-  min-height: 1.2rem;
+  margin-bottom: 1.5rem;
+  min-height: 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pricing-festival-banner {
+  text-align: center;
+  background: linear-gradient(
+    135deg,
+    rgba(200, 80, 30, 0.15) 0%,
+    rgba(232, 160, 0, 0.12) 100%
+  );
+  border: 1px solid rgba(232, 160, 0, 0.35);
+  border-radius: 12px;
+  padding: 0.65rem 1.2rem;
+  margin-bottom: 2.5rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #f0c060;
+  animation: bannerPulse 2.5s ease-in-out infinite;
+}
+
+@keyframes bannerPulse {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgba(232, 160, 0, 0);
+  }
+  50% {
+    box-shadow: 0 0 12px 2px rgba(232, 160, 0, 0.2);
+  }
 }
 
 .pricing-savings {
@@ -1560,19 +1687,26 @@ nav {
 .pricing-description {
   color: var(--text-muted);
   font-size: 0.9rem;
-  margin-bottom: 2rem;
-  padding-bottom: 2rem;
+  margin: 0 0 1.5rem;
+  padding: 0 0 1.5rem;
   border-bottom: 1px solid var(--border);
+  min-height: 4.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .pricing-features {
   list-style: none;
   margin-bottom: 2rem;
+  text-align: start;
+  width: 100%;
+  flex-grow: 1;
 }
 
 .pricing-features li {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   gap: 0.75rem;
   padding: 0.5rem 0;
   color: var(--text-secondary);
@@ -1583,6 +1717,7 @@ nav {
   content: "✓";
   color: var(--accent-dark);
   font-weight: 700;
+  margin-top: 0.2rem;
 }
 
 .pricing-btn {
@@ -1593,6 +1728,7 @@ nav {
   text-decoration: none;
   font-weight: 600;
   transition: all 0.2s;
+  width: 100%;
 }
 
 .pricing-card .pricing-btn {
@@ -1775,6 +1911,7 @@ nav {
 }
 
 .faq-item.open .faq-panel {
+  max-height: 500px;
   border-top-color: rgba(201, 161, 93, 0.18);
 }
 
