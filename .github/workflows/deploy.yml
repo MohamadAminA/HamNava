@@ -65,8 +65,20 @@ jobs:
             APP_DIR="$BASE_DIR/$SERVER_FOLDER_NAME"
             LOG_FILE="$APP_DIR/app.log"
             PID_FILE="$APP_DIR/app.pid"
+            
+            echo "Stopping old process..."
 
-            mkdir -p "$APP_DIR/out" 
+            PID=$(lsof -t -i:$APP_PORT || true)
+
+            if [ -n "$PID" ]; then
+                echo "Killing PID: $PID"
+                kill -9 "$PID" || true
+                sleep 3
+            else
+                echo "No process is running on port $APP_PORT"
+            fi
+
+            mkdir -p "$APP_DIR/out"
             cd "$APP_DIR/out"
 
             echo "Starting app..."
@@ -111,8 +123,8 @@ jobs:
 
             echo "✅ App is running"
 
-            echo "===== LIVE LOG (10 sec) ====="
-            timeout 10s tail -f "$LOG_FILE" || true
+            echo "===== LIVE LOG (20 sec) ====="
+            timeout 20s tail -f "$LOG_FILE" || true
 
             if ! ps -p $(cat "$PID_FILE") >/dev/null; then
                 echo "Application crashed"
