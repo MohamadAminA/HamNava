@@ -27,6 +27,11 @@ jobs:
         with:
           dotnet-version: ${{ env.DOTNET_VERSION }}
 
+      - name: Clean publish folder
+        run: |
+          rm -rf out
+          mkdir -p out
+
       - name: Publish
         run: |
           echo "Running publish command:"
@@ -130,4 +135,4 @@ jobs:
                 echo "Application crashed"
                 exit 1
             fi
-            echo "✅✅ App is running"
+            echo "✅✅ App is running" 
