@@ -43,6 +43,33 @@ jobs:
           echo "out directory content:"
           ls -lah out
 
+      - name: Debug publish output
+        run: |
+          echo "=== OUT SIZE ==="
+          du -sh out
+
+          echo "=== FILE COUNT ==="
+          find out -type f | wc -l
+
+          echo "=== ZIP TIME ==="
+          time tar -czf /tmp/out-test.tar.gz -C out .
+
+          echo "=== ZIP SIZE ==="
+          ls -lh /tmp/out-test.tar.gz
+
+      - name: Test Server Connection
+        uses: appleboy/ssh-action@v1.2.0
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          command_timeout: 2m
+          script: |
+            echo "Connected successfully"
+            date
+            hostname
+            uptime
+
       - name: Upload to Server
         uses: appleboy/scp-action@v0.1.7
         with:
@@ -51,7 +78,7 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           source: "out/*"
           target: "${{ env.BASE_DIR }}/${{ env.SERVER_FOLDER_NAME || github.event.repository.name }}"
-
+  
       - name: Start App on Server
         uses: appleboy/ssh-action@v1.2.0
         with:
