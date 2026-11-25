@@ -1,0 +1,75 @@
+@model ConsultationBookingPageViewModel
+
+<section class="hn-page-hero">
+    <div class="hn-container">
+        <h1 style="margin:0 0 0.5rem;">رزرو جلسه مشاوره و تعیین سطح</h1>
+        <p style="margin:0;color:var(--hn-text-on-dark-muted);">پیش از انتخاب ساز یا دوره آموزشی، با اساتید هم‌نوا مشورت کنید.</p>
+    </div>
+</section>
+
+<section class="hn-section">
+    <div class="hn-container" style="max-width:740px;">
+        @if (TempData["SuccessMessage"] is string msg)
+        {
+            <div class="hn-alert-success">@msg</div>
+        }
+
+        <div class="hn-card">
+            <form asp-action="Book" method="post" class="hn-form-grid">
+                @Html.AntiForgeryToken()
+                <div asp-validation-summary="ModelOnly" class="hn-validation-summary"></div>
+
+                <div class="hn-field">
+                    <label asp-for="SelectedPlanId">نوع جلسه مشاوره</label>
+                    <select asp-for="SelectedPlanId" class="hn-select">
+                        @foreach (var p in Model.Plans)
+                        {
+                            <option value="@p.Id">
+                                @p.Title — @p.DurationMinutes دقیقه (@(p.PriceIrr == 0 ? "رایگان" : CurrencyFormatter.FormatToman(p.PriceIrr)))
+                            </option>
+                        }
+                    </select>
+                </div>
+
+                <div class="hn-field">
+                    <label asp-for="SelectedConsultantUserId">استاد مشاور</label>
+                    <select asp-for="SelectedConsultantUserId" class="hn-select">
+                        @foreach (var c in Model.Consultants)
+                        {
+                            <option value="@c.UserId">@c.FullName — @c.InstrumentRoleTitle</option>
+                        }
+                    </select>
+                </div>
+
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;">
+                    <div class="hn-field">
+                        <label asp-for="JalaliDate">تاریخ شمسی (مثلاً 1404/02/15)</label>
+                        <input asp-for="JalaliDate" class="hn-input" dir="ltr" required />
+                    </div>
+                    <div class="hn-field">
+                        <label asp-for="TimeTehran">ساعت (به وقت تهران)</label>
+                        <input asp-for="TimeTehran" type="time" class="hn-input" dir="ltr" required />
+                    </div>
+                </div>
+
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;">
+                    <div class="hn-field">
+                        <label asp-for="VisitorFullName">نام و نام خانوادگی</label>
+                        <input asp-for="VisitorFullName" class="hn-input" required />
+                    </div>
+                    <div class="hn-field">
+                        <label asp-for="VisitorMobile">شماره موبایل</label>
+                        <input asp-for="VisitorMobile" class="hn-input" dir="ltr" placeholder="09123456789" required />
+                    </div>
+                </div>
+
+                <div class="hn-field">
+                    <label asp-for="Notes">توضیحات یا ساز مورد علاقه (اختیاری)</label>
+                    <textarea asp-for="Notes" class="hn-textarea" rows="3"></textarea>
+                </div>
+
+                <button type="submit" class="hn-btn hn-btn-espresso">ثبت و تایید رزرو مشاوره</button>
+            </form>
+        </div>
+    </div>
+</section>

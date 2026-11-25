@@ -1,0 +1,19 @@
+@model Hamnava.Domain.Entities.Cms.PublicArticle
+
+<section class="hn-page-hero">
+    <div class="hn-container" style="max-width:780px;">
+        <h1 style="margin:0 0 0.5rem;">@Model.Title</h1>
+        <p style="margin:0;color:var(--hn-text-on-dark-muted);">@Model.Summary</p>
+    </div>
+</section>
+
+<section class="hn-section">
+    <div class="hn-container" style="max-width:780px;">
+        <article class="hn-card">
+            <div style="white-space:pre-line;line-height:2;color:var(--hn-text);">@Model.ContentHtml</div>
+            <div style="margin-top:1.75rem;">
+                <a href="/blog" class="hn-btn hn-btn-outline hn-btn-sm">بازگشت به وبلاگ</a>
+            </div>
+        </article>
+    </div>
+</section>

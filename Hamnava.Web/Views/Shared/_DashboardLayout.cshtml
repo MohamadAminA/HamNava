@@ -1,0 +1,91 @@
+@using System.Security.Claims
+@using Hamnava.Domain.Constants
+@{
+    var title = ViewData["Title"]?.ToString() ?? "داشبورد | آکادمی موسیقی هم‌نوا";
+    var userName = User.Identity?.Name ?? "کاربر هم‌نوا";
+    var isAdmin = User.IsInRole(RoleNames.Admin);
+    var isTeacher = User.IsInRole(RoleNames.Teacher);
+    var isStudent = User.IsInRole(RoleNames.Student);
+    var isReferrer = User.IsInRole(RoleNames.Referrer);
+    var currentPath = Context.Request.Path.Value ?? "";
+}
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@title</title>
+    <link rel="icon" href="/img/favicon.ico" />
+    <link rel="stylesheet" href="~/css/tokens.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/dashboard.css" asp-append-version="true" />
+    @await RenderSectionAsync("Styles", required: false)
+</head>
+<body class="hn-dash-body">
+    <div class="hn-dash-shell">
+        <aside class="hn-dash-sidebar" aria-label="منوی پنل کاربری">
+            <div class="hn-dash-brand">
+                <a href="/" style="display:flex;align-items:center;gap:0.65rem;font-weight:700;">
+                    <img src="/img/logo.webp" alt="هم‌نوا" style="width:40px;height:40px;border-radius:50%;background:#FAF5EF;" />
+                    <div>
+                        <div>پنل هم‌نوا</div>
+                        <small style="color:var(--hn-text-on-dark-muted);font-weight:400;">@userName</small>
+                    </div>
+                </a>
+            </div>
+
+            <nav class="hn-dash-nav">
+                @if (isAdmin)
+                {
+                    <a href="/dashboard/admin" class="@(currentPath.Equals("/dashboard/admin", StringComparison.OrdinalIgnoreCase) ? "is-active" : "")">داشبورد مدیریت</a>
+                    <a href="/dashboard/admin/management?tab=users" class="@(currentPath.Contains("/management", StringComparison.OrdinalIgnoreCase) ? "is-active" : "")">مدیریت کاربران و منابع</a>
+                    <a href="/dashboard/teacher/calendar" class="@(currentPath.Contains("/calendar", StringComparison.OrdinalIgnoreCase) ? "is-active" : "")">تقویم جامع کلاس‌ها</a>
+                    <a href="/dashboard/admin/jobs">صف پردازش‌ها (Hangfire)</a>
+                }
+                @if (isTeacher)
+                {
+                    <a href="/dashboard/teacher" class="@(currentPath.Equals("/dashboard/teacher", StringComparison.OrdinalIgnoreCase) ? "is-active" : "")">داشبورد استاد</a>
+                    <a href="/dashboard/teacher/calendar" class="@(currentPath.Contains("/teacher/calendar", StringComparison.OrdinalIgnoreCase) ? "is-active" : "")">تقویم آموزشی و حضور و غیاب</a>
+                }
+                @if (isStudent)
+                {
+                    <a href="/dashboard/student" class="@(currentPath.StartsWith("/dashboard/student", StringComparison.OrdinalIgnoreCase) ? "is-active" : "")">پنل هنرجو</a>
+                }
+                @if (isReferrer)
+                {
+                    <a href="/dashboard/referrer" class="@(currentPath.StartsWith("/dashboard/referrer", StringComparison.OrdinalIgnoreCase) ? "is-active" : "")">پنل معرف و همکاری</a>
+                }
+                <a href="/">مشاهده وب‌سایت عمومی</a>
+            </nav>
+
+            <form asp-area="" asp-controller="Account" asp-action="Logout" method="post" style="margin-top:auto;">
+                @Html.AntiForgeryToken()
+                <button type="submit" class="hn-btn hn-btn-outline hn-btn-sm" style="width:100%;color:#FFF7EE;border-color:rgba(255,244,232,0.3);">خروج از حساب</button>
+            </form>
+        </aside>
+
+        <main class="hn-dash-main">
+            <div class="hn-dash-topbar">
+                <h1 class="hn-dash-title">@title</h1>
+                <div style="display:flex;align-items:center;gap:0.65rem;flex-wrap:wrap;">
+                    <span class="hn-badge hn-badge-info">@userName</span>
+                </div>
+            </div>
+
+            @if (TempData["SuccessMessage"] is string okMsg)
+            {
+                <div class="hn-alert-success" role="status">@okMsg</div>
+            }
+            @if (TempData["ErrorMessage"] is string errMsg)
+            {
+                <div class="hn-validation-summary" role="alert">@errMsg</div>
+            }
+
+            @RenderBody()
+        </main>
+    </div>
+
+    <form id="hn-global-csrf" style="display:none;">@Html.AntiForgeryToken()</form>
+    <script src="~/js/app.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

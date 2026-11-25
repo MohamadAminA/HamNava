@@ -1,0 +1,207 @@
+@using Hamnava.DataLayer.Context
+@using Microsoft.EntityFrameworkCore
+@inject HamnavaDbContext Db
+@{
+    var contact = await Db.ContactInformations.AsNoTracking().FirstOrDefaultAsync();
+    var headerMenus = await Db.WebsiteMenus.AsNoTracking()
+        .Where(m => m.MenuLocation == "Header" && m.IsVisible)
+        .OrderBy(m => m.DisplayOrder)
+        .ToListAsync();
+    var footerMenus = await Db.WebsiteMenus.AsNoTracking()
+        .Where(m => m.MenuLocation == "Footer" && m.IsVisible)
+        .OrderBy(m => m.DisplayOrder)
+        .ToListAsync();
+    var footerCourses = await Db.Instruments.AsNoTracking()
+        .Where(i => i.IsActive)
+        .OrderBy(i => i.DisplayOrder)
+        .Take(5)
+        .ToListAsync();
+
+    var isHome = string.Equals(ViewContext.RouteData.Values["controller"]?.ToString(), "Home", StringComparison.OrdinalIgnoreCase)
+                 && string.Equals(ViewContext.RouteData.Values["action"]?.ToString(), "Index", StringComparison.OrdinalIgnoreCase);
+    var currentPath = Context.Request.Path.Value ?? "/";
+    var pageTitle = ViewData["Title"]?.ToString() ?? "آکادمی موسیقی هم‌نوا";
+    var metaDesc = ViewData["MetaDescription"]?.ToString() ?? "آکادمی موسیقی هم‌نوا در اصفهان — آموزش تخصصی سازها با اساتید مجرب، تقویم آموزشی هوشمند و پورتفولیو هنرجویان.";
+    var canonicalUrl = $"{Context.Request.Scheme}://{Context.Request.Host}{Context.Request.Path}";
+}
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@pageTitle</title>
+    <meta name="description" content="@metaDesc" />
+    <link rel="canonical" href="@canonicalUrl" />
+    <link rel="icon" href="/img/favicon.ico" />
+
+    <!-- OpenGraph & Twitter Card -->
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="fa_IR" />
+    <meta property="og:site_name" content="آکادمی موسیقی هم‌نوا" />
+    <meta property="og:title" content="@pageTitle" />
+    <meta property="og:description" content="@metaDesc" />
+    <meta property="og:url" content="@canonicalUrl" />
+    <meta property="og:image" content="@($"{Context.Request.Scheme}://{Context.Request.Host}/img/logo.webp")" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="@pageTitle" />
+    <meta name="twitter:description" content="@metaDesc" />
+
+    <!-- JSON-LD MusicSchool Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@@context": "https://schema.org",
+      "@@type": "MusicSchool",
+      "name": "آکادمی موسیقی هم‌نوا",
+      "url": "https://hamnavamusic.ir",
+      "telephone": "@(contact?.PhonePrimary ?? "")",
+      "email": "@(contact?.Email ?? "")",
+      "address": {
+        "@@type": "PostalAddress",
+        "streetAddress": "@(contact?.Address ?? "اصفهان")",
+        "addressLocality": "اصفهان",
+        "addressCountry": "IR"
+      }
+    }
+    </script>
+
+    <link rel="stylesheet" href="~/css/tokens.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/public-site.css" asp-append-version="true" />
+    @await RenderSectionAsync("Styles", required: false)
+</head>
+<body>
+    <header class="hn-header-wrap @(isHome ? "is-over-hero" : "")">
+        <div class="hn-container">
+            <nav class="hn-navbar" aria-label="منوی اصلی آکادمی هم‌نوا">
+                <a href="/" class="hn-brand">
+                    <img src="/img/logo.webp" alt="لوگوی آکادمی موسیقی هم‌نوا" class="hn-brand-logo" />
+                    <span>هم‌نوا</span>
+                </a>
+
+                <ul class="hn-nav-links">
+                    @foreach (var item in headerMenus)
+                    {
+                        var active = string.Equals(currentPath, item.Url, StringComparison.OrdinalIgnoreCase);
+                        <li>
+                            <a href="@item.Url" class="@(active ? "is-active" : "")">@item.Title</a>
+                        </li>
+                    }
+                </ul>
+
+                <div class="hn-nav-actions">
+                    @if (User.Identity?.IsAuthenticated == true)
+                    {
+                        <a href="/dashboard" class="hn-btn hn-btn-cream hn-btn-sm">پنل کاربری</a>
+                    }
+                    else
+                    {
+                        <a href="/account/login" class="hn-btn hn-btn-cream hn-btn-sm">ورود / ثبت‌نام</a>
+                    }
+                    <button type="button" class="hn-mobile-toggle" data-hn-drawer-open aria-label="باز کردن منو">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="3" y1="6" x2="21" y2="6" /><line x1="3" y1="12" x2="21" y2="12" /><line x1="3" y1="18" x2="21" y2="18" />
+                        </svg>
+                    </button>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Mobile Navigation Drawer -->
+    <div id="hn-mobile-drawer" class="hn-mobile-drawer" aria-hidden="true">
+        <div class="hn-mobile-drawer-panel">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.75rem;">
+                <strong>آکادمی موسیقی هم‌نوا</strong>
+                <button type="button" class="hn-mobile-toggle" data-hn-drawer-close aria-label="بستن منو">✕</button>
+            </div>
+            @foreach (var item in headerMenus)
+            {
+                <a href="@item.Url">@item.Title</a>
+            }
+            <hr style="border:0;border-top:1px solid rgba(255,255,255,0.14);width:100%;" />
+            @if (User.Identity?.IsAuthenticated == true)
+            {
+                <a href="/dashboard" class="hn-btn hn-btn-cream">ورود به داشبورد</a>
+            }
+            else
+            {
+                <a href="/account/login" class="hn-btn hn-btn-cream">ورود با پیامک</a>
+                <a href="/account/register" class="hn-btn hn-btn-outline" style="color:#FFF7EE;border-color:rgba(255,255,255,0.35);">ثبت‌نام هنرجو</a>
+            }
+        </div>
+    </div>
+
+    <main>
+        @RenderBody()
+    </main>
+
+    <!-- 10. WAVY DARK-BROWN 4-COLUMN FOOTER -->
+    <footer class="hn-footer">
+        <div class="hn-wave-top" aria-hidden="true">
+            <svg viewBox="0 0 1440 80" preserveAspectRatio="none">
+                <path fill="#F3EAE0" d="M0,0 L1440,0 L1440,36 C1180,84 860,12 520,52 C260,82 110,48 0,28 Z"></path>
+            </svg>
+        </div>
+        <div class="hn-container">
+            <div class="hn-footer-grid">
+                <div>
+                    <div class="hn-brand" style="margin-bottom:0.9rem;">
+                        <img src="/img/logo.webp" alt="هم‌نوا" class="hn-brand-logo" />
+                        <span style="font-size:1.15rem;">آکادمی موسیقی هم‌نوا</span>
+                    </div>
+                    <p style="margin:0;color:var(--hn-text-on-dark-muted);font-size:0.9rem;">
+                        آموزشگاه تخصصی موسیقی با بهره‌گیری از اساتید برجسته، برنامه‌ریزی دقیق آموزشی و محیطی آرام و حرفه‌ای برای پرورش هنر موسیقی.
+                    </p>
+                </div>
+
+                <div>
+                    <h3>ارتباط با ما</h3>
+                    <ul>
+                        @if (!string.IsNullOrWhiteSpace(contact?.Address))
+                        {
+                            <li style="color:var(--hn-text-on-dark-muted);font-size:0.88rem;">@contact.Address</li>
+                        }
+                        @if (!string.IsNullOrWhiteSpace(contact?.PhonePrimary))
+                        {
+                            <li><a href="tel:@contact.PhonePrimary" dir="ltr">@contact.PhonePrimary</a></li>
+                        }
+                        @if (!string.IsNullOrWhiteSpace(contact?.Email))
+                        {
+                            <li><a href="mailto:@contact.Email">@contact.Email</a></li>
+                        }
+                    </ul>
+                </div>
+
+                <div>
+                    <h3>دوره‌ها و سازها</h3>
+                    <ul>
+                        @foreach (var inst in footerCourses)
+                        {
+                            <li><a href="/teachers?instrument=@inst.Slug">آموزش @inst.Name</a></li>
+                        }
+                    </ul>
+                </div>
+
+                <div>
+                    <h3>لینک‌های سریع</h3>
+                    <ul>
+                        @foreach (var item in footerMenus)
+                        {
+                            <li><a href="@item.Url">@item.Title</a></li>
+                        }
+                        <li><a href="/consultation">رزرو جلسه مشاوره</a></li>
+                        <li><a href="/pricing">شهریه و اجاره ساز</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="hn-footer-bottom">
+                <span>© @DateTime.UtcNow.Year آکادمی موسیقی هم‌نوا — تمامی حقوق محفوظ است.</span>
+                <span>hamnavamusic.ir</span>
+            </div>
+        </div>
+    </footer>
+
+    <script src="~/js/app.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

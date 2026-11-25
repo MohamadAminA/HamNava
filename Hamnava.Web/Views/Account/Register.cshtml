@@ -1,0 +1,52 @@
+@model RegisterStudentViewModel
+
+<section class="hn-section">
+    <div class="hn-container" style="max-width:520px;">
+        <div class="hn-card">
+            <h1 style="margin:0 0 0.4rem;font-size:1.4rem;color:var(--hn-espresso);text-align:center;">تکمیل ثبت‌نام هنرجو در هم‌نوا</h1>
+            <p style="margin:0 0 1.25rem;color:var(--hn-text-muted);font-size:0.88rem;text-align:center;">مشخصات تکمیلی خود را وارد کنید تا حساب کاربری شما ساخته و به داشبورد هدایت شوید.</p>
+
+            <form asp-action="Register" method="post" class="hn-form-grid">
+                @Html.AntiForgeryToken()
+                <input type="hidden" asp-for="ReturnUrl" />
+                <div asp-validation-summary="ModelOnly" class="hn-validation-summary"></div>
+
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.85rem;">
+                    <div class="hn-field">
+                        <label asp-for="FirstName">نام</label>
+                        <input asp-for="FirstName" class="hn-input" required autofocus />
+                    </div>
+                    <div class="hn-field">
+                        <label asp-for="LastName">نام خانوادگی</label>
+                        <input asp-for="LastName" class="hn-input" required />
+                    </div>
+                </div>
+
+                <div class="hn-field">
+                    <div style="display:flex;justify-content:space-between;align-items:center;">
+                        <label asp-for="MobileNumber">شماره موبایل تاییدشده</label>
+                        <a asp-action="Login" asp-route-mobile="@Model.MobileNumber" asp-route-returnUrl="@Model.ReturnUrl" style="font-size:0.8rem;color:var(--hn-teal-dark);font-weight:600;">ویرایش شماره</a>
+                    </div>
+                    <input asp-for="MobileNumber" class="hn-input" dir="ltr" readonly style="background:var(--hn-surface-muted);" />
+                </div>
+
+                <div class="hn-field">
+                    <label asp-for="InstrumentId">ساز مورد علاقه</label>
+                    <select asp-for="InstrumentId" class="hn-select" required>
+                        @foreach (var inst in Model.Instruments)
+                        {
+                            <option value="@inst.Id">@inst.Name</option>
+                        }
+                    </select>
+                </div>
+
+                <div class="hn-field">
+                    <label asp-for="ReferralCode">کد معرف (اختیاری)</label>
+                    <input asp-for="ReferralCode" class="hn-input" dir="ltr" placeholder="HN-XXXXXX" />
+                </div>
+
+                <button type="submit" class="hn-btn hn-btn-espresso">تکمیل ثبت‌نام و ورود به داشبورد</button>
+            </form>
+        </div>
+    </div>
+</section>

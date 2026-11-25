@@ -1,0 +1,26 @@
+@model CertificateVerificationViewModel
+
+<section class="hn-section">
+    <div class="hn-container" style="max-width:560px;">
+        <div class="hn-card" style="text-align:center;">
+            @if (Model.IsValid)
+            {
+                <span class="hn-badge hn-badge-success" style="margin-bottom:0.75rem;">گواهینامه معتبر و تایید شده</span>
+                <h1 style="margin:0 0 1rem;color:var(--hn-espresso);font-size:1.45rem;">استعلام اصالت گواهینامه هم‌نوا</h1>
+                <div style="text-align:right;display:grid;gap:0.55rem;background:var(--hn-surface-muted);padding:1.1rem;border-radius:var(--hn-radius-md);">
+                    <div>شماره گواهینامه: <strong dir="ltr">@Model.CertificateNumber</strong></div>
+                    <div>نام هنرجو: <strong>@Model.StudentFullName</strong></div>
+                    <div>دوره و ساز: <strong>@Model.CourseTitle (@Model.InstrumentName)</strong></div>
+                    <div>استاد راهنما: <strong>@Model.TeacherFullName</strong></div>
+                    <div>تاریخ صدور: <strong>@Model.IssuedJalaliDate</strong></div>
+                </div>
+            }
+            else
+            {
+                <span class="hn-badge hn-badge-danger" style="margin-bottom:0.75rem;">نامعتبر</span>
+                <h1 style="margin:0 0 0.5rem;">گواهینامه‌ای با این کد اصالت یافت نشد</h1>
+                <p style="color:var(--hn-text-muted);margin:0;">لطفاً کد QR یا لینک استعلام را مجدداً بررسی کنید.</p>
+            }
+        </div>
+    </div>
+</section>

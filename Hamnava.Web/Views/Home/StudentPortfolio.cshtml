@@ -1,0 +1,75 @@
+@model PublicStudentPortfolioViewModel
+
+<section class="hn-page-hero">
+    <div class="hn-container">
+        <img src="@Model.ProfileImageUrl" alt="@Model.FullName"
+             style="width:118px;height:118px;border-radius:50%;object-fit:cover;margin:0 auto 1rem;border:4px solid rgba(255,244,232,0.4);" />
+        <h1 style="margin:0 0 0.4rem;">@Model.FullName</h1>
+        <p style="margin:0 0 1rem;color:var(--hn-text-on-dark-muted);">
+            ساز تخصصی: <strong>@Model.InstrumentName</strong> • استاد راهنما: <strong>@Model.TeacherName</strong> • @Model.CalculatedLearningDurationFa
+        </p>
+        <div style="display:flex;justify-content:center;gap:0.75rem;flex-wrap:wrap;">
+            <a href="/student/@Model.EnglishSlug/story.png" class="hn-btn hn-btn-cream hn-btn-sm">دانلود استوری اینستاگرام (۹:۱۶)</a>
+            <button type="button" class="hn-btn hn-btn-outline hn-btn-sm"
+                    style="color:#FFF7EE;border-color:rgba(255,244,232,0.45);"
+                    data-copy-text="@($"{Context.Request.Scheme}://{Context.Request.Host}/student/{Model.EnglishSlug}")">
+                کپی لینک پورتفولیو
+            </button>
+        </div>
+    </div>
+</section>
+
+<section class="hn-section">
+    <div class="hn-container">
+        <h2 class="hn-section-title" style="margin-bottom:1.25rem;">اجراهای ویدیویی</h2>
+        @if (!Model.Videos.Any())
+        {
+            <div class="hn-card" style="text-align:center;color:var(--hn-text-muted);">هنوز ویدیوی عمومی برای این هنرجو منتشر نشده است.</div>
+        }
+        else
+        {
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:1.25rem;margin-bottom:2.5rem;">
+                @foreach (var vid in Model.Videos)
+                {
+                    <article class="hn-card">
+                        <video controls preload="metadata" poster="@vid.ThumbnailUrl"
+                               style="width:100%;border-radius:var(--hn-radius-md);background:#1a0f09;max-height:280px;">
+                            <source src="@vid.StreamUrl" type="video/mp4" />
+                        </video>
+                        <h3 style="margin:0.85rem 0 0.3rem;font-size:1.05rem;">@vid.Title</h3>
+                        @if (!string.IsNullOrWhiteSpace(vid.Description))
+                        {
+                            <p style="margin:0 0 0.6rem;color:var(--hn-text-muted);font-size:0.88rem;">@vid.Description</p>
+                        }
+                        <div style="display:flex;justify-content:space-between;align-items:center;font-size:0.82rem;color:var(--hn-text-muted);">
+                            <span>تاریخ ثبت: @vid.UploadedJalaliDate</span>
+                            @if (vid.AllowDownload)
+                            {
+                                <a href="@vid.StreamUrl?download=true" style="color:var(--hn-teal-dark);font-weight:700;">دانلود ویدیو</a>
+                            }
+                        </div>
+                    </article>
+                }
+            </div>
+        }
+
+        <h2 class="hn-section-title" style="margin-bottom:1.25rem;">گالری تصاویر</h2>
+        @if (!Model.Images.Any())
+        {
+            <div class="hn-card" style="text-align:center;color:var(--hn-text-muted);">هنوز تصویری در گالری عمومی منتشر نشده است.</div>
+        }
+        else
+        {
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1rem;">
+                @foreach (var img in Model.Images)
+                {
+                    <figure class="hn-card" style="margin:0;">
+                        <img src="@img.StreamUrl" alt="@img.Title" loading="lazy"
+                             style="width:100%;height:220px;object-fit:cover;border-radius:var(--hn-radius-sm);" />
+                        <figcaption style="margin-top:0.65rem;font-weight:600;font-size:0.9rem;">@img.Title</figcaption>
+                    </figure>
+                }
+            </div>
+        }
+    </div>
+</section>

@@ -1,0 +1,42 @@
+@model IReadOnlyList<PublicTeacherCardViewModel>
+@{
+    var instruments = ViewData["Instruments"] as IReadOnlyList<Hamnava.Domain.Entities.Instruments.Instrument> ?? [];
+    var selected = ViewData["SelectedInstrument"]?.ToString();
+}
+
+<section class="hn-page-hero">
+    <div class="hn-container">
+        <h1 style="margin:0 0 0.5rem;">اساتید آکادمی موسیقی هم‌نوا</h1>
+        <p style="margin:0;color:var(--hn-text-on-dark-muted);">آشنایی با مدرسین تخصصی و باسابقه آموزشگاه موسیقی هم‌نوا</p>
+    </div>
+</section>
+
+<section class="hn-section">
+    <div class="hn-container">
+        <div style="display:flex;flex-wrap:wrap;gap:0.5rem;justify-content:center;margin-bottom:2rem;">
+            <a href="/teachers" class="hn-btn @(string.IsNullOrEmpty(selected) ? "hn-btn-espresso" : "hn-btn-outline") hn-btn-sm">همه سازها</a>
+            @foreach (var inst in instruments)
+            {
+                <a href="/teachers?instrument=@inst.Slug"
+                   class="hn-btn @(selected == inst.Slug ? "hn-btn-espresso" : "hn-btn-outline") hn-btn-sm">@inst.Name</a>
+            }
+        </div>
+
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1.25rem;">
+            @foreach (var teacher in Model)
+            {
+                <article class="hn-card" style="text-align:center;">
+                    <img src="@teacher.ProfileImageUrl" alt="@teacher.FullName"
+                         style="width:128px;height:128px;border-radius:50%;object-fit:cover;margin:0 auto 0.85rem;border:3px solid var(--hn-sand);" loading="lazy" />
+                    <h2 style="margin:0 0 0.25rem;font-size:1.1rem;color:var(--hn-espresso);">@teacher.FullName</h2>
+                    <p style="margin:0 0 0.75rem;color:var(--hn-teal-dark);font-weight:600;font-size:0.88rem;">@teacher.InstrumentRoleTitle</p>
+                    @if (!string.IsNullOrWhiteSpace(teacher.Bio))
+                    {
+                        <p style="margin:0 0 1rem;font-size:0.86rem;color:var(--hn-text-muted);">@teacher.Bio</p>
+                    }
+                    <a href="/teachers/@teacher.Slug" class="hn-btn hn-btn-outline hn-btn-sm">مشاهده پروفایل استاد</a>
+                </article>
+            }
+        </div>
+    </div>
+</section>

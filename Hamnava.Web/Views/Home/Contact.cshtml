@@ -1,0 +1,32 @@
+@model Hamnava.Domain.Entities.Cms.ContactInformation
+
+<section class="hn-page-hero">
+    <div class="hn-container">
+        <h1 style="margin:0 0 0.5rem;">تماس با آکادمی موسیقی هم‌نوا</h1>
+        <p style="margin:0;color:var(--hn-text-on-dark-muted);">برای مشاوره، بازدید حضوری یا ثبت‌نام با ما در ارتباط باشید.</p>
+    </div>
+</section>
+
+<section class="hn-section">
+    <div class="hn-container hn-findus-grid">
+        <div class="hn-contact-card">
+            <div class="hn-contact-row">
+                <span class="hn-contact-icon">📍</span>
+                <div><strong>نشانی</strong><p style="margin:0.2rem 0 0;color:var(--hn-text-muted);">@Model.Address</p></div>
+            </div>
+            <div class="hn-contact-row">
+                <span class="hn-contact-icon">📞</span>
+                <div><strong>تلفن</strong><p style="margin:0.2rem 0 0;" dir="ltr"><a href="tel:@Model.PhonePrimary">@Model.PhonePrimary</a></p></div>
+            </div>
+            <div class="hn-contact-row">
+                <span class="hn-contact-icon">✉️</span>
+                <div><strong>ایمیل</strong><p style="margin:0.2rem 0 0;"><a href="mailto:@Model.Email">@Model.Email</a></p></div>
+            </div>
+            <a href="/consultation" class="hn-btn hn-btn-espresso hn-btn-sm" style="align-self:flex-start;">رزرو آنلاین جلسه مشاوره</a>
+        </div>
+        <div class="hn-map-card">
+            <iframe title="نقشه آکادمی موسیقی هم‌نوا" loading="lazy"
+                    src="@(string.IsNullOrWhiteSpace(Model.MapEmbedOrCoordinates) ? "https://www.openstreetmap.org/export/embed.html?bbox=51.64%2C32.63%2C51.69%2C32.67&layer=mapnik" : Model.MapEmbedOrCoordinates)"></iframe>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,126 @@
+@model AdminDashboardViewModel
+
+<div class="hn-panel" style="margin-bottom:1.25rem;">
+    <form method="get" style="display:flex;flex-wrap:wrap;align-items:end;gap:0.75rem;">
+        <div>
+            <a href="?range=today" class="hn-tab-pill @(Model.ActiveRange == "today" ? "is-active" : "")">امروز</a>
+            <a href="?range=week" class="hn-tab-pill @(Model.ActiveRange == "week" ? "is-active" : "")">هفته جاری</a>
+            <a href="?range=month" class="hn-tab-pill @(Model.ActiveRange == "month" ? "is-active" : "")">ماه شمسی جاری</a>
+        </div>
+        <div style="display:flex;gap:0.5rem;align-items:center;margin-right:auto;flex-wrap:wrap;">
+            <input type="hidden" name="range" value="custom" />
+            <input type="text" name="from" value="@Model.FromJalali" class="hn-input" style="width:130px;" dir="ltr" placeholder="1404/01/01" />
+            <span>تا</span>
+            <input type="text" name="to" value="@Model.ToJalali" class="hn-input" style="width:130px;" dir="ltr" placeholder="1404/01/31" />
+            <button type="submit" class="hn-btn hn-btn-teal hn-btn-sm">اعمال بازه</button>
+        </div>
+    </form>
+</div>
+
+<section class="hn-kpi-grid" aria-label="شاخص‌های کلیدی عملکرد">
+    <div class="hn-kpi-card hn-kpi-accent">
+        <span class="hn-kpi-label">درآمد شهریه تاییدشده</span>
+        <span class="hn-kpi-value">@CurrencyFormatter.FormatToman(Model.TotalReceivedTuitionIrr)</span>
+    </div>
+    <div class="hn-kpi-card hn-kpi-accent">
+        <span class="hn-kpi-label">درآمد اجاره ساز</span>
+        <span class="hn-kpi-value">@CurrencyFormatter.FormatToman(Model.TotalRentalRevenueIrr)</span>
+    </div>
+    <div class="hn-kpi-card">
+        <span class="hn-kpi-label">بدهی کیف پول اساتید</span>
+        <span class="hn-kpi-value">@CurrencyFormatter.FormatToman(Model.TotalTeacherWalletLiabilityIrr)</span>
+    </div>
+    <div class="hn-kpi-card">
+        <span class="hn-kpi-label">پاداش‌های معرف‌ها</span>
+        <span class="hn-kpi-value">@CurrencyFormatter.FormatToman(Model.TotalReferrerRewardsIrr)</span>
+    </div>
+    <div class="hn-kpi-card">
+        <span class="hn-kpi-label">هنرجویان / اساتید / معرف‌ها</span>
+        <span class="hn-kpi-value">@Model.TotalActiveStudents / @Model.TotalActiveTeachers / @Model.TotalActiveReferrers</span>
+    </div>
+    <div class="hn-kpi-card">
+        <span class="hn-kpi-label">ثبت‌نام‌های فعال</span>
+        <span class="hn-kpi-value">@Model.ActiveEnrollmentsCount</span>
+    </div>
+    <div class="hn-kpi-card">
+        <span class="hn-kpi-label">کلاس‌های امروز (تکمیل‌شده)</span>
+        <span class="hn-kpi-value">@Model.LessonsScheduledToday (@Model.LessonsCompletedToday)</span>
+    </div>
+    <div class="hn-kpi-card">
+        <span class="hn-kpi-label">اجاره‌های در آستانه انقضا / پرداخت معلق</span>
+        <span class="hn-kpi-value">@Model.ExpiringRentalsCount / @Model.PendingPaymentsCount</span>
+    </div>
+</section>
+
+<div class="hn-dash-grid is-two-col">
+    <section class="hn-panel">
+        <div class="hn-panel-header">
+            <h2>کلاس‌های پیش‌رو (۷ روز آینده)</h2>
+            <a href="/dashboard/teacher/calendar" class="hn-btn hn-btn-outline hn-btn-sm">تقویم کامل</a>
+        </div>
+        <div class="hn-table-wrap">
+            <table class="hn-table">
+                <thead>
+                    <tr>
+                        <th>تاریخ</th>
+                        <th>ساعت</th>
+                        <th>هنرجو</th>
+                        <th>استاد</th>
+                        <th>ساز / اتاق</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (!Model.UpcomingLessons.Any())
+                    {
+                        <tr><td colspan="5" style="text-align:center;color:var(--hn-text-muted);">کلاسی در ۷ روز آینده ثبت نشده است.</td></tr>
+                    }
+                    else
+                    {
+                        @foreach (var ev in Model.UpcomingLessons)
+                        {
+                            <tr>
+                                <td>@ev.StartJalaliDate</td>
+                                <td>@ev.StartTimeTehran</td>
+                                <td>@ev.StudentFullName</td>
+                                <td>@ev.TeacherFullName</td>
+                                <td>@ev.InstrumentName — @ev.RoomName</td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <section class="hn-panel">
+        <div class="hn-panel-header">
+            <h2>درخواست‌های برداشت در انتظار تایید</h2>
+            <a href="/dashboard/admin/management?tab=finance" class="hn-btn hn-btn-outline hn-btn-sm">مدیریت مالی</a>
+        </div>
+        @if (!Model.PendingWithdrawals.Any())
+        {
+            <p style="color:var(--hn-text-muted);margin:0;">درخواست برداشت معلقی وجود ندارد.</p>
+        }
+        else
+        {
+            <div style="display:grid;gap:0.75rem;">
+                @foreach (var wd in Model.PendingWithdrawals)
+                {
+                    <div style="padding:0.85rem;border:1px solid var(--hn-border);border-radius:var(--hn-radius-sm);">
+                        <div style="display:flex;justify-content:space-between;margin-bottom:0.35rem;">
+                            <strong>@wd.Wallet.User.FullName</strong>
+                            <span class="hn-badge hn-badge-warning">@CurrencyFormatter.FormatToman(wd.RequestedAmountIrr)</span>
+                        </div>
+                        <div style="font-size:0.82rem;color:var(--hn-text-muted);margin-bottom:0.6rem;" dir="ltr">@wd.DestinationSheba</div>
+                        <form asp-controller="Management" asp-action="ConfirmWithdrawal" method="post" style="display:flex;gap:0.45rem;">
+                            @Html.AntiForgeryToken()
+                            <input type="hidden" name="withdrawalId" value="@wd.Id" />
+                            <input type="text" name="bankReferenceNumber" class="hn-input" placeholder="شماره پیگیری بانکی" required />
+                            <button type="submit" class="hn-btn hn-btn-teal hn-btn-sm">تایید واریز</button>
+                        </form>
+                    </div>
+                }
+            </div>
+        }
+    </section>
+</div>

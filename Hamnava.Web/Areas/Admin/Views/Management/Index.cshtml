@@ -1,0 +1,295 @@
+@using Hamnava.Domain.Entities.Cms
+@using Hamnava.Domain.Entities.Education
+@using Hamnava.Domain.Entities.Finance
+@using Hamnava.Domain.Entities.Identity
+@using Hamnava.Domain.Entities.Instruments
+@using Hamnava.Domain.Entities.Messaging
+@{
+    var activeTab = ViewData["ActiveTab"]?.ToString() ?? "users";
+    var instruments = ViewBag.Instruments as IReadOnlyList<Instrument> ?? [];
+    var categories = ViewBag.InstrumentCategories as IReadOnlyList<InstrumentCategory> ?? [];
+    var rooms = ViewBag.Rooms as IReadOnlyList<Room> ?? [];
+    var plans = ViewBag.CoursePlans as IReadOnlyList<CoursePlan> ?? [];
+    var users = ViewBag.Users as IReadOnlyList<User> ?? [];
+    var fin = ViewBag.FinancialSettings as FinancialSetting;
+    var settings = ViewBag.SystemSettings as IReadOnlyList<SystemSetting> ?? [];
+    var templates = ViewBag.SmsTemplates as IReadOnlyList<SmsTemplate> ?? [];
+}
+
+<nav class="hn-tab-bar" aria-label="بخش‌های مدیریت">
+    <a href="?tab=users" class="hn-tab-pill @(activeTab == "users" ? "is-active" : "")">کاربران و تخصیص استاد</a>
+    <a href="?tab=instruments" class="hn-tab-pill @(activeTab == "instruments" ? "is-active" : "")">سازها و موجودی اجاره</a>
+    <a href="?tab=rooms" class="hn-tab-pill @(activeTab == "rooms" ? "is-active" : "")">اتاق‌ها و ظرفیت هم‌زمان</a>
+    <a href="?tab=plans" class="hn-tab-pill @(activeTab == "plans" ? "is-active" : "")">پکیج‌های آموزشی</a>
+    <a href="?tab=finance" class="hn-tab-pill @(activeTab == "finance" ? "is-active" : "")">تنظیمات مالی و پورسانت</a>
+    <a href="?tab=settings" class="hn-tab-pill @(activeTab == "settings" ? "is-active" : "")">تنظیمات سیستم و سهمیه</a>
+    <a href="?tab=sms" class="hn-tab-pill @(activeTab == "sms" ? "is-active" : "")">قالب‌های پیامک</a>
+</nav>
+
+@if (activeTab == "users")
+{
+    <div class="hn-dash-grid is-two-col">
+        <section class="hn-panel">
+            <div class="hn-panel-header"><h2>کاربران ثبت‌شده</h2></div>
+            <div class="hn-table-wrap">
+                <table class="hn-table">
+                    <thead><tr><th>نام</th><th>موبایل</th><th>نقش‌ها</th><th>عملیات سهمیه</th></tr></thead>
+                    <tbody>
+                        @foreach (var u in users)
+                        {
+                            <tr>
+                                <td>@u.FullName</td>
+                                <td dir="ltr">@u.MobileNumber</td>
+                                <td>@string.Join("، ", u.UserRoles.Select(r => r.Role.Name))</td>
+                                <td>
+                                    <form asp-action="ResetStudentQuota" method="post"
+                                          data-confirm-title="بازنشانی سهمیه"
+                                          data-confirm-message="آیا از بازنشانی سهمیه ۶۰ روزه این هنرجو اطمینان دارید؟">
+                                        @Html.AntiForgeryToken()
+                                        <input type="hidden" name="studentUserId" value="@u.Id" />
+                                        <input type="hidden" name="reason" value="بازنشانی دستی توسط مدیر سیستم" />
+                                        <button type="submit" class="hn-btn hn-btn-outline hn-btn-sm">ریست سهمیه</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section class="hn-panel">
+            <div class="hn-panel-header"><h2>جستجوی معرف (دیتابیس محور)</h2></div>
+            <div data-referrer-picker="/dashboard/admin/management/SearchReferrers">
+                <label class="hn-kpi-label">جستجو بر اساس نام، موبایل یا کد معرف:</label>
+                <input type="text" class="hn-input" data-picker-search placeholder="مثلاً: علی یا HN-..." />
+                <input type="hidden" name="referrerUserId" data-picker-value />
+                <div class="hn-picker-results" data-picker-results></div>
+            </div>
+        </section>
+    </div>
+}
+else if (activeTab == "instruments")
+{
+    <div class="hn-dash-grid is-two-col">
+        <section class="hn-panel">
+            <div class="hn-panel-header"><h2>لیست سازها</h2></div>
+            <div class="hn-table-wrap">
+                <table class="hn-table">
+                    <thead><tr><th>ساز</th><th>اجاره روزانه</th><th>اجاره ماهانه</th><th>موجودی (آزاد/کل)</th></tr></thead>
+                    <tbody>
+                        @foreach (var inst in instruments)
+                        {
+                            <tr>
+                                <td>@inst.Name</td>
+                                <td>@CurrencyFormatter.FormatToman(inst.DailyRentalPriceIrr)</td>
+                                <td>@CurrencyFormatter.FormatToman(inst.MonthlyRentalPriceIrr)</td>
+                                <td>@inst.AvailableInventoryQuantity / @inst.TotalInventoryQuantity</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section class="hn-panel">
+            <div class="hn-panel-header"><h2>افزودن ساز جدید</h2></div>
+            <form asp-action="CreateInstrument" method="post" class="hn-form-grid">
+                @Html.AntiForgeryToken()
+                <div class="hn-field"><label>نام ساز</label><input name="name" class="hn-input" required /></div>
+                <div class="hn-field"><label>اسلاگ انگلیسی</label><input name="slug" class="hn-input" dir="ltr" required /></div>
+                @if (categories.Any())
+                {
+                    <div class="hn-field">
+                        <label>دسته‌بندی ساز</label>
+                        <select name="categoryId" class="hn-select">
+                            @foreach (var cat in categories)
+                            {
+                                <option value="@cat.Id">@cat.Name</option>
+                            }
+                        </select>
+                    </div>
+                }
+                <div class="hn-field"><label>قیمت اجاره روزانه (ریال)</label><input name="dailyRentalPriceIrr" type="number" class="hn-input" dir="ltr" value="0" /></div>
+                <div class="hn-field"><label>قیمت اجاره ماهانه (ریال)</label><input name="monthlyRentalPriceIrr" type="number" class="hn-input" dir="ltr" value="0" /></div>
+                <div class="hn-field"><label>تعداد کل موجودی اجاره</label><input name="totalInventoryQuantity" type="number" class="hn-input" dir="ltr" value="1" /></div>
+                <label style="display:flex;align-items:center;gap:0.5rem;"><input type="checkbox" name="isRentalEnabled" value="true" checked /> فعال برای اجاره</label>
+                <button type="submit" class="hn-btn hn-btn-teal">ثبت ساز</button>
+            </form>
+        </section>
+    </div>
+}
+else if (activeTab == "rooms")
+{
+    <div class="hn-dash-grid is-two-col">
+        <section class="hn-panel">
+            <div class="hn-panel-header"><h2>اتاق‌های آموزشی و ظرفیت پویا</h2></div>
+            <div class="hn-table-wrap">
+                <table class="hn-table">
+                    <thead><tr><th>نام اتاق</th><th>توضیحات</th><th>حداکثر جلسات هم‌زمان</th><th>سازهای مجاز</th></tr></thead>
+                    <tbody>
+                        @foreach (var r in rooms)
+                        {
+                            <tr>
+                                <td>@r.Name</td>
+                                <td>@(r.Description ?? "—")</td>
+                                <td><span class="hn-badge hn-badge-info">@r.Capacity</span></td>
+                                <td>@string.Join("، ", r.SupportedInstruments.Select(x => x.Instrument.Name))</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section class="hn-panel">
+            <div class="hn-panel-header"><h2>افزودن اتاق جدید</h2></div>
+            <form asp-action="CreateClassroom" method="post" class="hn-form-grid">
+                @Html.AntiForgeryToken()
+                <div class="hn-field"><label>نام اتاق</label><input name="name" class="hn-input" required /></div>
+                <div class="hn-field"><label>توضیحات اتاق (اختیاری)</label><input name="description" class="hn-input" /></div>
+                <div class="hn-field"><label>ظرفیت هم‌زمان (مثلاً ۱، ۲ یا ۳)</label><input name="maxConcurrentSessions" type="number" min="1" value="2" class="hn-input" dir="ltr" /></div>
+                <div class="hn-field">
+                    <label>سازهای پشتیبانی‌شده در این اتاق</label>
+                    <select name="supportedInstrumentIds" multiple class="hn-select" size="5">
+                        @foreach (var inst in instruments)
+                        {
+                            <option value="@inst.Id">@inst.Name</option>
+                        }
+                    </select>
+                </div>
+                <button type="submit" class="hn-btn hn-btn-teal">ایجاد اتاق</button>
+            </form>
+        </section>
+    </div>
+}
+else if (activeTab == "plans")
+{
+    <div class="hn-dash-grid is-two-col">
+        <section class="hn-panel">
+            <div class="hn-panel-header"><h2>پکیج‌های آموزشی فعال</h2></div>
+            <div class="hn-table-wrap">
+                <table class="hn-table">
+                    <thead><tr><th>عنوان</th><th>مدت دوره</th><th>تعداد جلسه</th><th>شهریه</th></tr></thead>
+                    <tbody>
+                        @foreach (var p in plans)
+                        {
+                            <tr>
+                                <td>@p.Title</td>
+                                <td>@p.CoursePeriodMonths ماه</td>
+                                <td>@p.SessionCount جلسه (@p.LessonDurationMinutes دقیقه)</td>
+                                <td>@CurrencyFormatter.FormatToman(p.BasePriceIrr)</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </section>
+        <section class="hn-panel">
+            <div class="hn-panel-header"><h2>ایجاد پکیج جدید</h2></div>
+            <form asp-action="CreateCoursePlan" method="post" class="hn-form-grid">
+                @Html.AntiForgeryToken()
+                <div class="hn-field"><label>عنوان دوره</label><input name="title" class="hn-input" required /></div>
+                <div class="hn-field"><label>تعداد جلسات</label><input name="sessionCount" type="number" value="4" class="hn-input" dir="ltr" /></div>
+                <div class="hn-field"><label>مدت هر جلسه (دقیقه)</label><input name="lessonDurationMinutes" type="number" value="45" class="hn-input" dir="ltr" /></div>
+                <div class="hn-field"><label>شهریه (ریال)</label><input name="basePriceIrr" type="number" value="25000000" class="hn-input" dir="ltr" /></div>
+                <div class="hn-field"><label>مدت دوره (ماه)</label><input name="coursePeriodMonths" type="number" value="1" class="hn-input" dir="ltr" /></div>
+                <button type="submit" class="hn-btn hn-btn-teal">ذخیره پکیج</button>
+            </form>
+        </section>
+    </div>
+}
+else if (activeTab == "finance")
+{
+    <section class="hn-panel" style="max-width:680px;">
+        <div class="hn-panel-header"><h2>تنظیمات پورسانت و مالی آکادمی (دیتابیس محور)</h2></div>
+        <form asp-action="UpdateFinancialSettings" method="post" class="hn-form-grid">
+            @Html.AntiForgeryToken()
+            <div class="hn-field">
+                <label>درصد پورسانت پیش‌فرض استاد</label>
+                <input name="defaultTeacherCommissionPercentage" type="number" step="0.5" value="@(fin?.DefaultTeacherCommissionPercentage ?? 60m)" class="hn-input" dir="ltr" />
+            </div>
+            <div class="hn-field">
+                <label>مبنای محاسبه پورسانت</label>
+                <select name="commissionBasis" class="hn-select">
+                    <option value="@((int)CommissionCalculationBasis.PostDiscountFinalAmount)" selected="@(fin?.CalculationBasis == CommissionCalculationBasis.PostDiscountFinalAmount)">مبلغ نهایی پس از تخفیف</option>
+                    <option value="@((int)CommissionCalculationBasis.PreDiscountOriginalAmount)" selected="@(fin?.CalculationBasis == CommissionCalculationBasis.PreDiscountOriginalAmount)">مبلغ اصلی قبل از تخفیف</option>
+                </select>
+            </div>
+            <div class="hn-field">
+                <label>نوع پاداش معرف</label>
+                <select name="defaultReferrerCommissionType" class="hn-select">
+                    <option value="@((int)ReferrerCommissionType.Percentage)" selected="@(fin?.DefaultReferrerCommissionType == ReferrerCommissionType.Percentage)">درصدی</option>
+                    <option value="@((int)ReferrerCommissionType.FixedAmountIrr)" selected="@(fin?.DefaultReferrerCommissionType == ReferrerCommissionType.FixedAmountIrr)">مبلغ ثابت (ریال)</option>
+                </select>
+            </div>
+            <div class="hn-field">
+                <label>مقدار پاداش معرف</label>
+                <input name="defaultReferrerCommissionValue" type="number" value="@(fin?.DefaultReferrerCommissionValue ?? 5m)" class="hn-input" dir="ltr" />
+            </div>
+            <div class="hn-field">
+                <label>حداقل مبلغ برداشت کیف پول (ریال)</label>
+                <input name="minimumWithdrawalAmountIrr" type="number" value="@(fin?.MinimumWithdrawalAmountIrr ?? 1000000m)" class="hn-input" dir="ltr" />
+            </div>
+            <label style="display:flex;align-items:center;gap:0.5rem;">
+                <input type="checkbox" name="deductReferrerShareFromAcademyShare" value="true" checked="@(fin?.DeductReferrerShareFromAcademyShare ?? true)" />
+                کسر سهم معرف از سهم آموزشگاه
+            </label>
+            <button type="submit" class="hn-btn hn-btn-teal">ذخیره تنظیمات مالی</button>
+        </form>
+    </section>
+}
+else if (activeTab == "settings")
+{
+    <section class="hn-panel">
+        <div class="hn-panel-header"><h2>تنظیمات سیستم، سهمیه، اطلاع‌رسانی و قوانین</h2></div>
+        <div class="hn-table-wrap">
+            <table class="hn-table">
+                <thead><tr><th>کلید تنظیم</th><th>توضیحات</th><th>مقدار فعلی</th><th>ذخیره</th></tr></thead>
+                <tbody>
+                    @foreach (var s in settings)
+                    {
+                        <tr>
+                            <td dir="ltr"><code>@s.Key</code></td>
+                            <td>@(string.IsNullOrWhiteSpace(s.DescriptionFa) ? s.DisplayLabelFa : $"{s.DisplayLabelFa} — {s.DescriptionFa}")</td>
+                            <td colspan="2">
+                                <form asp-action="UpdateSystemSetting" method="post" style="display:flex;gap:0.5rem;">
+                                    @Html.AntiForgeryToken()
+                                    <input type="hidden" name="key" value="@s.Key" />
+                                    <input name="value" value="@s.Value" class="hn-input" dir="ltr" />
+                                    <button type="submit" class="hn-btn hn-btn-teal hn-btn-sm">ذخیره</button>
+                                </form>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </section>
+}
+else if (activeTab == "sms")
+{
+    <section class="hn-panel">
+        <div class="hn-panel-header"><h2>مدیریت قالب‌های پیامک (دیتابیس محور)</h2></div>
+        <div style="display:grid;gap:1rem;">
+            @foreach (var t in templates)
+            {
+                <form asp-action="UpdateSmsTemplate" method="post" style="padding:1rem;border:1px solid var(--hn-border);border-radius:var(--hn-radius-md);display:grid;gap:0.65rem;">
+                    @Html.AntiForgeryToken()
+                    <input type="hidden" name="templateId" value="@t.Id" />
+                    <div style="display:flex;justify-content:space-between;align-items:center;">
+                        <strong>@t.Title (@t.TriggerType)</strong>
+                        <small style="color:var(--hn-text-muted);" dir="ltr">متغیرهای مجاز: @t.AllowedPlaceholdersCsv</small>
+                    </div>
+                    <textarea name="bodyTemplate" class="hn-textarea" rows="2">@t.BodyTemplate</textarea>
+                    <div style="display:flex;justify-content:space-between;align-items:center;">
+                        <label style="display:flex;align-items:center;gap:0.45rem;">
+                            <input type="checkbox" name="isActive" value="true" checked="@t.IsActive" /> فعال
+                        </label>
+                        <button type="submit" class="hn-btn hn-btn-teal hn-btn-sm">ذخیره قالب</button>
+                    </div>
+                </form>
+            }
+        </div>
+    </section>
+}

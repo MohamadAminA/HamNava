@@ -1,0 +1,170 @@
+@model StudentDashboardViewModel
+@using Hamnava.Domain.Entities.Instruments
+@{
+    var rentable = ViewBag.RentableInstruments as IReadOnlyList<Instrument> ?? [];
+    var hasPublicPortfolioConsent = ViewBag.HasPublicPortfolioConsent as bool? ?? false;
+    var absPct = Model.Quota.MaxAuthorizedAbsences > 0 ? Math.Min(100, (int)Math.Round(100.0 * Model.Quota.UsedAuthorizedAbsences / Model.Quota.MaxAuthorizedAbsences)) : 0;
+    var resPct = Model.Quota.MaxRescheduleRequests > 0 ? Math.Min(100, (int)Math.Round(100.0 * Model.Quota.UsedRescheduleRequests / Model.Quota.MaxRescheduleRequests)) : 0;
+}
+
+<section class="hn-kpi-grid">
+    <div class="hn-kpi-card hn-kpi-accent">
+        <span class="hn-kpi-label">استاد راهنما و ساز تخصصی</span>
+        <span class="hn-kpi-value" style="font-size:1.15rem;">@(Model.AssignedTeacherName ?? "در انتظار تخصیص") — @(Model.PrimaryInstrumentName ?? "—")</span>
+    </div>
+    <div class="hn-kpi-card">
+        <span class="hn-kpi-label">دوره فعال</span>
+        <span class="hn-kpi-value" style="font-size:1.1rem;">@(Model.ActiveEnrollment?.CoursePlan.Title ?? "بدون دوره فعال")</span>
+    </div>
+    <div class="hn-kpi-card">
+        <span class="hn-kpi-label">سهمیه غیبت موجه باقی‌مانده (دوره ۶۰ روزه)</span>
+        <span class="hn-kpi-value">@Model.Quota.RemainingAuthorizedAbsences از @Model.Quota.MaxAuthorizedAbsences</span>
+    </div>
+    <div class="hn-kpi-card">
+        <span class="hn-kpi-label">پورتفولیو عمومی</span>
+        <span class="hn-kpi-value" style="font-size:1rem;">
+            @if (Model.Student.IsPublicProfileVisible && !string.IsNullOrWhiteSpace(Model.Student.PublicSlug))
+            {
+                <a href="/student/@Model.Student.PublicSlug" style="color:var(--hn-teal-dark);text-decoration:underline;">مشاهده صفحه عمومی</a>
+            }
+            else
+            {
+                <span>خصوصی</span>
+            }
+        </span>
+    </div>
+</section>
+
+<div class="hn-dash-grid is-two-col">
+    <section class="hn-panel">
+        <div class="hn-panel-header">
+            <h2>جلسات آینده و اعلام غیبت موجه (حداقل ۲۴ ساعت قبل)</h2>
+            @if (Model.ActiveEnrollment is not null)
+            {
+                <a href="/certificates/download/@Model.ActiveEnrollment.Id" class="hn-btn hn-btn-outline hn-btn-sm">دانلود گواهینامه PDF</a>
+            }
+        </div>
+        <div class="hn-table-wrap">
+            <table class="hn-table">
+                <thead><tr><th>تاریخ</th><th>ساعت</th><th>اتاق</th><th>وضعیت</th><th>عملیات</th></tr></thead>
+                <tbody>
+                    @if (!Model.UpcomingLessons.Any())
+                    {
+                        <tr><td colspan="5" style="text-align:center;color:var(--hn-text-muted);">جلسه‌ای در برنامه پیش‌رو ثبت نشده است.</td></tr>
+                    }
+                    else
+                    {
+                        @foreach (var ev in Model.UpcomingLessons)
+                        {
+                            <tr>
+                                <td>@ev.StartJalaliDate</td>
+                                <td>@ev.StartTimeTehran</td>
+                                <td>@ev.RoomName</td>
+                                <td><span class="hn-badge hn-badge-info">@ev.Status</span></td>
+                                <td>
+                                    @if (ev.Status == ClassSessionStatus.Scheduled)
+                                    {
+                                        <form asp-action="RequestAuthorizedAbsence" method="post"
+                                              data-confirm-title="ثبت غیبت موجه"
+                                              data-confirm-message="آیا می‌خواهید برای این جلسه درخواست غیبت موجه ثبت کنید؟ یک عدد از سهمیه ۶۰ روزه شما کسر می‌شود.">
+                                            @Html.AntiForgeryToken()
+                                            <input type="hidden" name="classSessionId" value="@ev.SessionId" />
+                                            <button type="submit" class="hn-btn hn-btn-outline hn-btn-sm">اعلام غیبت موجه</button>
+                                        </form>
+                                    }
+                                </td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <section class="hn-panel">
+        <div class="hn-panel-header"><h2>سهمیه ۶۰ روزه (@Model.Quota.PeriodStartJalali تا @Model.Quota.PeriodEndJalali)</h2></div>
+        <div style="display:grid;gap:1rem;">
+            <div>
+                <div style="display:flex;justify-content:space-between;font-size:0.86rem;margin-bottom:0.35rem;">
+                    <span>غیبت موجه استفاده‌شده</span>
+                    <strong>@Model.Quota.UsedAuthorizedAbsences / @Model.Quota.MaxAuthorizedAbsences</strong>
+                </div>
+                <div class="hn-progress-track"><div class="hn-progress-fill" style="width:@(absPct)%;"></div></div>
+            </div>
+            <div>
+                <div style="display:flex;justify-content:space-between;font-size:0.86rem;margin-bottom:0.35rem;">
+                    <span>تغییر زمان جلسه استفاده‌شده</span>
+                    <strong>@Model.Quota.UsedRescheduleRequests / @Model.Quota.MaxRescheduleRequests</strong>
+                </div>
+                <div class="hn-progress-track"><div class="hn-progress-fill" style="width:@(resPct)%;"></div></div>
+            </div>
+
+            <hr style="border:0;border-top:1px solid var(--hn-border);width:100%;" />
+            <form asp-action="TogglePublicPortfolioConsent" method="post" style="display:grid;gap:0.65rem;">
+                @Html.AntiForgeryToken()
+                <label style="display:flex;align-items:center;gap:0.5rem;font-size:0.88rem;">
+                    <input type="checkbox" name="consentGiven" value="true" checked="@hasPublicPortfolioConsent" />
+                    رضایت خود را برای نمایش عمومی اجراها در پورتفولیو هم‌نوا اعلام می‌کنم
+                </label>
+                <label style="display:flex;align-items:center;gap:0.5rem;font-size:0.88rem;">
+                    <input type="checkbox" name="isPublicProfileVisible" value="true" checked="@Model.Student.IsPublicProfileVisible" />
+                    صفحه پورتفولیوی عمومی من فعال باشد
+                </label>
+                <button type="submit" class="hn-btn hn-btn-teal hn-btn-sm">ذخیره تنظیمات حریم خصوصی</button>
+            </form>
+        </div>
+    </section>
+</div>
+
+<div class="hn-dash-grid is-two-col">
+    <section class="hn-panel">
+        <div class="hn-panel-header"><h2>دفترچه تمرین و تکالیف استاد</h2></div>
+        @if (!Model.RecentPracticeNotes.Any())
+        {
+            <p style="color:var(--hn-text-muted);margin:0;">هنوز یادداشت تمرینی ثبت نشده است.</p>
+        }
+        else
+        {
+            <div style="display:grid;gap:0.75rem;">
+                @foreach (var note in Model.RecentPracticeNotes)
+                {
+                    <article style="padding:0.9rem;border:1px solid var(--hn-border);border-radius:var(--hn-radius-sm);background:var(--hn-surface-muted);">
+                        <strong>@note.Title</strong>
+                        <p style="margin:0.35rem 0 0;font-size:0.88rem;color:var(--hn-text-muted);">@note.Content</p>
+                    </article>
+                }
+            </div>
+        }
+    </section>
+
+    <section class="hn-panel">
+        <div class="hn-panel-header"><h2>درخواست اجاره ساز</h2></div>
+        <form asp-action="RequestRental" method="post" class="hn-form-grid">
+            @Html.AntiForgeryToken()
+            <div class="hn-field">
+                <label>ساز</label>
+                <select name="instrumentId" class="hn-select" required>
+                    @foreach (var inst in rentable)
+                    {
+                        <option value="@inst.Id">@inst.Name — ماهانه @CurrencyFormatter.FormatToman(inst.MonthlyRentalPriceIrr)</option>
+                    }
+                </select>
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.75rem;">
+                <div class="hn-field">
+                    <label>واحد اجاره</label>
+                    <select name="pricingUnit" class="hn-select">
+                        <option value="@((int)RentalPricingUnit.Monthly)">ماهانه</option>
+                        <option value="@((int)RentalPricingUnit.Daily)">روزانه</option>
+                    </select>
+                </div>
+                <div class="hn-field">
+                    <label>تعداد واحد</label>
+                    <input name="durationUnits" type="number" min="1" value="1" class="hn-input" dir="ltr" />
+                </div>
+            </div>
+            <div class="hn-field"><label>تاریخ شروع شمسی</label><input name="startJalaliDate" class="hn-input" dir="ltr" placeholder="1404/02/15" /></div>
+            <button type="submit" class="hn-btn hn-btn-espresso">ثبت درخواست اجاره ساز</button>
+        </form>
+    </section>
+</div>

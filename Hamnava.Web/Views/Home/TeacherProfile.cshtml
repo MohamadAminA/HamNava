@@ -1,0 +1,25 @@
+@model PublicTeacherCardViewModel
+
+<section class="hn-page-hero">
+    <div class="hn-container">
+        <img src="@Model.ProfileImageUrl" alt="@Model.FullName"
+             style="width:136px;height:136px;border-radius:50%;object-fit:cover;margin:0 auto 1rem;border:4px solid rgba(255,244,232,0.4);" />
+        <h1 style="margin:0 0 0.35rem;">@Model.FullName</h1>
+        <p style="margin:0;color:var(--hn-text-on-dark-muted);">@Model.InstrumentRoleTitle</p>
+    </div>
+</section>
+
+<section class="hn-section">
+    <div class="hn-container" style="max-width:740px;">
+        <div class="hn-card">
+            <h2 style="margin:0 0 0.75rem;color:var(--hn-espresso);">معرفی و سوابق تدریس</h2>
+            <p style="margin:0 0 1.5rem;color:var(--hn-text-muted);">
+                @(string.IsNullOrWhiteSpace(Model.Bio) ? "مدرس تخصصی آکادمی موسیقی هم‌نوا با تمرکز بر آموزش اصولی، نت‌خوانی، تکنیک نوازندگی و پرورش گوش موسیقایی." : Model.Bio)
+            </p>
+            <div style="display:flex;gap:0.75rem;flex-wrap:wrap;">
+                <a href="/consultation" class="hn-btn hn-btn-espresso hn-btn-sm">رزرو جلسه مشاوره با استاد</a>
+                <a href="/teachers" class="hn-btn hn-btn-outline hn-btn-sm">بازگشت به لیست اساتید</a>
+            </div>
+        </div>
+    </div>
+</section>

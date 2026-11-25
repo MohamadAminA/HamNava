@@ -1,0 +1,27 @@
+@model Hamnava.Core.Payments.PaymentCallbackResult
+
+<section class="hn-section">
+    <div class="hn-container" style="max-width:520px;">
+        <div class="hn-card" style="text-align:center;">
+            <div style="font-size:3rem;margin-bottom:0.5rem;">@(Model.Succeeded ? "✅" : "❌")</div>
+            <h1 style="margin:0 0 0.5rem;color:@(Model.Succeeded ? "var(--hn-success)" : "var(--hn-danger)");">
+                @(Model.Succeeded ? "پرداخت با موفقیت تایید شد" : "پرداخت تایید نشد")
+            </h1>
+            <p style="color:var(--hn-text-muted);margin:0 0 1rem;">@Model.Message</p>
+
+            @if (Model.FinalAmountIrr > 0)
+            {
+                <p style="margin:0 0 0.4rem;">مبلغ پرداختی: <strong>@CurrencyFormatter.FormatToman(Model.FinalAmountIrr)</strong></p>
+            }
+            @if (!string.IsNullOrWhiteSpace(Model.RefId))
+            {
+                <p style="margin:0 0 1.25rem;">کد رهگیری زرین‌پال: <strong dir="ltr">@Model.RefId</strong></p>
+            }
+
+            <div style="display:flex;justify-content:center;gap:0.75rem;flex-wrap:wrap;">
+                <a href="/dashboard" class="hn-btn hn-btn-espresso hn-btn-sm">بازگشت به پنل کاربری</a>
+                <a href="/" class="hn-btn hn-btn-outline hn-btn-sm">صفحه اصلی</a>
+            </div>
+        </div>
+    </div>
+</section>

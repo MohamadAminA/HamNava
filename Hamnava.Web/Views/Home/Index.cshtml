@@ -1,0 +1,304 @@
+@model HomePageViewModel
+@{
+    var heroTitle = Model.HeroSection?.Title ?? "آکادمی موسیقی هم‌نوا";
+    var heroSubtitle = Model.HeroSection?.Subtitle ?? "فضایی آرام و تخصصی برای کشف، یادگیری و شکوفایی استعداد موسیقی شما در کنار برترین اساتید اصفهان";
+    var heroCtaText = Model.HeroSection?.PrimaryCtaText ?? "شروع جلسه رایگان";
+    var heroCtaUrl = Model.HeroSection?.PrimaryCtaUrl ?? "/consultation";
+    var activeWorldTab = Model.WorldTabs.FirstOrDefault();
+}
+
+<!-- 2. FULL-BLEED GRAND PIANO HERO WITH CURVED WAVE BOTTOM & 3 GLASS STAT CARDS -->
+<section class="hn-hero">
+    <div class="hn-container hn-hero-inner">
+        <div class="hn-hero-copy">
+            <h1 class="hn-hero-title">@heroTitle</h1>
+            <p class="hn-hero-subtitle">@heroSubtitle</p>
+            <div style="display:flex;flex-wrap:wrap;gap:0.75rem;">
+                <a href="@heroCtaUrl" class="hn-btn hn-btn-cream">@heroCtaText</a>
+                <a href="/pricing" class="hn-btn hn-btn-outline" style="color:#FFF7EE;border-color:rgba(255,244,232,0.45);">مشاهده دوره‌ها و شهریه</a>
+            </div>
+        </div>
+
+        <div class="hn-hero-stats" aria-label="آمار آکادمی موسیقی هم‌نوا">
+            @foreach (var stat in Model.Statistics.Take(3))
+            {
+                <div class="hn-stat-glass">
+                    <span class="hn-stat-value">@stat.DisplayValue@stat.Suffix</span>
+                    <span class="hn-stat-label">@stat.Label</span>
+                </div>
+            }
+        </div>
+    </div>
+
+    <div class="hn-wave-bottom" aria-hidden="true">
+        <svg viewBox="0 0 1440 80" preserveAspectRatio="none">
+            <path fill="#F3EAE0" d="M0,36 C280,92 640,0 1020,48 C1210,72 1350,60 1440,38 L1440,80 L0,80 Z"></path>
+        </svg>
+    </div>
+</section>
+
+<!-- 3. WHY HAMNAVA — 4-COLUMN FEATURE STRIP WITH HAIRLINE DIVIDERS -->
+<section class="hn-section">
+    <div class="hn-container">
+        <div class="hn-section-header">
+            <h2 class="hn-section-title">چرا هم‌نوا؟</h2>
+            <p class="hn-section-subtitle">استانداردهای آموزشی مدرن همراه با پیگیری منظم پیشرفت هر هنرجو</p>
+        </div>
+
+        <div class="hn-why-grid">
+            @foreach (var feature in Model.WhyFeatures.Take(4))
+            {
+                <article class="hn-why-item">
+                    <div class="hn-why-icon" aria-hidden="true">
+                        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                            <path d="M9 18V5l12-2v13" /><circle cx="6" cy="18" r="3" /><circle cx="18" cy="16" r="3" />
+                        </svg>
+                    </div>
+                    <h3 class="hn-why-title">@feature.Title</h3>
+                    <p class="hn-why-desc">@feature.Description</p>
+                </article>
+            }
+        </div>
+    </div>
+</section>
+
+<!-- 4. WORLD OF HAMNAVA — INTERACTIVE 4-TAB SHOWCASE -->
+<section class="hn-section" style="padding-top:1.5rem;">
+    <div class="hn-container">
+        <div class="hn-section-header">
+            <h2 class="hn-section-title">دنیای هم‌نوا</h2>
+            <p class="hn-section-subtitle">نگاهی نزدیک‌تر به کلاس‌ها، اجراهای هنرجویی و فضای آکادمی</p>
+        </div>
+
+        <div class="hn-world-grid">
+            <div class="hn-world-tabs" role="tablist" aria-label="بخش‌های دنیای هم‌نوا">
+                @for (var i = 0; i < Model.WorldTabs.Count; i++)
+                {
+                    var tab = Model.WorldTabs[i];
+                    <button type="button"
+                            role="tab"
+                            aria-selected="@(i == 0 ? "true" : "false")"
+                            class="hn-world-tab @(i == 0 ? "is-active" : "")"
+                            data-world-tab="@tab.Key"
+                            data-image="@tab.ImageUrl"
+                            data-caption="@tab.OverlayTitle"
+                            data-url="@tab.LinkUrl">
+                        <span>@tab.Label</span>
+                        <span aria-hidden="true">←</span>
+                    </button>
+                }
+            </div>
+
+            <div class="hn-world-stage">
+                <img id="hn-world-image"
+                     src="@(activeWorldTab?.ImageUrl ?? "/img/logo.webp")"
+                     alt="@(activeWorldTab?.OverlayTitle ?? "دنیای هم‌نوا")"
+                     loading="lazy" />
+                <div class="hn-world-overlay">
+                    <span id="hn-world-caption" style="font-weight:700;">@(activeWorldTab?.OverlayTitle ?? "دنیای موسیقی هم‌نوا")</span>
+                    <a id="hn-world-link" href="@(activeWorldTab?.LinkUrl ?? "/teachers")" class="hn-btn hn-btn-cream hn-btn-sm">مشاهده بیشتر ←</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 5. TEACHERS — WAVY DEEP ESPRESSO FULL-WIDTH BAND WITH CIRCULAR PORTRAIT CAROUSEL -->
+<section class="hn-dark-wave-band">
+    <div class="hn-wave-top" aria-hidden="true">
+        <svg viewBox="0 0 1440 70" preserveAspectRatio="none">
+            <path fill="#F3EAE0" d="M0,0 L1440,0 L1440,34 C1140,76 760,4 420,46 C200,72 80,44 0,24 Z"></path>
+        </svg>
+    </div>
+
+    <div class="hn-container">
+        <div class="hn-section-header">
+            <h2 class="hn-section-title">اساتید مجموعه</h2>
+            <p class="hn-section-subtitle">همراهی با مدرسین متخصص و باسابقه برای یادگیری اصولی ساز</p>
+        </div>
+
+        <div class="hn-carousel-shell" data-hn-carousel>
+            <button type="button" class="hn-carousel-btn" data-carousel-prev aria-label="استاد قبلی">→</button>
+            <div class="hn-carousel-track">
+                @foreach (var teacher in Model.Teachers)
+                {
+                    <a href="/teachers/@teacher.Slug" class="hn-teacher-circle-card">
+                        <img src="@teacher.ProfileImageUrl" alt="@teacher.FullName" class="hn-teacher-avatar" loading="lazy" />
+                        <h3 class="hn-teacher-name">@teacher.FullName</h3>
+                        <p class="hn-teacher-role">@teacher.InstrumentRoleTitle</p>
+                    </a>
+                }
+            </div>
+            <button type="button" class="hn-carousel-btn" data-carousel-next aria-label="استاد بعدی">←</button>
+        </div>
+
+        <div style="text-align:center;margin-top:2rem;">
+            <a href="/teachers" class="hn-btn hn-btn-cream">مشاهده تمام اساتید ←</a>
+        </div>
+    </div>
+
+    <div class="hn-wave-bottom" aria-hidden="true">
+        <svg viewBox="0 0 1440 70" preserveAspectRatio="none">
+            <path fill="#F3EAE0" d="M0,30 C320,82 720,4 1100,48 C1260,66 1370,54 1440,36 L1440,70 L0,70 Z"></path>
+        </svg>
+    </div>
+</section>
+
+<!-- 6. HAMNAVA STUDENTS — ASYMMETRIC VIDEO SHOWCASE + 3 INSTRUMENT THUMBNAILS -->
+<section class="hn-section">
+    <div class="hn-container">
+        <div class="hn-section-header">
+            <h2 class="hn-section-title">هنرجویان هم‌نوا</h2>
+            <p class="hn-section-subtitle">پورتفولیو و اجراهای واقعی هنرجویان با ثبت مسیر پیشرفت در آکادمی</p>
+        </div>
+
+        <div class="hn-students-grid">
+            @if (Model.FeaturedStudent is not null)
+            {
+                <a href="/student/@Model.FeaturedStudent.EnglishSlug" class="hn-student-featured">
+                    <img src="@Model.FeaturedStudent.PosterImageUrl" alt="اجرای @Model.FeaturedStudent.FullName" loading="lazy" />
+                    <span class="hn-play-orb" aria-hidden="true">
+                        <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor"><polygon points="6,4 20,12 6,20" /></svg>
+                    </span>
+                    <div class="hn-student-featured-overlay">
+                        <div>
+                            <div style="font-size:1.15rem;font-weight:700;">@Model.FeaturedStudent.FullName</div>
+                            <div style="font-size:0.86rem;color:var(--hn-text-on-dark-muted);">@Model.FeaturedStudent.ExperienceSummary</div>
+                        </div>
+                        <span class="hn-badge hn-badge-cream">@Model.FeaturedStudent.InstrumentBadge</span>
+                    </div>
+                </a>
+            }
+            else
+            {
+                <div class="hn-student-featured" style="display:grid;place-items:center;padding:2rem;text-align:center;color:#FFF7EE;">
+                    <div>
+                        <h3 style="margin:0 0 0.5rem;">پورتفولیوهای هنرجویان هم‌نوا</h3>
+                        <p style="margin:0 0 1.25rem;color:var(--hn-text-on-dark-muted);">پس از انتشار اولین اجرای عمومی هنرجویان با رضایت آنان، ویدیو در اینجا نمایش داده می‌شود.</p>
+                        <a href="/students" class="hn-btn hn-btn-cream hn-btn-sm">مشاهده بخش هنرجویان</a>
+                    </div>
+                </div>
+            }
+
+            <div class="hn-student-thumbs">
+                @foreach (var thumb in Model.StudentCategoryThumbs)
+                {
+                    <a href="@thumb.FilterUrl" class="hn-student-thumb-card">
+                        <img src="@thumb.ThumbnailUrl" alt="@thumb.InstrumentName" loading="lazy" />
+                        <span>@thumb.InstrumentName</span>
+                    </a>
+                }
+            </div>
+        </div>
+
+        <div style="text-align:center;margin-top:2rem;">
+            <a href="/students" class="hn-btn hn-btn-espresso">مشاهده همه ←</a>
+        </div>
+    </div>
+</section>
+
+<!-- 7. BLOG — 4-COLUMN CREAM ROUNDED ARTICLE CARDS -->
+<section class="hn-section" style="padding-top:1rem;">
+    <div class="hn-container">
+        <div class="hn-section-header">
+            <h2 class="hn-section-title">وبلاگ آموزشی</h2>
+            <p class="hn-section-subtitle">راهنمای انتخاب ساز، تمرین اصولی و مقالات تخصصی موسیقی</p>
+        </div>
+
+        <div class="hn-blog-grid">
+            @foreach (var article in Model.Articles)
+            {
+                <article class="hn-blog-card">
+                    <div class="hn-blog-thumb">
+                        <img src="@(string.IsNullOrWhiteSpace(article.CoverImagePath) ? "/img/logo.webp" : article.CoverImagePath)"
+                             alt="@article.Title" loading="lazy" />
+                    </div>
+                    <div class="hn-blog-body">
+                        <h3 class="hn-blog-title">@article.Title</h3>
+                        <p class="hn-blog-summary">@article.Summary</p>
+                        <a href="/blog/@article.Slug" style="font-weight:700;color:var(--hn-chestnut);font-size:0.88rem;">مطالعه مقاله ←</a>
+                    </div>
+                </article>
+            }
+        </div>
+
+        <div style="text-align:center;margin-top:2rem;">
+            <a href="/blog" class="hn-btn hn-btn-outline">مشاهده همه مقالات ←</a>
+        </div>
+    </div>
+</section>
+
+<!-- 8. FULL-WIDTH DARK-BROWN CTA BANNER -->
+<section class="hn-cta-banner">
+    <div class="hn-container">
+        <div style="font-size:2rem;opacity:0.85;" aria-hidden="true">𝄞</div>
+        <h2>@(Model.CtaSection?.Title ?? "آیا آماده شروع هستی؟")</h2>
+        <p>@(Model.CtaSection?.Subtitle ?? "همین امروز جلسه مشاوره و تعیین سطح خود را رزرو کنید یا مستقیماً در کلاس‌های آکادمی موسیقی هم‌نوا ثبت‌نام نمایید.")</p>
+        <div style="display:flex;justify-content:center;gap:0.75rem;flex-wrap:wrap;">
+            <a href="@(Model.CtaSection?.PrimaryCtaUrl ?? "/account/register")" class="hn-btn hn-btn-cream">@(Model.CtaSection?.PrimaryCtaText ?? "ثبت‌نام در کلاس‌ها") ←</a>
+            <a href="/consultation" class="hn-btn hn-btn-outline" style="color:#FFF7EE;border-color:rgba(255,244,232,0.4);">رزرو مشاوره رایگان</a>
+        </div>
+    </div>
+</section>
+
+<!-- 9. FIND US — BORDERED CONTACT CARD + INTERACTIVE MAP -->
+<section class="hn-section">
+    <div class="hn-container">
+        <div class="hn-section-header">
+            <h2 class="hn-section-title">ما را پیدا کن</h2>
+            <p class="hn-section-subtitle">میزبان حضور گرم شما در آکادمی موسیقی هم‌نوا هستیم</p>
+        </div>
+
+        <div class="hn-findus-grid">
+            <div class="hn-contact-card">
+                <div class="hn-contact-row">
+                    <span class="hn-contact-icon" aria-hidden="true">📍</span>
+                    <div>
+                        <strong>نشانی آموزشگاه</strong>
+                        <p style="margin:0.25rem 0 0;color:var(--hn-text-muted);">@Model.Contact.Address</p>
+                    </div>
+                </div>
+                <div class="hn-contact-row">
+                    <span class="hn-contact-icon" aria-hidden="true">📞</span>
+                    <div>
+                        <strong>شماره تماس</strong>
+                        <p style="margin:0.25rem 0 0;color:var(--hn-text-muted);" dir="ltr">
+                            <a href="tel:@Model.Contact.PhonePrimary">@Model.Contact.PhonePrimary</a>
+                        </p>
+                    </div>
+                </div>
+                <div class="hn-contact-row">
+                    <span class="hn-contact-icon" aria-hidden="true">✉️</span>
+                    <div>
+                        <strong>پست الکترونیک</strong>
+                        <p style="margin:0.25rem 0 0;color:var(--hn-text-muted);">
+                            <a href="mailto:@Model.Contact.Email">@Model.Contact.Email</a>
+                        </p>
+                    </div>
+                </div>
+                @if (!string.IsNullOrWhiteSpace(Model.Contact.WorkingHours))
+                {
+                    <div class="hn-contact-row">
+                        <span class="hn-contact-icon" aria-hidden="true">🕒</span>
+                        <div>
+                            <strong>ساعات پاسخ‌گویی</strong>
+                            <p style="margin:0.25rem 0 0;color:var(--hn-text-muted);">@Model.Contact.WorkingHours</p>
+                        </div>
+                    </div>
+                }
+            </div>
+
+            <div class="hn-map-card">
+                <iframe title="موقعیت آکادمی موسیقی هم‌نوا روی نقشه"
+                        loading="lazy"
+                        referrerpolicy="no-referrer-when-downgrade"
+                        src="@(string.IsNullOrWhiteSpace(Model.Contact.MapEmbedOrCoordinates) ? "https://www.openstreetmap.org/export/embed.html?bbox=51.64%2C32.63%2C51.69%2C32.67&layer=mapnik" : Model.Contact.MapEmbedOrCoordinates)">
+                </iframe>
+                @if (!string.IsNullOrWhiteSpace(Model.Contact.PhonePrimary))
+                {
+                    <a href="tel:@Model.Contact.PhonePrimary" class="hn-floating-call" aria-label="تماس سریع با هم‌نوا">📞</a>
+                }
+            </div>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,48 @@
+@model IReadOnlyList<FeaturedStudentShowcaseViewModel>
+@{
+    var instruments = ViewData["Instruments"] as IReadOnlyList<Hamnava.Domain.Entities.Instruments.Instrument> ?? [];
+    var selected = ViewData["SelectedInstrument"]?.ToString();
+}
+
+<section class="hn-page-hero">
+    <div class="hn-container">
+        <h1 style="margin:0 0 0.5rem;">هنرجویان هم‌نوا</h1>
+        <p style="margin:0;color:var(--hn-text-on-dark-muted);">پورتفولیوها و اجراهای منتشرشده با رضایت هنرجویان آکادمی</p>
+    </div>
+</section>
+
+<section class="hn-section">
+    <div class="hn-container">
+        <div style="display:flex;flex-wrap:wrap;gap:0.5rem;justify-content:center;margin-bottom:2rem;">
+            <a href="/students" class="hn-btn @(string.IsNullOrEmpty(selected) ? "hn-btn-espresso" : "hn-btn-outline") hn-btn-sm">همه سازها</a>
+            @foreach (var inst in instruments)
+            {
+                <a href="/students?instrument=@inst.Slug" class="hn-btn @(selected == inst.Slug ? "hn-btn-espresso" : "hn-btn-outline") hn-btn-sm">@inst.Name</a>
+            }
+        </div>
+
+        @if (!Model.Any())
+        {
+            <div class="hn-card" style="text-align:center;color:var(--hn-text-muted);">هنوز پورتفولیوی عمومی در این دسته‌بندی ثبت نشده است.</div>
+        }
+        else
+        {
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.25rem;">
+                @foreach (var st in Model)
+                {
+                    <a href="/student/@st.EnglishSlug" class="hn-blog-card">
+                        <div class="hn-blog-thumb">
+                            <img src="@st.PosterImageUrl" alt="@st.FullName" loading="lazy" />
+                        </div>
+                        <div class="hn-blog-body">
+                            <span class="hn-badge hn-badge-info" style="align-self:flex-start;">@st.InstrumentBadge</span>
+                            <h2 class="hn-blog-title">@st.FullName</h2>
+                            <p class="hn-blog-summary">@st.ExperienceSummary</p>
+                            <span style="color:var(--hn-chestnut);font-weight:700;font-size:0.86rem;">مشاهده پورتفولیو ←</span>
+                        </div>
+                    </a>
+                }
+            </div>
+        }
+    </div>
+</section>

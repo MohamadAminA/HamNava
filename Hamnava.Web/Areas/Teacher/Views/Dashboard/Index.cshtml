@@ -1,0 +1,69 @@
+@model TeacherDashboardViewModel
+
+<section class="hn-kpi-grid">
+    <div class="hn-kpi-card hn-kpi-accent">
+        <span class="hn-kpi-label">موجودی قابل برداشت کیف پول</span>
+        <span class="hn-kpi-value">@CurrencyFormatter.FormatToman(Model.AvailableWalletBalanceIrr)</span>
+    </div>
+    <div class="hn-kpi-card">
+        <span class="hn-kpi-label">کل درآمد ثبت‌شده</span>
+        <span class="hn-kpi-value">@CurrencyFormatter.FormatToman(Model.TotalEarnedIrr)</span>
+    </div>
+    <div class="hn-kpi-card">
+        <span class="hn-kpi-label">هنرجویان تحت آموزش شما</span>
+        <span class="hn-kpi-value">@Model.AssignedStudentsCount</span>
+    </div>
+    <div class="hn-kpi-card">
+        <span class="hn-kpi-label">جلسات نیازمند ثبت حضور و غیاب</span>
+        <span class="hn-kpi-value">@Model.PendingAttendanceCount</span>
+    </div>
+</section>
+
+<div class="hn-dash-grid is-two-col">
+    <section class="hn-panel">
+        <div class="hn-panel-header">
+            <h2>کلاس‌های امروز</h2>
+            <a href="/dashboard/teacher/calendar" class="hn-btn hn-btn-teal hn-btn-sm">تقویم تعاملی و جابجایی کلاس</a>
+        </div>
+        @if (!Model.TodayClasses.Any())
+        {
+            <p style="color:var(--hn-text-muted);margin:0;">امروز کلاسی برای شما ثبت نشده است.</p>
+        }
+        else
+        {
+            <div class="hn-table-wrap">
+                <table class="hn-table">
+                    <thead><tr><th>ساعت</th><th>هنرجو</th><th>ساز</th><th>اتاق</th><th>وضعیت</th></tr></thead>
+                    <tbody>
+                        @foreach (var ev in Model.TodayClasses)
+                        {
+                            <tr>
+                                <td>@ev.StartTimeTehran - @ev.EndTimeTehran</td>
+                                <td>@ev.StudentFullName</td>
+                                <td>@ev.InstrumentName</td>
+                                <td>@ev.RoomName</td>
+                                <td><span class="hn-badge hn-badge-info">@ev.Status</span></td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        }
+    </section>
+
+    <section class="hn-panel">
+        <div class="hn-panel-header"><h2>درخواست برداشت از کیف پول</h2></div>
+        <form asp-action="RequestWithdrawal" method="post" class="hn-form-grid">
+            @Html.AntiForgeryToken()
+            <div class="hn-field">
+                <label>مبلغ برداشت (ریال)</label>
+                <input name="amountIrr" type="number" min="100000" class="hn-input" dir="ltr" required />
+            </div>
+            <div class="hn-field">
+                <label>شماره شبا (IR...)</label>
+                <input name="destinationSheba" class="hn-input" dir="ltr" placeholder="IR000000000000000000000000" required />
+            </div>
+            <button type="submit" class="hn-btn hn-btn-espresso">ثبت درخواست برداشت</button>
+        </form>
+    </section>
+</div>

@@ -1,0 +1,77 @@
+@model ReferrerDashboardViewModel
+
+<section class="hn-panel" style="margin-bottom:1.25rem;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:1rem;">
+    <div>
+        <div style="font-size:0.86rem;color:var(--hn-text-muted);">کد و لینک اختصاصی معرفی شما:</div>
+        <strong dir="ltr" style="font-size:1.15rem;color:var(--hn-teal-dark);">@Model.ReferralCode</strong>
+        <div dir="ltr" style="font-size:0.84rem;color:var(--hn-text-muted);">@Model.ReferralLink</div>
+    </div>
+    <div style="display:flex;gap:0.5rem;">
+        <button type="button" class="hn-btn hn-btn-teal hn-btn-sm" data-copy-text="@Model.ReferralLink">کپی لینک دعوت</button>
+        <button type="button" class="hn-btn hn-btn-outline hn-btn-sm" data-copy-text="@Model.ReferralCode">کپی کد معرف</button>
+    </div>
+</section>
+
+<section class="hn-kpi-grid">
+    <div class="hn-kpi-card hn-kpi-accent">
+        <span class="hn-kpi-label">موجودی قابل برداشت</span>
+        <span class="hn-kpi-value">@CurrencyFormatter.FormatToman(Model.AvailableBalanceIrr)</span>
+    </div>
+    <div class="hn-kpi-card">
+        <span class="hn-kpi-label">کل پاداش کسب‌شده</span>
+        <span class="hn-kpi-value">@CurrencyFormatter.FormatToman(Model.TotalEarnedIrr)</span>
+    </div>
+    <div class="hn-kpi-card">
+        <span class="hn-kpi-label">معرفی‌شدگان ثبت‌نام‌کرده</span>
+        <span class="hn-kpi-value">@Model.RegisteredUsersCount</span>
+    </div>
+    <div class="hn-kpi-card">
+        <span class="hn-kpi-label">تکمیل اولین پرداخت دوره</span>
+        <span class="hn-kpi-value">@Model.PaidFirstCourseCount</span>
+    </div>
+</section>
+
+<div class="hn-dash-grid is-two-col">
+    <section class="hn-panel">
+        <div class="hn-panel-header"><h2>تاریخچه معرفی‌ها (با حفظ حریم خصوصی هنرجویان)</h2></div>
+        <div class="hn-table-wrap">
+            <table class="hn-table">
+                <thead><tr><th>هنرجو</th><th>تاریخ عضویت</th><th>وضعیت پاداش</th><th>مبلغ پاداش</th></tr></thead>
+                <tbody>
+                    @if (!Model.Referrals.Any())
+                    {
+                        <tr><td colspan="4" style="text-align:center;color:var(--hn-text-muted);">هنوز هنرجویی با لینک شما ثبت‌نام نکرده است.</td></tr>
+                    }
+                    else
+                    {
+                        @foreach (var row in Model.Referrals)
+                        {
+                            <tr>
+                                <td>@row.MaskedStudentName</td>
+                                <td>@row.RegisteredJalaliDate</td>
+                                <td><span class="hn-badge @(row.HasCompletedFirstPayment ? "hn-badge-success" : "hn-badge-warning")">@row.RewardStatusFa</span></td>
+                                <td>@row.RewardSummaryFa</td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <section class="hn-panel">
+        <div class="hn-panel-header"><h2>درخواست برداشت پاداش</h2></div>
+        <form asp-action="RequestWithdrawal" method="post" class="hn-form-grid">
+            @Html.AntiForgeryToken()
+            <div class="hn-field">
+                <label>مبلغ برداشت (ریال)</label>
+                <input name="amountIrr" type="number" min="100000" class="hn-input" dir="ltr" required />
+            </div>
+            <div class="hn-field">
+                <label>شماره شبا (IR...)</label>
+                <input name="destinationSheba" class="hn-input" dir="ltr" placeholder="IR000000000000000000000000" required />
+            </div>
+            <button type="submit" class="hn-btn hn-btn-espresso">ثبت درخواست تسویه</button>
+        </form>
+    </section>
+</div>

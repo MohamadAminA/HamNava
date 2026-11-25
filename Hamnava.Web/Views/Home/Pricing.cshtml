@@ -1,0 +1,47 @@
+@model PricingPageViewModel
+
+<section class="hn-page-hero">
+    <div class="hn-container">
+        <h1 style="margin:0 0 0.5rem;">تعرفه دوره‌های آموزشی و اجاره ساز</h1>
+        <p style="margin:0;color:var(--hn-text-on-dark-muted);">تمامی شهریه‌ها به تومان نمایش داده شده و به‌صورت شفاف از سامانه هم‌نوا به‌روزرسانی می‌شوند.</p>
+    </div>
+</section>
+
+<section class="hn-section">
+    <div class="hn-container">
+        <h2 class="hn-section-title" style="margin-bottom:1.5rem;">پکیج‌های آموزشی</h2>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.25rem;margin-bottom:3rem;">
+            @foreach (var plan in Model.Plans)
+            {
+                <article class="hn-card" style="display:flex;flex-direction:column;gap:0.65rem;">
+                    <span class="hn-badge hn-badge-info" style="align-self:flex-start;">@(string.IsNullOrWhiteSpace(plan.BadgeText) ? "تمامی سازها" : plan.BadgeText)</span>
+                    <h3 style="margin:0;color:var(--hn-espresso);">@plan.Title</h3>
+                    <div style="font-size:1.45rem;font-weight:700;color:var(--hn-teal-dark);">@CurrencyFormatter.FormatToman(plan.PublicDisplayPriceIrr ?? plan.BasePriceIrr)</div>
+                    <p style="margin:0;font-size:0.88rem;color:var(--hn-text-muted);">
+                        @plan.SessionCount جلسه • هر جلسه @plan.LessonDurationMinutes دقیقه • دوره @plan.CoursePeriodMonths ماهه
+                    </p>
+                    @if (!string.IsNullOrWhiteSpace(plan.Description))
+                    {
+                        <p style="margin:0;font-size:0.85rem;color:var(--hn-text-muted);">@plan.Description</p>
+                    }
+                    <a href="/account/register" class="hn-btn hn-btn-espresso hn-btn-sm" style="margin-top:auto;">ثبت‌نام در این دوره</a>
+                </article>
+            }
+        </div>
+
+        <h2 class="hn-section-title" style="margin-bottom:1.5rem;">تعرفه اجاره ساز برای هنرجویان</h2>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1.25rem;">
+            @foreach (var inst in Model.RentableInstruments)
+            {
+                <article class="hn-card">
+                    <h3 style="margin:0 0 0.5rem;">@inst.Name</h3>
+                    <p style="margin:0 0 0.35rem;font-size:0.9rem;">اجاره روزانه: <strong>@CurrencyFormatter.FormatToman(inst.DailyRentalPriceIrr)</strong></p>
+                    <p style="margin:0 0 0.65rem;font-size:0.9rem;">اجاره ماهانه: <strong>@CurrencyFormatter.FormatToman(inst.MonthlyRentalPriceIrr)</strong></p>
+                    <span class="hn-badge @(inst.AvailableInventoryQuantity > 0 ? "hn-badge-success" : "hn-badge-warning")">
+                        @(inst.AvailableInventoryQuantity > 0 ? $"موجود ({inst.AvailableInventoryQuantity} عدد)" : "اتمام موجودی موقت")
+                    </span>
+                </article>
+            }
+        </div>
+    </div>
+</section>

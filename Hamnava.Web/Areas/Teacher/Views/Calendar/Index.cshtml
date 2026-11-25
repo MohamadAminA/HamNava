@@ -1,0 +1,79 @@
+@using Hamnava.Domain.Entities.Identity
+@using Hamnava.Domain.Entities.Instruments
+@{
+    var rooms = ViewBag.Rooms as IReadOnlyList<Room> ?? [];
+    var students = ViewBag.Students as IReadOnlyList<User> ?? [];
+}
+
+<section class="hn-panel" id="hn-jalali-calendar"
+         data-events-url="/dashboard/teacher/calendar/Events"
+         data-move-url="/dashboard/teacher/calendar/MoveSession"
+         data-attendance-url="/dashboard/teacher/calendar/MarkAttendance"
+         style="margin-bottom:1.5rem;">
+    <div class="hn-cal-toolbar">
+        <div style="display:flex;align-items:center;gap:0.5rem;flex-wrap:wrap;">
+            <button type="button" id="hn-cal-prev" class="hn-btn hn-btn-outline hn-btn-sm">هفته قبل</button>
+            <button type="button" id="hn-cal-today" class="hn-btn hn-btn-teal hn-btn-sm">امروز (@ViewBag.TodayJalali)</button>
+            <button type="button" id="hn-cal-next" class="hn-btn hn-btn-outline hn-btn-sm">هفته بعد</button>
+            <strong id="hn-cal-range-label" style="margin-right:0.5rem;color:var(--hn-espresso);"></strong>
+        </div>
+
+        <div>
+            <select id="hn-cal-room-filter" class="hn-select" style="width:auto;">
+                <option value="">همه اتاق‌ها</option>
+                @foreach (var r in rooms)
+                {
+                    <option value="@r.Id">@r.Name (ظرفیت @r.Capacity)</option>
+                }
+            </select>
+        </div>
+    </div>
+
+    <p style="margin:0 0 0.85rem;font-size:0.84rem;color:var(--hn-text-muted);">
+        برای جابجایی زمان جلسه، کارت کلاس را روی روز دلخواه بکشید و رها کنید. سیستم به‌صورت خودکار تداخل استاد، هنرجو و ظرفیت اتاق را بررسی می‌کند.
+    </p>
+
+    <div id="hn-cal-grid" class="hn-cal-grid"></div>
+</section>
+
+<div class="hn-dash-grid is-two-col">
+    <section class="hn-panel">
+        <div class="hn-panel-header"><h2>ثبت یادداشت تمرینی و تکلیف هنرجو</h2></div>
+        <form asp-action="AddPracticeNote" method="post" class="hn-form-grid">
+            @Html.AntiForgeryToken()
+            <div class="hn-field">
+                <label>انتخاب هنرجو</label>
+                <select name="studentUserId" class="hn-select" required>
+                    @foreach (var s in students) { <option value="@s.Id">@s.FullName</option> }
+                </select>
+            </div>
+            <div class="hn-field"><label>عنوان جلسه / یادداشت</label><input name="title" class="hn-input" required /></div>
+            <div class="hn-field"><label>متن راهنمای تمرین</label><textarea name="content" class="hn-textarea" rows="3" required></textarea></div>
+            <div class="hn-field"><label>عنوان تکلیف (اختیاری)</label><input name="assignmentTitle" class="hn-input" /></div>
+            <button type="submit" class="hn-btn hn-btn-teal">ثبت در دفترچه تمرین هنرجو</button>
+        </form>
+    </section>
+
+    <section class="hn-panel">
+        <div class="hn-panel-header"><h2>آپلود ویدیو / تصویر اجرای هنرجو</h2></div>
+        <form asp-action="UploadStudentMedia" method="post" enctype="multipart/form-data" class="hn-form-grid">
+            @Html.AntiForgeryToken()
+            <div class="hn-field">
+                <label>انتخاب هنرجو</label>
+                <select name="studentUserId" class="hn-select" required>
+                    @foreach (var s in students) { <option value="@s.Id">@s.FullName</option> }
+                </select>
+            </div>
+            <div class="hn-field"><label>عنوان اثر</label><input name="title" class="hn-input" required /></div>
+            <div class="hn-field"><label>فایل (MP4 / MOV / JPG / PNG / WebP)</label><input name="file" type="file" class="hn-input" required /></div>
+            <label style="display:flex;align-items:center;gap:0.5rem;">
+                <input type="checkbox" name="requestPublicVisibility" value="true" /> نمایش در پورتفولیو عمومی (مشروط به رضایت هنرجو)
+            </label>
+            <button type="submit" class="hn-btn hn-btn-espresso">ارسال و فشرده‌سازی خودکار</button>
+        </form>
+    </section>
+</div>
+
+@section Scripts {
+    <script src="~/js/jalali-calendar.js" asp-append-version="true"></script>
+}

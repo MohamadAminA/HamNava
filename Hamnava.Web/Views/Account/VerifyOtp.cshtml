@@ -1,0 +1,97 @@
+@model VerifyOtpViewModel
+
+<section class="hn-section">
+    <div class="hn-container" style="max-width:460px;">
+        <div class="hn-card">
+            <h1 style="margin:0 0 0.4rem;font-size:1.35rem;color:var(--hn-espresso);text-align:center;">تایید کد ۴ رقمی پیامکی</h1>
+            <p style="margin:0 0 0.65rem;color:var(--hn-text-muted);font-size:0.88rem;text-align:center;">
+                کد ۴ رقمی ارسال‌شده به شماره <strong dir="ltr">@Model.MobileNumber</strong> را وارد کنید.
+            </p>
+            <div style="text-align:center;margin-bottom:1.15rem;">
+                <a asp-action="Login"
+                   asp-route-mobile="@Model.MobileNumber"
+                   asp-route-returnUrl="@Model.ReturnUrl"
+                   asp-route-ref="@Model.ReferralCode"
+                   style="font-size:0.84rem;color:var(--hn-teal-dark);font-weight:600;text-decoration:underline;">
+                    ویرایش شماره تماس
+                </a>
+            </div>
+
+            <form asp-action="VerifyOtp" method="post" class="hn-form-grid">
+                @Html.AntiForgeryToken()
+                <input type="hidden" asp-for="MobileNumber" />
+                <input type="hidden" asp-for="IsRegistration" />
+                <input type="hidden" asp-for="ReferralCode" />
+                <input type="hidden" asp-for="ReturnUrl" />
+
+                <div asp-validation-summary="ModelOnly" class="hn-validation-summary"></div>
+
+                <div class="hn-field">
+                    <label asp-for="OtpCode">کد تایید ۴ رقمی</label>
+                    <input asp-for="OtpCode"
+                           class="hn-input"
+                           dir="ltr"
+                           maxlength="4"
+                           minlength="4"
+                           pattern="\d{4}"
+                           inputmode="numeric"
+                           autocomplete="one-time-code"
+                           placeholder="----"
+                           style="text-align:center;letter-spacing:0.65rem;font-size:1.35rem;font-weight:700;"
+                           required
+                           autofocus />
+                    <span asp-validation-for="OtpCode" style="color:var(--hn-danger);font-size:0.8rem;"></span>
+                </div>
+
+                <button type="submit" class="hn-btn hn-btn-teal">
+                    @(Model.IsRegistration ? "تایید و تکمیل ثبت‌نام" : "تایید و ورود به پنل")
+                </button>
+            </form>
+
+            <form asp-action="ResendOtp" method="post" style="margin-top:1rem;text-align:center;" id="hn-resend-form">
+                @Html.AntiForgeryToken()
+                <input type="hidden" asp-for="MobileNumber" />
+                <input type="hidden" asp-for="IsRegistration" />
+                <input type="hidden" asp-for="ReferralCode" />
+                <input type="hidden" asp-for="ReturnUrl" />
+
+                <button type="submit"
+                        id="hn-resend-btn"
+                        class="hn-btn hn-btn-outline hn-btn-sm"
+                        style="width:100%;"
+                        @(Model.CooldownSeconds > 0 ? "disabled" : null)>
+                    @if (Model.CooldownSeconds > 0)
+                    {
+                        <span>ارسال دوباره کد (<span id="hn-otp-timer">@Model.CooldownSeconds</span> ثانیه)</span>
+                    }
+                    else
+                    {
+                        <span>ارسال دوباره کد تایید</span>
+                    }
+                </button>
+            </form>
+        </div>
+    </div>
+</section>
+
+@section Scripts {
+    <script>
+        (function () {
+            var remaining = @Model.CooldownSeconds;
+            var btn = document.getElementById("hn-resend-btn");
+            if (!btn || remaining <= 0) return;
+
+            var interval = window.setInterval(function () {
+                remaining -= 1;
+                if (remaining <= 0) {
+                    window.clearInterval(interval);
+                    btn.disabled = false;
+                    btn.textContent = "ارسال دوباره کد تایید";
+                    return;
+                }
+                var timerEl = document.getElementById("hn-otp-timer");
+                if (timerEl) timerEl.textContent = String(remaining);
+            }, 1000);
+        })();
+    </script>
+}

@@ -1,0 +1,26 @@
+@model IReadOnlyList<Hamnava.Domain.Entities.Cms.PublicArticle>
+
+<section class="hn-page-hero">
+    <div class="hn-container">
+        <h1 style="margin:0 0 0.5rem;">وبلاگ آموزشی هم‌نوا</h1>
+        <p style="margin:0;color:var(--hn-text-on-dark-muted);">مطالب آموزشی درباره انتخاب ساز، شیوه تمرین و دنیای موسیقی</p>
+    </div>
+</section>
+
+<section class="hn-section">
+    <div class="hn-container hn-blog-grid">
+        @foreach (var a in Model)
+        {
+            <article class="hn-blog-card">
+                <div class="hn-blog-thumb">
+                    <img src="@(string.IsNullOrWhiteSpace(a.CoverImagePath) ? "/img/logo.webp" : a.CoverImagePath)" alt="@a.Title" loading="lazy" />
+                </div>
+                <div class="hn-blog-body">
+                    <h2 class="hn-blog-title">@a.Title</h2>
+                    <p class="hn-blog-summary">@a.Summary</p>
+                    <a href="/blog/@a.Slug" style="font-weight:700;color:var(--hn-chestnut);font-size:0.88rem;">مطالعه مقاله ←</a>
+                </div>
+            </article>
+        }
+    </div>
+</section>

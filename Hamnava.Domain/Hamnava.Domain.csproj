@@ -1,0 +1,7 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <RootNamespace>Hamnava.Domain</RootNamespace>
+    <AssemblyName>Hamnava.Domain</AssemblyName>
+  </PropertyGroup>
+  <!-- Pure Domain Layer: Zero dependency on EF Core, ASP.NET Core, SQL Server, or external APIs -->
+</Project>

@@ -1,0 +1,37 @@
+@model Hamnava.Domain.Entities.Cms.WebsitePage?
+
+<section class="hn-page-hero">
+    <div class="hn-container">
+        <h1 style="margin:0 0 0.5rem;">@(Model?.Title ?? "درباره آکادمی موسیقی هم‌نوا")</h1>
+        <p style="margin:0;color:var(--hn-text-on-dark-muted);">آشنایی با رویکرد آموزشی، فضای تخصصی و ارزش‌های آکادمی هم‌نوا</p>
+    </div>
+</section>
+
+<section class="hn-section">
+    <div class="hn-container" style="max-width:860px;display:grid;gap:1.25rem;">
+        @if (Model?.Sections is not null && Model.Sections.Any())
+        {
+            @foreach (var sec in Model.Sections.OrderBy(s => s.DisplayOrder))
+            {
+                <article class="hn-card">
+                    <h2 style="margin:0 0 0.5rem;color:var(--hn-espresso);">@sec.Title</h2>
+                    @if (!string.IsNullOrWhiteSpace(sec.Subtitle))
+                    {
+                        <p style="margin:0 0 0.65rem;color:var(--hn-teal-dark);font-weight:600;">@sec.Subtitle</p>
+                    }
+                    <p style="margin:0;color:var(--hn-text-muted);">@sec.BodyHtml</p>
+                </article>
+            }
+        }
+        else
+        {
+            <article class="hn-card">
+                <h2 style="margin:0 0 0.6rem;color:var(--hn-espresso);">ماموریت آکادمی موسیقی هم‌نوا</h2>
+                <p style="margin:0;color:var(--hn-text-muted);">
+                    آموزشگاه موسیقی هم‌نوا با هدف ارتقای کیفیت آموزش موسیقی، ایجاد شفافیت کامل در برنامه‌ریزی جلسات،
+                    ارائه دفترچه تمرین و پورتفولیو هنری برای هر هنرجو و همراهی با اساتید مجرب در اصفهان فعالیت می‌کند.
+                </p>
+            </article>
+        }
+    </div>
+</section>
